@@ -1,3 +1,4 @@
-provider "scaffolding" {
+provider "infrahub" {
   # example configuration here
+  debug = true
 }
