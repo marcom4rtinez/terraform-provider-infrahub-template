@@ -24,4 +24,5 @@ provider "infrahub" {
 
 ### Optional
 
-- `endpoint` (String) Example provider attribute
+- `api_key` (String, Sensitive) API Key to access Infrahub
+- `infrahub_server` (String) Infrahub Server running API

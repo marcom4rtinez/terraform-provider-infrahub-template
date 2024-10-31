@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/function"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -86,7 +87,7 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 	if data.InfrahubServer.IsUnknown() {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("infrahub_server"),
-			"Unkown Infrahub API Endpoint",
+			"Unknown Infrahub API Endpoint",
 			"The provider cannot read the Infrahub API address as there is an unknown configuration value for the API host. "+
 				"Either target apply the source of the value first, set the value statically in the configuration, or use the INFRAHUB_SERVER environment variable.",
 		)
@@ -126,6 +127,8 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
+	client := graphql.NewClient("http://localhost:8000/graphql", http.DefaultClient)
+
 	//TODO: Configure Go SDK client here
 	// client, err := infrahub.NewClient(&host, &username, &password)
 	// if err != nil {
@@ -138,15 +141,13 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 	// 	return
 	// }
 
-	client := http.DefaultClient
+	// client := http.DefaultClient
 	resp.DataSourceData = client
 	resp.ResourceData = client
 }
 
 func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{
-		NewExampleResource,
-	}
+	return nil
 }
 
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
@@ -156,7 +157,5 @@ func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.
 }
 
 func (p *InfrahubProvider) Functions(ctx context.Context) []func() function.Function {
-	return []func() function.Function{
-		NewExampleFunction,
-	}
+	return nil
 }

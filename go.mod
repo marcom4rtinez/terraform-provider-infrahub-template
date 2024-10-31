@@ -2,12 +2,16 @@ module terraform-provider-infrahub
 
 go 1.22.7
 
+replace github.com/opsmill/infrahub-sdk-go => ./sdk
+
 require (
+	github.com/Khan/genqlient v0.7.0
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
 	github.com/hashicorp/terraform-plugin-go v0.24.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-testing v1.10.0
-	github.com/stretchr/testify v1.8.2
+	github.com/opsmill/infrahub-sdk-go v0.0.0-00010101000000-000000000000
+	github.com/stretchr/testify v1.8.4
 )
 
 require (
@@ -49,6 +53,7 @@ require (
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.11 // indirect
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect

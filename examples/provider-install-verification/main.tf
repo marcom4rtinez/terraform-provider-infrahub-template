@@ -7,7 +7,14 @@ terraform {
   }
 }
 
-resource "infrahub_example" "example" {
-  configurable_attribute = "some-value"
+provider "infrahub" {
+  api_key         = "XXX"
+  infrahub_server = "10.0.0.1"
 }
 
+data "infrahub_devices" "example" {
+}
+
+output "devices_example" {
+  value = data.infrahub_devices.example
+}
