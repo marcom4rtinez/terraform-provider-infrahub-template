@@ -72,14 +72,11 @@ func (d *devicesDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		return
 	}
 	for _, element := range devices.InfraDevice.Edges {
-		// element is the element from someSlice for where we are
 		current := deviceModel{
 			Name: types.StringValue(element.Node.Name.Value),
 		}
-		fmt.Printf("Name: %s\n", element.Node.Name.Value)
 		state.Devices = append(state.Devices, current)
 	}
-	fmt.Print("----------------asdfasdfas")
 
 	// Set state
 	diags := resp.State.Set(ctx, &state)
