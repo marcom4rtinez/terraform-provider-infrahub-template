@@ -8,6 +8,94 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// DeviceQueryInfraDevicePaginatedInfraDevice includes the requested fields of the GraphQL type PaginatedInfraDevice.
+// The GraphQL type's documentation follows.
+//
+// Generic Device object
+type DeviceQueryInfraDevicePaginatedInfraDevice struct {
+	Edges []DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice `json:"edges"`
+}
+
+// GetEdges returns DeviceQueryInfraDevicePaginatedInfraDevice.Edges, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDevice) GetEdges() []DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice {
+	return v.Edges
+}
+
+// DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice includes the requested fields of the GraphQL type EdgedInfraDevice.
+// The GraphQL type's documentation follows.
+//
+// Generic Device object
+type DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice struct {
+	Node DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice `json:"node"`
+}
+
+// GetNode returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice.Node, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice) GetNode() DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice {
+	return v.Node
+}
+
+// DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice includes the requested fields of the GraphQL type InfraDevice.
+// The GraphQL type's documentation follows.
+//
+// Generic Device object
+type DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice struct {
+	// Unique identifier
+	Id   string                                                                                          `json:"id"`
+	Name DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute `json:"name"`
+	Role DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown      `json:"role"`
+}
+
+// GetId returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Id, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetId() string {
+	return v.Id
+}
+
+// GetName returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Name, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetName() DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute {
+	return v.Name
+}
+
+// GetRole returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Role, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetRole() DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown {
+	return v.Role
+}
+
+// DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown includes the requested fields of the GraphQL type Dropdown.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Dropdown
+type DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown.Value, and is useful for accessing the field via an interface.
+func (v *DeviceQueryInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown) GetValue() string {
+	return v.Value
+}
+
+// DeviceQueryResponse is returned by DeviceQuery on success.
+type DeviceQueryResponse struct {
+	InfraDevice DeviceQueryInfraDevicePaginatedInfraDevice `json:"InfraDevice"`
+}
+
+// GetInfraDevice returns DeviceQueryResponse.InfraDevice, and is useful for accessing the field via an interface.
+func (v *DeviceQueryResponse) GetInfraDevice() DeviceQueryInfraDevicePaginatedInfraDevice {
+	return v.InfraDevice
+}
+
 // GetDeviceNameAndRoleInfraDevicePaginatedInfraDevice includes the requested fields of the GraphQL type PaginatedInfraDevice.
 // The GraphQL type's documentation follows.
 //
@@ -94,6 +182,59 @@ type GetDeviceNameAndRoleResponse struct {
 // GetInfraDevice returns GetDeviceNameAndRoleResponse.InfraDevice, and is useful for accessing the field via an interface.
 func (v *GetDeviceNameAndRoleResponse) GetInfraDevice() GetDeviceNameAndRoleInfraDevicePaginatedInfraDevice {
 	return v.InfraDevice
+}
+
+// __DeviceQueryInput is used internally by genqlient
+type __DeviceQueryInput struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns __DeviceQueryInput.Value, and is useful for accessing the field via an interface.
+func (v *__DeviceQueryInput) GetValue() string { return v.Value }
+
+// The query or mutation executed by DeviceQuery.
+const DeviceQuery_Operation = `
+query DeviceQuery ($value: String!) {
+	InfraDevice(name__value: $value) {
+		edges {
+			node {
+				id
+				name {
+					value
+				}
+				role {
+					value
+				}
+			}
+		}
+	}
+}
+`
+
+func DeviceQuery(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	value string,
+) (*DeviceQueryResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "DeviceQuery",
+		Query:  DeviceQuery_Operation,
+		Variables: &__DeviceQueryInput{
+			Value: value,
+		},
+	}
+	var err_ error
+
+	var data_ DeviceQueryResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
 }
 
 // The query or mutation executed by GetDeviceNameAndRole.
