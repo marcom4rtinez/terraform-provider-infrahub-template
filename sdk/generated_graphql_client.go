@@ -1193,6 +1193,787 @@ func (v *InfraDeviceDeleteResponse) GetInfraDeviceDelete() InfraDeviceDeleteInfr
 	return v.InfraDeviceDelete
 }
 
+// InfraDeviceUpsertInfraDeviceUpsert includes the requested fields of the GraphQL type InfraDeviceUpsert.
+type InfraDeviceUpsertInfraDeviceUpsert struct {
+	Object   InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice `json:"object"`
+	Typename string                                              `json:"__typename"`
+}
+
+// GetObject returns InfraDeviceUpsertInfraDeviceUpsert.Object, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsert) GetObject() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice {
+	return v.Object
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsert.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsert) GetTypename() string { return v.Typename }
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice includes the requested fields of the GraphQL type InfraDevice.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice struct {
+	// Unique identifier
+	Id              string                                                                                      `json:"id"`
+	Display_label   string                                                                                      `json:"display_label"`
+	Typename        string                                                                                      `json:"__typename"`
+	Name            InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute                        `json:"name"`
+	Role            InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown                             `json:"role"`
+	Asn             InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem      `json:"asn"`
+	Description     InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute                 `json:"description"`
+	Device_type     InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType    `json:"device_type"`
+	Location        InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric       `json:"location"`
+	Platform        InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform         `json:"platform"`
+	Primary_address InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress `json:"primary_address"`
+	Status          InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown                           `json:"status"`
+	Topology        InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology      `json:"topology"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetId() string { return v.Id }
+
+// GetDisplay_label returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Display_label, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetTypename() string { return v.Typename }
+
+// GetName returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Name, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetName() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute {
+	return v.Name
+}
+
+// GetRole returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Role, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetRole() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown {
+	return v.Role
+}
+
+// GetAsn returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Asn, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetAsn() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem {
+	return v.Asn
+}
+
+// GetDescription returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Description, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetDescription() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute {
+	return v.Description
+}
+
+// GetDevice_type returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Device_type, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetDevice_type() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType {
+	return v.Device_type
+}
+
+// GetLocation returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Location, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetLocation() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric {
+	return v.Location
+}
+
+// GetPlatform returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Platform, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetPlatform() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform {
+	return v.Platform
+}
+
+// GetPrimary_address returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Primary_address, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetPrimary_address() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress {
+	return v.Primary_address
+}
+
+// GetStatus returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Status, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetStatus() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown {
+	return v.Status
+}
+
+// GetTopology returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice.Topology, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevice) GetTopology() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology {
+	return v.Topology
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem includes the requested fields of the GraphQL type NestedEdgedInfraAutonomousSystem.
+// The GraphQL type's documentation follows.
+//
+// An Autonomous System (AS) is a set of Internet routable IP prefixes belonging to a network
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem `json:"node"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystem) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem {
+	return v.Node
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem includes the requested fields of the GraphQL type InfraAutonomousSystem.
+// The GraphQL type's documentation follows.
+//
+// An Autonomous System (AS) is a set of Internet routable IP prefixes belonging to a network
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem struct {
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceAsnNestedEdgedInfraAutonomousSystemNodeInfraAutonomousSystem) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute struct {
+	Id    string `json:"id"`
+	Value string `json:"value"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute) GetId() string {
+	return v.Id
+}
+
+// GetValue returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDescriptionTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType includes the requested fields of the GraphQL type NestedEdgedInfraDeviceType.
+// The GraphQL type's documentation follows.
+//
+// A model of device
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType `json:"node"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceType) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType {
+	return v.Node
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType includes the requested fields of the GraphQL type InfraDeviceType.
+// The GraphQL type's documentation follows.
+//
+// A model of device
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType struct {
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceDevice_typeNestedEdgedInfraDeviceTypeNodeInfraDeviceType) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric includes the requested fields of the GraphQL type NestedEdgedLocationGeneric.
+// The GraphQL type's documentation follows.
+//
+// Generic Location Interface.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric `json:"-"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric {
+	return v.Node
+}
+
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric
+		Node json.RawMessage `json:"node"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.Node
+		src := firstPass.Node
+		if len(src) != 0 && string(src) != "null" {
+			err = __unmarshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric(
+				src, dst)
+			if err != nil {
+				return fmt.Errorf(
+					"unable to unmarshal InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric.Node: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric struct {
+	Node json.RawMessage `json:"node"`
+}
+
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric) __premarshalJSON() (*__premarshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric, error) {
+	var retval __premarshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric
+
+	{
+
+		dst := &retval.Node
+		src := v.Node
+		var err error
+		*dst, err = __marshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"unable to marshal InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGeneric.Node: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding includes the requested fields of the GraphQL type LocationBuilding.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent includes the requested fields of the GraphQL type LocationContinent.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry includes the requested fields of the GraphQL type LocationCountry.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor includes the requested fields of the GraphQL type LocationFloor.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric includes the requested fields of the GraphQL interface LocationGeneric.
+//
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric is implemented by the following types:
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite
+// The GraphQL type's documentation follows.
+//
+// Generic Location Interface.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric interface {
+	implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() string
+	// GetId returns the interface-field "id" from its implementation.
+	// The GraphQL interface field's documentation follows.
+	//
+	// Unique identifier
+	GetId() string
+}
+
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite) implementsGraphQLInterfaceInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric() {
+}
+
+func __unmarshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric(b []byte, v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "LocationBuilding":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding)
+		return json.Unmarshal(b, *v)
+	case "LocationContinent":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent)
+		return json.Unmarshal(b, *v)
+	case "LocationCountry":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry)
+		return json.Unmarshal(b, *v)
+	case "LocationFloor":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor)
+		return json.Unmarshal(b, *v)
+	case "LocationMetro":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro)
+		return json.Unmarshal(b, *v)
+	case "LocationRack":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack)
+		return json.Unmarshal(b, *v)
+	case "LocationRegion":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion)
+		return json.Unmarshal(b, *v)
+	case "LocationSuite":
+		*v = new(InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing LocationGeneric.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalInfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric(v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding:
+		typename = "LocationBuilding"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationBuilding
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent:
+		typename = "LocationContinent"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationContinent
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry:
+		typename = "LocationCountry"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationCountry
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor:
+		typename = "LocationFloor"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationFloor
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro:
+		typename = "LocationMetro"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack:
+		typename = "LocationRack"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion:
+		typename = "LocationRegion"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion
+		}{typename, v}
+		return json.Marshal(result)
+	case *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite:
+		typename = "LocationSuite"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationGeneric: "%T"`, v)
+	}
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro includes the requested fields of the GraphQL type LocationMetro.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationMetro) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack includes the requested fields of the GraphQL type LocationRack.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRack) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion includes the requested fields of the GraphQL type LocationRegion.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationRegion) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite includes the requested fields of the GraphQL type LocationSuite.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite struct {
+	Typename string `json:"__typename"`
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetTypename returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite.Typename, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite) GetTypename() string {
+	return v.Typename
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceLocationNestedEdgedLocationGenericNodeLocationSuite) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform includes the requested fields of the GraphQL type NestedEdgedInfraPlatform.
+// The GraphQL type's documentation follows.
+//
+// A Platform represent the type of software running on a device.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform `json:"node"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatform) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform {
+	return v.Node
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform includes the requested fields of the GraphQL type InfraPlatform.
+// The GraphQL type's documentation follows.
+//
+// A Platform represent the type of software running on a device.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform struct {
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePlatformNestedEdgedInfraPlatformNodeInfraPlatform) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress includes the requested fields of the GraphQL type NestedEdgedInfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress `json:"node"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddress) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress {
+	return v.Node
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress includes the requested fields of the GraphQL type InfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress struct {
+	// Unique identifier
+	Id string `json:"id"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDevicePrimary_addressNestedEdgedInfraIPAddressNodeInfraIPAddress) GetId() string {
+	return v.Id
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown includes the requested fields of the GraphQL type Dropdown.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Dropdown
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown struct {
+	Value string `json:"value"`
+	Id    string `json:"id"`
+}
+
+// GetValue returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown.Value, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown) GetValue() string {
+	return v.Value
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceRoleDropdown) GetId() string { return v.Id }
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown includes the requested fields of the GraphQL type Dropdown.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Dropdown
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown struct {
+	Id    string `json:"id"`
+	Value string `json:"value"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown) GetId() string {
+	return v.Id
+}
+
+// GetValue returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown.Value, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceStatusDropdown) GetValue() string {
+	return v.Value
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology includes the requested fields of the GraphQL type NestedEdgedTopologyTopology.
+// The GraphQL type's documentation follows.
+//
+// A Topology represents the entire network pod.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology struct {
+	Node InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology `json:"node"`
+}
+
+// GetNode returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology.Node, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopology) GetNode() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology {
+	return v.Node
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology includes the requested fields of the GraphQL type TopologyTopology.
+// The GraphQL type's documentation follows.
+//
+// A Topology represents the entire network pod.
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology struct {
+	// Unique identifier
+	Id   string                                                                                                                      `json:"id"`
+	Name InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute `json:"name"`
+}
+
+// GetId returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology) GetId() string {
+	return v.Id
+}
+
+// GetName returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology.Name, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopology) GetName() InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute {
+	return v.Name
+}
+
+// InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInfraDeviceUpsertObjectInfraDeviceTopologyNestedEdgedTopologyTopologyNodeTopologyTopologyNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+type InfraDeviceUpsertInput struct {
+	Id                   string                    `json:"id"`
+	Hfid                 []string                  `json:"hfid"`
+	Role                 TextAttributeUpdate       `json:"role"`
+	Name                 TextAttributeUpdate       `json:"name"`
+	Description          TextAttributeUpdate       `json:"description"`
+	Status               TextAttributeUpdate       `json:"status"`
+	Artifacts            []RelatedNodeInput        `json:"artifacts"`
+	Member_of_groups     []RelatedNodeInput        `json:"member_of_groups"`
+	Subscriber_of_groups []RelatedNodeInput        `json:"subscriber_of_groups"`
+	Location             RelatedNodeInput          `json:"location"`
+	Interfaces           []RelatedNodeInput        `json:"interfaces"`
+	Asn                  RelatedNodeInput          `json:"asn"`
+	Tags                 []RelatedNodeInput        `json:"tags"`
+	Primary_address      RelatedIPAddressNodeInput `json:"primary_address"`
+	Device_type          RelatedNodeInput          `json:"device_type"`
+	Platform             RelatedNodeInput          `json:"platform"`
+	Topology             RelatedNodeInput          `json:"topology"`
+	Profiles             []RelatedNodeInput        `json:"profiles"`
+}
+
+// GetId returns InfraDeviceUpsertInput.Id, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetId() string { return v.Id }
+
+// GetHfid returns InfraDeviceUpsertInput.Hfid, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetHfid() []string { return v.Hfid }
+
+// GetRole returns InfraDeviceUpsertInput.Role, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetRole() TextAttributeUpdate { return v.Role }
+
+// GetName returns InfraDeviceUpsertInput.Name, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetName() TextAttributeUpdate { return v.Name }
+
+// GetDescription returns InfraDeviceUpsertInput.Description, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetDescription() TextAttributeUpdate { return v.Description }
+
+// GetStatus returns InfraDeviceUpsertInput.Status, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetStatus() TextAttributeUpdate { return v.Status }
+
+// GetArtifacts returns InfraDeviceUpsertInput.Artifacts, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetArtifacts() []RelatedNodeInput { return v.Artifacts }
+
+// GetMember_of_groups returns InfraDeviceUpsertInput.Member_of_groups, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetMember_of_groups() []RelatedNodeInput { return v.Member_of_groups }
+
+// GetSubscriber_of_groups returns InfraDeviceUpsertInput.Subscriber_of_groups, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetSubscriber_of_groups() []RelatedNodeInput {
+	return v.Subscriber_of_groups
+}
+
+// GetLocation returns InfraDeviceUpsertInput.Location, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetLocation() RelatedNodeInput { return v.Location }
+
+// GetInterfaces returns InfraDeviceUpsertInput.Interfaces, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetInterfaces() []RelatedNodeInput { return v.Interfaces }
+
+// GetAsn returns InfraDeviceUpsertInput.Asn, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetAsn() RelatedNodeInput { return v.Asn }
+
+// GetTags returns InfraDeviceUpsertInput.Tags, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetTags() []RelatedNodeInput { return v.Tags }
+
+// GetPrimary_address returns InfraDeviceUpsertInput.Primary_address, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetPrimary_address() RelatedIPAddressNodeInput {
+	return v.Primary_address
+}
+
+// GetDevice_type returns InfraDeviceUpsertInput.Device_type, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetDevice_type() RelatedNodeInput { return v.Device_type }
+
+// GetPlatform returns InfraDeviceUpsertInput.Platform, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetPlatform() RelatedNodeInput { return v.Platform }
+
+// GetTopology returns InfraDeviceUpsertInput.Topology, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetTopology() RelatedNodeInput { return v.Topology }
+
+// GetProfiles returns InfraDeviceUpsertInput.Profiles, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertInput) GetProfiles() []RelatedNodeInput { return v.Profiles }
+
+// InfraDeviceUpsertResponse is returned by InfraDeviceUpsert on success.
+type InfraDeviceUpsertResponse struct {
+	InfraDeviceUpsert InfraDeviceUpsertInfraDeviceUpsert `json:"InfraDeviceUpsert"`
+}
+
+// GetInfraDeviceUpsert returns InfraDeviceUpsertResponse.InfraDeviceUpsert, and is useful for accessing the field via an interface.
+func (v *InfraDeviceUpsertResponse) GetInfraDeviceUpsert() InfraDeviceUpsertInfraDeviceUpsert {
+	return v.InfraDeviceUpsert
+}
+
 type RelatedIPAddressNodeInput struct {
 	Id                     string             `json:"id"`
 	From_pool              IPAddressPoolInput `json:"from_pool"`
@@ -1274,6 +2055,33 @@ func (v *TextAttributeCreate) GetOwner() string { return v.Owner }
 // GetValue returns TextAttributeCreate.Value, and is useful for accessing the field via an interface.
 func (v *TextAttributeCreate) GetValue() string { return v.Value }
 
+type TextAttributeUpdate struct {
+	Is_default   bool   `json:"is_default"`
+	Is_visible   bool   `json:"is_visible"`
+	Is_protected bool   `json:"is_protected"`
+	Source       string `json:"source"`
+	Owner        string `json:"owner"`
+	Value        string `json:"value"`
+}
+
+// GetIs_default returns TextAttributeUpdate.Is_default, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetIs_default() bool { return v.Is_default }
+
+// GetIs_visible returns TextAttributeUpdate.Is_visible, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetIs_visible() bool { return v.Is_visible }
+
+// GetIs_protected returns TextAttributeUpdate.Is_protected, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetIs_protected() bool { return v.Is_protected }
+
+// GetSource returns TextAttributeUpdate.Source, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetSource() string { return v.Source }
+
+// GetOwner returns TextAttributeUpdate.Owner, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetOwner() string { return v.Owner }
+
+// GetValue returns TextAttributeUpdate.Value, and is useful for accessing the field via an interface.
+func (v *TextAttributeUpdate) GetValue() string { return v.Value }
+
 // __DeviceQueryInput is used internally by genqlient
 type __DeviceQueryInput struct {
 	Value string `json:"value"`
@@ -1297,6 +2105,14 @@ type __InfraDeviceDeleteInput struct {
 
 // GetId returns __InfraDeviceDeleteInput.Id, and is useful for accessing the field via an interface.
 func (v *__InfraDeviceDeleteInput) GetId() string { return v.Id }
+
+// __InfraDeviceUpsertInput is used internally by genqlient
+type __InfraDeviceUpsertInput struct {
+	Data InfraDeviceUpsertInput `json:"data"`
+}
+
+// GetData returns __InfraDeviceUpsertInput.Data, and is useful for accessing the field via an interface.
+func (v *__InfraDeviceUpsertInput) GetData() InfraDeviceUpsertInput { return v.Data }
 
 // The query or mutation executed by DeviceQuery.
 const DeviceQuery_Operation = `
@@ -1527,6 +2343,95 @@ func InfraDeviceDelete(
 	var err_ error
 
 	var data_ InfraDeviceDeleteResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by InfraDeviceUpsert.
+const InfraDeviceUpsert_Operation = `
+mutation InfraDeviceUpsert ($data: InfraDeviceUpsertInput!) {
+	InfraDeviceUpsert(data: $data) {
+		object {
+			id
+			display_label
+			__typename
+			name {
+				value
+			}
+			role {
+				value
+				id
+			}
+			asn {
+				node {
+					id
+				}
+			}
+			description {
+				id
+				value
+			}
+			device_type {
+				node {
+					id
+				}
+			}
+			location {
+				node {
+					__typename
+					id
+				}
+			}
+			platform {
+				node {
+					id
+				}
+			}
+			primary_address {
+				node {
+					id
+				}
+			}
+			status {
+				id
+				value
+			}
+			topology {
+				node {
+					id
+					name {
+						value
+					}
+				}
+			}
+		}
+		__typename
+	}
+}
+`
+
+func InfraDeviceUpsert(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	data InfraDeviceUpsertInput,
+) (*InfraDeviceUpsertResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "InfraDeviceUpsert",
+		Query:  InfraDeviceUpsert_Operation,
+		Variables: &__InfraDeviceUpsertInput{
+			Data: data,
+		},
+	}
+	var err_ error
+
+	var data_ InfraDeviceUpsertResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(

@@ -199,63 +199,66 @@ func (r *deviceResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 // Update updates the resource and sets the updated Terraform state on success.
 func (r *deviceResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	// // Retrieve values from plan
-	// var plan orderResourceModel
-	// diags := req.Plan.Get(ctx, &plan)
-	// resp.Diagnostics.Append(diags...)
-	// if resp.Diagnostics.HasError() {
-	// 	return
-	// }
-	// // Generate API request body from plan
-	// var hashicupsItems []hashicups.OrderItem
-	// for _, item := range plan.Items {
-	// 	hashicupsItems = append(hashicupsItems, hashicups.OrderItem{
-	// 		Coffee: hashicups.Coffee{
-	// 			ID: int(item.Coffee.ID.ValueInt64()),
-	// 		},
-	// 		Quantity: int(item.Quantity.ValueInt64()),
-	// 	})
-	// }
-	// // Update existing order
-	// _, err := r.client.UpdateOrder(plan.ID.ValueString(), hashicupsItems)
-	// if err != nil {
-	// 	resp.Diagnostics.AddError(
-	// 		"Error Updating HashiCups Order",
-	// 		"Could not update order, unexpected error: "+err.Error(),
-	// 	)
-	// 	return
-	// }
-	// // Fetch updated items from GetOrder as UpdateOrder items are not
-	// // populated.
-	// order, err := r.client.GetOrder(plan.ID.ValueString())
-	// if err != nil {
-	// 	resp.Diagnostics.AddError(
-	// 		"Error Reading HashiCups Order",
-	// 		"Could not read HashiCups order ID "+plan.ID.ValueString()+": "+err.Error(),
-	// 	)
-	// 	return
-	// }
-	// // Update resource state with updated items and timestamp
-	// plan.Items = []orderItemModel{}
-	// for _, item := range order.Items {
-	// 	plan.Items = append(plan.Items, orderItemModel{
-	// 		Coffee: orderItemCoffeeModel{
-	// 			ID:          types.Int64Value(int64(item.Coffee.ID)),
-	// 			Name:        types.StringValue(item.Coffee.Name),
-	// 			Teaser:      types.StringValue(item.Coffee.Teaser),
-	// 			Description: types.StringValue(item.Coffee.Description),
-	// 			Price:       types.Float64Value(item.Coffee.Price),
-	// 			Image:       types.StringValue(item.Coffee.Image),
-	// 		},
-	// 		Quantity: types.Int64Value(int64(item.Quantity)),
-	// 	})
-	// }
-	// plan.LastUpdated = types.StringValue(time.Now().Format(time.RFC850))
-	// diags = resp.State.Set(ctx, plan)
-	// resp.Diagnostics.Append(diags...)
-	// if resp.Diagnostics.HasError() {
-	// 	return
-	// }
+	// Retrieve the planned configuration values from Terraform
+	var plan deviceResource
+	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Retrieve the current state
+	var state deviceResource
+	diags = req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Prepare the update input using values from the plan and applying defaults
+	var updateInput infrahub_sdk.InfraDeviceUpsertInput
+	updateInput.Id = state.Id.ValueString() // Use existing ID from state
+	updateInput.Name.Value = setDefault(plan.DeviceName.ValueString(), state.DeviceName.ValueString())
+	updateInput.Role.Value = setDefault(plan.Role.ValueString(), state.Role.ValueString())
+	updateInput.Location.Id = setDefault(plan.Location.ValueString(), state.Location.ValueString())
+	updateInput.Status.Value = setDefault(plan.Status.ValueString(), state.Status.ValueString())
+	updateInput.Asn.Id = setDefault(plan.Asn.ValueString(), state.Asn.ValueString())
+	updateInput.Primary_address.Id = setDefault(plan.PrimaryAddress.ValueString(), state.PrimaryAddress.ValueString())
+	updateInput.Device_type.Id = setDefault(plan.DeviceType.ValueString(), state.DeviceType.ValueString())
+	updateInput.Platform.Id = setDefault(plan.Platform.ValueString(), state.Platform.ValueString())
+	updateInput.Topology.Id = setDefault(plan.Topology.ValueString(), state.Topology.ValueString())
+
+	// Log the update operation
+	tflog.Info(ctx, fmt.Sprintf("Updating Device %s", state.DeviceName.ValueString()))
+
+	// Send the update request to the API
+	device, err := infrahub_sdk.InfraDeviceUpsert(ctx, *r.client, updateInput)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Unable to update device in Infrahub",
+			err.Error(),
+		)
+		return
+	}
+
+	// Update the plan with new data returned by the API to sync state
+	plan.Id = types.StringValue(device.InfraDeviceUpsert.Object.Id)
+	plan.Name = types.StringValue(device.InfraDeviceUpsert.Object.Name.Value)
+	plan.Role = types.StringValue(device.InfraDeviceUpsert.Object.Role.Value)
+	plan.Platform = types.StringValue(device.InfraDeviceUpsert.Object.Platform.Node.Id)
+	plan.PrimaryAddress = types.StringValue(device.InfraDeviceUpsert.Object.Primary_address.Node.Id)
+	plan.Asn = types.StringValue(device.InfraDeviceUpsert.Object.Asn.Node.Id)
+	plan.DeviceType = types.StringValue(device.InfraDeviceUpsert.Object.Device_type.Node.Id)
+	plan.Location = types.StringValue(device.InfraDeviceUpsert.Object.Location.Node.GetId())
+	plan.Status = types.StringValue(device.InfraDeviceUpsert.Object.Status.Value)
+	plan.Topology = types.StringValue(device.InfraDeviceUpsert.Object.Topology.Node.Id)
+
+	// Set the updated state with the latest data
+	diags = resp.State.Set(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
 
 // Delete deletes the resource and removes the Terraform state on success.
