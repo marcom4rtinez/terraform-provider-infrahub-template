@@ -99,12 +99,12 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 	infrahubApi := os.Getenv("INFRAHUB_API")
 	infrahub_server := os.Getenv("INFRAHUB_SERVER")
 
-	if !data.InfrahubServer.IsNull() {
-		infrahubApi = data.InfrahubServer.ValueString()
+	if !data.ApiKey.IsNull() {
+		infrahubApi = data.ApiKey.ValueString()
 	}
 
-	if !data.ApiKey.IsNull() {
-		infrahub_server = data.ApiKey.ValueString()
+	if !data.InfrahubServer.IsNull() {
+		infrahub_server = data.InfrahubServer.ValueString()
 	}
 
 	if infrahubApi == "" {
@@ -127,27 +127,24 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
-	client := graphql.NewClient("http://localhost:8000/graphql", http.DefaultClient)
+	//TODO: FIXME: Dont hijack JWT Token from browser
+	httpClient := &http.Client{
+		Transport: &AuthTransport{
+			Token:     infrahubApi,
+			Transport: http.DefaultTransport,
+		},
+	}
 
-	//TODO: Configure Go SDK client here
-	// client, err := infrahub.NewClient(&host, &username, &password)
-	// if err != nil {
-	// 	resp.Diagnostics.AddError(
-	// 		"Unable to Create Infrahub API Client",
-	// 		"An unexpected error occurred when creating the Infrahub API client. "+
-	// 			"If the error is not clear, please contact the provider developers.\n\n"+
-	// 			"Infrahub Client Error: "+err.Error(),
-	// 	)
-	// 	return
-	// }
+	client := graphql.NewClient("http://localhost:8000/graphql", httpClient)
 
-	// client := http.DefaultClient
 	resp.DataSourceData = client
 	resp.ResourceData = client
 }
 
 func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return nil
+	return []func() resource.Resource{
+		NewDeviceResource,
+	}
 }
 
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
@@ -159,4 +156,15 @@ func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.
 
 func (p *InfrahubProvider) Functions(ctx context.Context) []func() function.Function {
 	return nil
+}
+
+type AuthTransport struct {
+	Token     string
+	Transport http.RoundTripper
+}
+
+// RoundTrip adds the authorization header and delegates the request to the original transport.
+func (a *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	req.Header.Add("Authorization", "Bearer "+a.Token)
+	return a.Transport.RoundTrip(req)
 }

@@ -77,7 +77,7 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	device, err := infrahub_sdk.DeviceQuery(ctx, *d.client, config.DeviceName.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Unable to read devices from Infrahub",
+			"Unable to read device from Infrahub",
 			err.Error(),
 		)
 		return
