@@ -5,6 +5,7 @@ package provider
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -97,14 +98,14 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 	// with Terraform configuration value if set.
 
 	infrahubApi := os.Getenv("INFRAHUB_API")
-	infrahub_server := os.Getenv("INFRAHUB_SERVER")
+	infrahubServer := os.Getenv("INFRAHUB_SERVER")
 
 	if !data.ApiKey.IsNull() {
 		infrahubApi = data.ApiKey.ValueString()
 	}
 
 	if !data.InfrahubServer.IsNull() {
-		infrahub_server = data.InfrahubServer.ValueString()
+		infrahubServer = data.InfrahubServer.ValueString()
 	}
 
 	if infrahubApi == "" {
@@ -117,7 +118,7 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
-	if infrahub_server == "" {
+	if infrahubServer == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("infrahub_server"),
 			"Missing Infrahub Server address",
@@ -135,7 +136,7 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		},
 	}
 
-	client := graphql.NewClient("http://localhost:8000/graphql", httpClient)
+	client := graphql.NewClient(fmt.Sprintf("http://%s:8000/graphql", infrahubServer), httpClient)
 
 	resp.DataSourceData = client
 	resp.ResourceData = client
@@ -151,6 +152,7 @@ func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.
 	return []func() datasource.DataSource{
 		NewDevicesDataSource,
 		NewDeviceDataSource,
+		NewArtifactDataSource,
 	}
 }
 
