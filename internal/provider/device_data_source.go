@@ -27,43 +27,79 @@ func NewDeviceDataSource() datasource.DataSource {
 	return &deviceDataSource{}
 }
 
-// deviceDataSource is the data source implementation.
 type deviceDataSource struct {
-	client     *graphql.Client
-	Name       types.String `tfsdk:"name"`
-	Id         types.String `tfsdk:"id"`
-	Role       types.String `tfsdk:"role"`
-	DeviceName types.String `tfsdk:"device_name"`
+	client                             *graphql.Client
+	Device_name                        types.String `tfsdk:"device_name"`
+	Edges_node_id                      types.String `tfsdk:"edges_node_id"`
+	Edges_node_name_value              types.String `tfsdk:"edges_node_name_value"`
+	Edges_node_role_value              types.String `tfsdk:"edges_node_role_value"`
+	Edges_node_role_color              types.String `tfsdk:"edges_node_role_color"`
+	Edges_node_role_description        types.String `tfsdk:"edges_node_role_description"`
+	Edges_node_role_id                 types.String `tfsdk:"edges_node_role_id"`
+	Edges_node_platform_node_id        types.String `tfsdk:"edges_node_platform_node_id"`
+	Edges_node_primary_address_node_id types.String `tfsdk:"edges_node_primary_address_node_id"`
+	Edges_node_status_id               types.String `tfsdk:"edges_node_status_id"`
+	Edges_node_topology_node_id        types.String `tfsdk:"edges_node_topology_node_id"`
+	Edges_node_device_type_node_id     types.String `tfsdk:"edges_node_device_type_node_id"`
+	Edges_node_asn_node_asn_id         types.String `tfsdk:"edges_node_asn_node_asn_id"`
+	Edges_node_description_value       types.String `tfsdk:"edges_node_description_value"`
 }
 
-// Metadata returns the data source type name.
 func (d *deviceDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_device"
 }
 
-// Schema defines the schema for the data source.
-func (d *deviceDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *deviceDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"device_name": schema.StringAttribute{
-				Required: true, // This marks the attribute as required in the Terraform config
+				Required: true,
 			},
-			"name": schema.StringAttribute{
+			"edges_node_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"id": schema.StringAttribute{
+			"edges_node_name_value": schema.StringAttribute{
 				Computed: true,
 			},
-			"role": schema.StringAttribute{
+			"edges_node_role_value": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_role_color": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_role_description": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_role_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_platform_node_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_primary_address_node_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_status_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_topology_node_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_device_type_node_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_asn_node_asn_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_description_value": schema.StringAttribute{
 				Computed: true,
 			},
 		},
 	}
 }
 
-// Read refreshes the Terraform state with the latest data.
 func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	tflog.Info(ctx, "Reading Device...\n")
+	tflog.Info(ctx, "Reading device data...")
 	var config deviceDataSource
 
 	// Read configuration into config
@@ -73,8 +109,7 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	// Call the API with the specified device_name from the configuration
-	device, err := infrahub_sdk.DeviceQuery(ctx, *d.client, config.DeviceName.ValueString())
+	response, err := infrahub_sdk.Device(ctx, *d.client, config.Device_name.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to read device from Infrahub",
@@ -83,7 +118,7 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if len(device.InfraDevice.Edges) != 1 {
+	if len(response.InfraDevice.Edges) != 1 {
 		resp.Diagnostics.AddError(
 			"Didn't receive a single device, query didn't return exactly 1 device",
 			"Expected exactly 1 device in response, got a different count.",
@@ -92,16 +127,25 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	}
 
 	state := deviceDataSource{
-		Name: types.StringValue(device.InfraDevice.Edges[0].Node.Name.Value),
-		Id:   types.StringValue(device.InfraDevice.Edges[0].Node.Id),
-		Role: types.StringValue(device.InfraDevice.Edges[0].Node.Role.Value),
+		Device_name:                        config.Device_name,
+		Edges_node_id:                      types.StringValue(response.InfraDevice.Edges[0].Node.Id),
+		Edges_node_name_value:              types.StringValue(response.InfraDevice.Edges[0].Node.Name.Value),
+		Edges_node_role_value:              types.StringValue(response.InfraDevice.Edges[0].Node.Role.Value),
+		Edges_node_role_color:              types.StringValue(response.InfraDevice.Edges[0].Node.Role.Color),
+		Edges_node_role_description:        types.StringValue(response.InfraDevice.Edges[0].Node.Role.Description),
+		Edges_node_role_id:                 types.StringValue(response.InfraDevice.Edges[0].Node.Role.Id),
+		Edges_node_platform_node_id:        types.StringValue(response.InfraDevice.Edges[0].Node.Platform.Node.Id),
+		Edges_node_primary_address_node_id: types.StringValue(response.InfraDevice.Edges[0].Node.Primary_address.Node.Id),
+		Edges_node_status_id:               types.StringValue(response.InfraDevice.Edges[0].Node.Status.Id),
+		Edges_node_topology_node_id:        types.StringValue(response.InfraDevice.Edges[0].Node.Topology.Node.Id),
+		Edges_node_device_type_node_id:     types.StringValue(response.InfraDevice.Edges[0].Node.Device_type.Node.Id),
+		Edges_node_asn_node_asn_id:         types.StringValue(response.InfraDevice.Edges[0].Node.Asn.Node.Asn.Id),
+		Edges_node_description_value:       types.StringValue(response.InfraDevice.Edges[0].Node.Description.Value),
 	}
 
+	// Set state
 	diags = resp.State.Set(ctx, &state)
 	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
 }
 
 // Configure adds the provider configured client to the data source.

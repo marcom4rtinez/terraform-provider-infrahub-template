@@ -21,6 +21,16 @@ description: |-
 
 ### Read-Only
 
-- `id` (String) The ID of this resource.
-- `name` (String)
-- `role` (String)
+- `edges_node_asn_node_asn_id` (String)
+- `edges_node_description_value` (String)
+- `edges_node_device_type_node_id` (String)
+- `edges_node_id` (String)
+- `edges_node_name_value` (String)
+- `edges_node_platform_node_id` (String)
+- `edges_node_primary_address_node_id` (String)
+- `edges_node_role_color` (String)
+- `edges_node_role_description` (String)
+- `edges_node_role_id` (String)
+- `edges_node_role_value` (String)
+- `edges_node_status_id` (String)
+- `edges_node_topology_node_id` (String)
