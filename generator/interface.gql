@@ -1,0 +1,19 @@
+query Interface($interface_name: String!) {
+  InfraIPAddress(interface__name__value: $interface_name) {
+    edges {
+      node {
+        id
+        hfid
+        display_label
+        description {
+          value
+        }
+        address {
+          ip
+          hostmask
+          value
+        }
+      }
+    }
+  }
+}

@@ -77,6 +77,7 @@ func ParseGraphQLQuery(query string) (*InputGraphQLQuery, error) {
 			// This identifies the required field (e.g., name__value: $device_name)
 			parts := strings.Split(line, ":")
 			required = parts[1][strings.Index(parts[1], "$")+1 : strings.Index(parts[1][strings.Index(parts[1], "$"):], " ")+strings.Index(parts[1], "$")]
+			required = strings.TrimRight(required, ")")
 			objectNameParts := strings.Split(parts[0], "(")
 			objectName = objectNameParts[0]
 		} else if strings.HasSuffix(line, " {") {
@@ -104,6 +105,9 @@ func ParseGraphQLQuery(query string) (*InputGraphQLQuery, error) {
 					Name: parentPrefix + strings.TrimSpace(parts[0]),
 					Type: "String",
 				})
+				if strings.Contains(parts[0], "_") {
+					prefixListImmutable = append(prefixListImmutable, parts[0])
+				}
 			}
 		}
 	}
@@ -206,8 +210,8 @@ var (
 	_ datasource.DataSourceWithConfigure = &{{.QueryName}}DataSource{}
 )
 
-// NewdeviceDataSource is a helper function to simplify the provider implementation.
-func NewDeviceDataSource() datasource.DataSource {
+// New{{.QueryName | title }}DataSource is a helper function to simplify the provider implementation.
+func New{{.QueryName | title }}DataSource() datasource.DataSource {
 	return &{{.QueryName}}DataSource{}
 }
 
@@ -250,7 +254,7 @@ func (d *{{.QueryName }}DataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	response, err := infrahub_sdk.Device(ctx, *d.client, config.{{.Required | title }}.ValueString())
+	response, err := infrahub_sdk.{{.QueryName | title}}(ctx, *d.client, config.{{.Required | title }}.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to read {{.QueryName}} from Infrahub",
@@ -324,58 +328,13 @@ func (d *{{.QueryName}}DataSource) Configure(_ context.Context, req datasource.C
 
 func main() {
 	// Example GraphQL query input
-	graphqlQuery := `
-	query Device($device_name: String!) {
-		InfraDevice(name__value: $device_name ) {
-		  edges {
-			node {
-			  id
-			  name {
-				value
-			  }
-			  role {
-				value
-				color
-				description
-				id
-			  }
-			  platform {
-				node {
-				  id
-				}
-			  }
-			  primary_address {
-				node {
-				  id
-				}
-			  }
-			  status {
-				id
-			  }
-			  topology {
-				node {
-				  id
-				}
-			  }
-			  device_type {
-				node {
-				  id
-				}
-			  }
-			  asn {
-				node {
-				  asn {
-					id
-				  }
-				}
-			  }
-			  description {
-				value
-			  }
-			}
-		  }
-		}
-	  }`
+	data, err := os.ReadFile("interface.gql")
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	graphqlQuery := string(data)
 
 	// Parse the query
 	parsedQuery, err := ParseGraphQLQuery(graphqlQuery)
@@ -394,7 +353,7 @@ func main() {
 	// Print the generated code
 	// fmt.Println(code)
 
-	file, err := os.Create("../internal/provider/device_data_source.go")
+	file, err := os.Create(fmt.Sprintf("../internal/provider/%s_data_source.go", parsedQuery.QueryName))
 	if err != nil {
 		fmt.Println("Error creating the file:", err)
 		return
