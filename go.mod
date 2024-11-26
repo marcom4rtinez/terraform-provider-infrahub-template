@@ -9,7 +9,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework v1.12.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/opsmill/infrahub-sdk-go v0.0.0-00010101000000-000000000000
-	golang.org/x/text v0.17.0
+	golang.org/x/text v0.20.0
 )
 
 require (
