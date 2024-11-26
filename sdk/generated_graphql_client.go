@@ -318,6 +318,191 @@ type DeviceResponse struct {
 // GetInfraDevice returns DeviceResponse.InfraDevice, and is useful for accessing the field via an interface.
 func (v *DeviceResponse) GetInfraDevice() DeviceInfraDevicePaginatedInfraDevice { return v.InfraDevice }
 
+// DevicesInfraDevicePaginatedInfraDevice includes the requested fields of the GraphQL type PaginatedInfraDevice.
+type DevicesInfraDevicePaginatedInfraDevice struct {
+	Edges []DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice `json:"edges"`
+}
+
+// GetEdges returns DevicesInfraDevicePaginatedInfraDevice.Edges, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDevice) GetEdges() []DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice {
+	return v.Edges
+}
+
+// DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice includes the requested fields of the GraphQL type EdgedInfraDevice.
+type DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice struct {
+	Node DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice `json:"node"`
+}
+
+// GetNode returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice.Node, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice) GetNode() DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice {
+	return v.Node
+}
+
+// DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice includes the requested fields of the GraphQL type InfraDevice.
+type DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice struct {
+	// Unique identifier
+	Id   string                                                                                      `json:"id"`
+	Name DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute `json:"name"`
+	Role DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown      `json:"role"`
+}
+
+// GetId returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Id, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetId() string {
+	return v.Id
+}
+
+// GetName returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Name, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetName() DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute {
+	return v.Name
+}
+
+// GetRole returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice.Role, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDevice) GetRole() DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown {
+	return v.Role
+}
+
+// DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown includes the requested fields of the GraphQL type Dropdown.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Dropdown
+type DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown.Value, and is useful for accessing the field via an interface.
+func (v *DevicesInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDeviceNodeInfraDeviceRoleDropdown) GetValue() string {
+	return v.Value
+}
+
+// DevicesResponse is returned by Devices on success.
+type DevicesResponse struct {
+	InfraDevice DevicesInfraDevicePaginatedInfraDevice `json:"InfraDevice"`
+}
+
+// GetInfraDevice returns DevicesResponse.InfraDevice, and is useful for accessing the field via an interface.
+func (v *DevicesResponse) GetInfraDevice() DevicesInfraDevicePaginatedInfraDevice {
+	return v.InfraDevice
+}
+
+// InterfaceInfraIPAddressPaginatedInfraIPAddress includes the requested fields of the GraphQL type PaginatedInfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type InterfaceInfraIPAddressPaginatedInfraIPAddress struct {
+	Edges []InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress `json:"edges"`
+}
+
+// GetEdges returns InterfaceInfraIPAddressPaginatedInfraIPAddress.Edges, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddress) GetEdges() []InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress {
+	return v.Edges
+}
+
+// InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress includes the requested fields of the GraphQL type EdgedInfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress struct {
+	Node InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress `json:"node"`
+}
+
+// GetNode returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress.Node, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress) GetNode() InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress {
+	return v.Node
+}
+
+// InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress includes the requested fields of the GraphQL type InfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress struct {
+	// Unique identifier
+	Id            string                                                                                                           `json:"id"`
+	Display_label string                                                                                                           `json:"display_label"`
+	Description   InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute `json:"description"`
+	Address       InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost            `json:"address"`
+}
+
+// GetId returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Id, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetId() string {
+	return v.Id
+}
+
+// GetDisplay_label returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Display_label, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// GetDescription returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Description, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetDescription() InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute {
+	return v.Description
+}
+
+// GetAddress returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Address, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetAddress() InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost {
+	return v.Address
+}
+
+// InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost includes the requested fields of the GraphQL type IPHost.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type IPHost
+type InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost struct {
+	Ip       string `json:"ip"`
+	Hostmask string `json:"hostmask"`
+	Value    string `json:"value"`
+}
+
+// GetIp returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost.Ip, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost) GetIp() string {
+	return v.Ip
+}
+
+// GetHostmask returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost.Hostmask, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost) GetHostmask() string {
+	return v.Hostmask
+}
+
+// GetValue returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost.Value, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost) GetValue() string {
+	return v.Value
+}
+
+// InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// InterfaceResponse is returned by Interface on success.
+type InterfaceResponse struct {
+	InfraIPAddress InterfaceInfraIPAddressPaginatedInfraIPAddress `json:"InfraIPAddress"`
+}
+
+// GetInfraIPAddress returns InterfaceResponse.InfraIPAddress, and is useful for accessing the field via an interface.
+func (v *InterfaceResponse) GetInfraIPAddress() InterfaceInfraIPAddressPaginatedInfraIPAddress {
+	return v.InfraIPAddress
+}
+
 // __DeviceInput is used internally by genqlient
 type __DeviceInput struct {
 	Device_name string `json:"device_name"`
@@ -325,6 +510,14 @@ type __DeviceInput struct {
 
 // GetDevice_name returns __DeviceInput.Device_name, and is useful for accessing the field via an interface.
 func (v *__DeviceInput) GetDevice_name() string { return v.Device_name }
+
+// __InterfaceInput is used internally by genqlient
+type __InterfaceInput struct {
+	Interface_name string `json:"interface_name"`
+}
+
+// GetInterface_name returns __InterfaceInput.Interface_name, and is useful for accessing the field via an interface.
+func (v *__InterfaceInput) GetInterface_name() string { return v.Interface_name }
 
 // The query or mutation executed by Device.
 const Device_Operation = `
@@ -396,6 +589,95 @@ func Device(
 	var err_ error
 
 	var data_ DeviceResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by Devices.
+const Devices_Operation = `
+query Devices {
+	InfraDevice {
+		edges {
+			node {
+				id
+				name {
+					value
+				}
+				role {
+					value
+				}
+			}
+		}
+	}
+}
+`
+
+func Devices(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (*DevicesResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Devices",
+		Query:  Devices_Operation,
+	}
+	var err_ error
+
+	var data_ DevicesResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by Interface.
+const Interface_Operation = `
+query Interface ($interface_name: String!) {
+	InfraIPAddress(interface__name__value: $interface_name) {
+		edges {
+			node {
+				id
+				display_label
+				description {
+					value
+				}
+				address {
+					ip
+					hostmask
+					value
+				}
+			}
+		}
+	}
+}
+`
+
+func Interface(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	interface_name string,
+) (*InterfaceResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Interface",
+		Query:  Interface_Operation,
+		Variables: &__InterfaceInput{
+			Interface_name: interface_name,
+		},
+	}
+	var err_ error
+
+	var data_ InterfaceResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(

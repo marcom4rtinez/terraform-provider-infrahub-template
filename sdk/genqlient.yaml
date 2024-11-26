@@ -1,0 +1,17 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+# Default genqlient config; for full documentation see:
+# https://github.com/Khan/genqlient/blob/main/docs/genqlient.yaml
+schema: schema.graphql
+operations:
+  # - genqlient.graphql
+  - ../generator/gql/*.gql
+generated: generated_graphql_client.go
+bindings:
+  GenericScalar:
+    type: string
+  BigInt:
+    type: string
+  DateTime:
+    type: time.Time
