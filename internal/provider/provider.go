@@ -150,8 +150,9 @@ func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Reso
 
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		// NewDevicesDataSource,
+		NewDevicesDataSource,
 		NewDeviceDataSource,
+		NewInterfaceDataSource,
 	}
 }
 

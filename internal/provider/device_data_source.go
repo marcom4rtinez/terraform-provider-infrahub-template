@@ -22,7 +22,7 @@ var (
 	_ datasource.DataSourceWithConfigure = &deviceDataSource{}
 )
 
-// NewdeviceDataSource is a helper function to simplify the provider implementation.
+// NewDeviceDataSource is a helper function to simplify the provider implementation.
 func NewDeviceDataSource() datasource.DataSource {
 	return &deviceDataSource{}
 }
@@ -108,7 +108,6 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
 	response, err := infrahub_sdk.Device(ctx, *d.client, config.Device_name.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -146,6 +145,9 @@ func (d *deviceDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 	// Set state
 	diags = resp.State.Set(ctx, &state)
 	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
 
 // Configure adds the provider configured client to the data source.
