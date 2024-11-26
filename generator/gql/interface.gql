@@ -3,7 +3,6 @@ query Interface($interface_name: String!) {
     edges {
       node {
         id
-        hfid
         display_label
         description {
           value

@@ -1,0 +1,15 @@
+query Devices {
+  InfraDevice {
+    edges {
+      node {
+        id
+        name {
+          value
+        }
+        role {
+          value
+        }
+      }
+    }
+  }
+}

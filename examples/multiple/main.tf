@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "infrahub" {
-  api_key         = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODAyZGZlMS0zYTU5LTE0NjItMzk1ZC1jNTE4ZjQ3ZDEwNjciLCJpYXQiOjE3MzI1MzMyNDYsIm5iZiI6MTczMjUzMzI0NiwiZXhwIjoxNzMyNTM2ODQ2LCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJzZXNzaW9uX2lkIjoiMTgwNDVkMDMtODc1MC01YTIyLTM5NWUtYzUxNWEyMzhhYmJlIiwidXNlcl9jbGFpbXMiOnsicm9sZSI6ImFkbWluIn19.1pb8KEKwtZyTzKEeRoFEzjmXOhDrT_EAlWGsGd_Akpk"
+  api_key         = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODAyZGZlMS0zYTU5LTE0NjItMzk1ZC1jNTE4ZjQ3ZDEwNjciLCJpYXQiOjE3MzI1OTMyNDEsIm5iZiI6MTczMjU5MzI0MSwiZXhwIjoxNzMyNTk2ODQxLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJzZXNzaW9uX2lkIjoiMTgwNDVkMDMtODc1MC01YTIyLTM5NWUtYzUxNWEyMzhhYmJlIiwidXNlcl9jbGFpbXMiOnsicm9sZSI6ImFkbWluIn19.vX8MKGwMV16NHaUTeFzHphVHUgLnVUepzudWDQOKdMg"
   infrahub_server = "10.0.0.1"
 }
 
@@ -17,14 +17,6 @@ provider "infrahub" {
 
 # output "devices_example" {
 #   value = data.infrahub_devices.example
-# }
-
-# data "infrahub_device" "fra05-pod1-leaf1" {
-#   device_name = "fra05-pod1-leaf1"
-# }
-
-# output "device_name_output" {
-#   value = data.infrahub_device.fra05-pod1-leaf1
 # }
 
 # output "device_id_output" {
@@ -46,10 +38,25 @@ provider "infrahub" {
 #   value = infrahub_device.device_res
 # }
 
+data "infrahub_device" "fra05-pod1-leaf1" {
+  device_name = "fra05-pod1-leaf1"
+}
+
+output "device_name_output" {
+  value = data.infrahub_device.fra05-pod1-leaf1
+}
+
 data "infrahub_interface" "ethernet12" {
   interface_name = "ge-0/0/0"
 }
 
 output "ethernet1_output" {
   value = data.infrahub_interface.ethernet12
+}
+
+data "infrahub_devices" "all_devices" {
+}
+
+output "all_devices_output" {
+  value = data.infrahub_devices.all_devices
 }

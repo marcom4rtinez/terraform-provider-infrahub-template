@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -64,22 +65,33 @@ func ParseGraphQLQuery(query string) (*InputGraphQLQuery, error) {
 	var inBlock bool
 	var prefixList, prefixListImmutable []string
 
-	for _, line := range lines {
+	for number, line := range lines {
 		line = strings.TrimSpace(line)
 
 		if strings.HasPrefix(line, "query ") {
 			parts := strings.Fields(line)
 			if len(parts) > 1 {
-				queryName = parts[1][:strings.IndexByte(parts[1], '(')]
+				containsBracket := strings.IndexByte(parts[1], '(')
+				if containsBracket != -1 {
+					queryName = parts[1][:containsBracket]
+				} else {
+					queryName = parts[1]
+				}
 				queryName = strings.ToLower(string(queryName[0])) + queryName[1:]
 			}
-		} else if strings.Contains(line, ": $") {
+		} else if number == 1 {
+			// } else if strings.Contains(line, ": $") {
 			// This identifies the required field (e.g., name__value: $device_name)
-			parts := strings.Split(line, ":")
-			required = parts[1][strings.Index(parts[1], "$")+1 : strings.Index(parts[1][strings.Index(parts[1], "$"):], " ")+strings.Index(parts[1], "$")]
-			required = strings.TrimRight(required, ")")
-			objectNameParts := strings.Split(parts[0], "(")
-			objectName = objectNameParts[0]
+			if strings.Contains(line, ":") {
+				parts := strings.Split(line, ":")
+				required = parts[1][strings.Index(parts[1], "$")+1 : strings.Index(parts[1][strings.Index(parts[1], "$"):], " ")+strings.Index(parts[1], "$")]
+				required = strings.TrimRight(required, ")")
+				objectNameParts := strings.Split(parts[0], "(")
+				objectName = objectNameParts[0]
+			} else {
+				parts := strings.Split(line, " ")
+				objectName = parts[0]
+			}
 		} else if strings.HasSuffix(line, " {") {
 			inBlock = true
 			prefix := line[:len(line)-2]
@@ -152,8 +164,14 @@ func ParseGraphQLQuery(query string) (*InputGraphQLQuery, error) {
 		for i := range parts {
 			// Capitalize the first letter of each part
 			parts[i] = caser.String(parts[i])
-			if parts[i] == "Edges" {
-				parts[i] = "Edges[0]"
+			if required != "" {
+				if parts[i] == "Edges" {
+					parts[i] = "Edges[0]"
+				}
+			} else {
+				if parts[i] == "Edges" {
+					parts[i] = "Edges[i]"
+				}
 			}
 		}
 
@@ -164,8 +182,8 @@ func ParseGraphQLQuery(query string) (*InputGraphQLQuery, error) {
 		})
 	}
 
-	if queryName == "" || required == "" {
-		return nil, fmt.Errorf("failed to parse GraphQL query: missing query name or required attribute")
+	if queryName == "" {
+		return nil, fmt.Errorf("failed to parse GraphQL query: missing query name")
 	}
 
 	return &InputGraphQLQuery{
@@ -218,11 +236,23 @@ func New{{.QueryName | title }}DataSource() datasource.DataSource {
 
 type {{.StructName}} struct {
 	client     *graphql.Client
+	{{- if .Required }}
 	{{.Required | title }} types.String ` + "`tfsdk:\"{{.Required}}\"`" + `
 	{{- range .Fields }}
 	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .Name }}\"`" + `
 	{{- end }}
+	{{- else }}
+	{{ .QueryName }} []{{ .QueryName}}Model ` + "`tfsdk:\"{{ .QueryName }}\"`" + `
+	{{- end }}
 }
+
+{{- if not .Required }}
+type {{ .QueryName}}Model struct {
+	{{- range .Fields }}
+	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .Name }}\"`" + `
+	{{- end }}
+}
+{{- end }}
 
 func (d *{{.QueryName}}DataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_{{.QueryName}}"
@@ -231,12 +261,27 @@ func (d *{{.QueryName}}DataSource) Metadata(_ context.Context, req datasource.Me
 func (d *{{.QueryName}}DataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
+			{{- if .Required }}
 			"{{.Required}}": schema.StringAttribute{
 				Required: true,
 			},
 			{{- range .Fields }}
 			"{{ .Name }}": schema.StringAttribute{
 				Computed: true,
+			},
+			{{- end }}
+			{{- else}}
+			"{{ .QueryName }}": schema.ListNestedAttribute{
+				Computed: true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						{{- range .Fields }}
+						"{{ .Name }}": schema.StringAttribute{
+							Computed: true,
+						},
+						{{- end }}
+					},
+				},
 			},
 			{{- end }}
 		},
@@ -254,6 +299,7 @@ func (d *{{.QueryName }}DataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
+	{{- if .Required }}
 	response, err := infrahub_sdk.{{.QueryName | title}}(ctx, *d.client, config.{{.Required | title }}.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -265,8 +311,8 @@ func (d *{{.QueryName }}DataSource) Read(ctx context.Context, req datasource.Rea
 
 	if len(response.{{.ObjectName}}.Edges) != 1 {
 		resp.Diagnostics.AddError(
-			"Didn't receive a single device, query didn't return exactly 1 device",
-			"Expected exactly 1 device in response, got a different count.",
+			"Didn't receive a single {{.QueryName}}, query didn't return exactly 1 {{.QueryName}}",
+			"Expected exactly 1 {{.QueryName}} in response, got a different count.",
 		)
 		return
 	}
@@ -277,12 +323,33 @@ func (d *{{.QueryName }}DataSource) Read(ctx context.Context, req datasource.Rea
 		{{ .Name | title }}: types.StringValue(response.{{ .Query }}),
 		{{- end }}
 	}
-
+	{{- else }}
+	response, err := infrahub_sdk.{{.QueryName | title}}(ctx, *d.client)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Unable to read {{.QueryName}} from Infrahub",
+			err.Error(),
+		)
+		return
+	}
+	var state {{.StructName}}
+	for i, _ := range response.{{.ObjectName}}.Edges {
+		current := {{.QueryName}}Model{
+			{{- range .GenqlientFields }}
+			{{ .Name | title }}: types.StringValue(response.{{ .Query }}),
+			{{- end }}
+		}
+		state.{{.QueryName}} = append(state.{{.QueryName}}, current)
+	}
+	{{- end}}
 
 
 	// Set state
 	diags = resp.State.Set(ctx, &state)
 	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
 
 // Configure adds the provider configured client to the data source.
@@ -326,15 +393,7 @@ func (d *{{.QueryName}}DataSource) Configure(_ context.Context, req datasource.C
 	return buf.String(), nil
 }
 
-func main() {
-	// Example GraphQL query input
-	data, err := os.ReadFile("interface.gql")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
-	}
-
-	graphqlQuery := string(data)
+func readAndGenerateProvider(graphqlQuery string) {
 
 	// Parse the query
 	parsedQuery, err := ParseGraphQLQuery(graphqlQuery)
@@ -367,5 +426,29 @@ func main() {
 		return
 	}
 
-	fmt.Println("Content written to file successfully!")
+	fmt.Printf("Content written to %s_data_source.go file successfully!\n", parsedQuery.QueryName)
+}
+
+func main() {
+	dir := "gql"
+
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if !info.IsDir() {
+			data, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+			readAndGenerateProvider(string(data))
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println(err)
+	}
 }
