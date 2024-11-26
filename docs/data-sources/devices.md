@@ -24,4 +24,6 @@ description: |-
 
 Read-Only:
 
-- `name` (String)
+- `edges_node_id` (String)
+- `edges_node_name_value` (String)
+- `edges_node_role_value` (String)
