@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "infrahub" {
-  api_key         = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODAyZGZlMS0zYTU5LTE0NjItMzk1ZC1jNTE4ZjQ3ZDEwNjciLCJpYXQiOjE3MzI1OTMyNDEsIm5iZiI6MTczMjU5MzI0MSwiZXhwIjoxNzMyNTk2ODQxLCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJzZXNzaW9uX2lkIjoiMTgwNDVkMDMtODc1MC01YTIyLTM5NWUtYzUxNWEyMzhhYmJlIiwidXNlcl9jbGFpbXMiOnsicm9sZSI6ImFkbWluIn19.vX8MKGwMV16NHaUTeFzHphVHUgLnVUepzudWDQOKdMg"
-  infrahub_server = "10.0.0.1"
+  api_key         = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODAyZGZlMS0zYTU5LTE0NjItMzk1ZC1jNTE4ZjQ3ZDEwNjciLCJpYXQiOjE3MzI2OTMyMTYsIm5iZiI6MTczMjY5MzIxNiwiZXhwIjoxNzMyNjk2ODE2LCJmcmVzaCI6ZmFsc2UsInR5cGUiOiJhY2Nlc3MiLCJzZXNzaW9uX2lkIjoiMTgwNDVkMDMtODc1MC01YTIyLTM5NWUtYzUxNWEyMzhhYmJlIiwidXNlcl9jbGFpbXMiOnsicm9sZSI6ImFkbWluIn19.UIyfKmJ0eEltmmrL9Xb5813Lf4xzixzQ87w7ET7jYS4"
+  infrahub_server = "localhost"
 }
 
 # data "infrahub_devices" "example" {
@@ -59,4 +59,18 @@ data "infrahub_devices" "all_devices" {
 
 output "all_devices_output" {
   value = data.infrahub_devices.all_devices
+}
+
+data "infrahub_accounts" "all_accounts" {
+}
+
+output "all_accounts_output" {
+  value = data.infrahub_accounts.all_accounts
+}
+
+data "infrahub_bgpsessions" "all_bgp_sessions" {
+}
+
+output "all_bgp_sessions_output" {
+  value = data.infrahub_bgpsessions.all_bgp_sessions
 }

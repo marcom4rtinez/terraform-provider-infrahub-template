@@ -1,3 +1,6 @@
+package main
+
+const providerTemplateContent = `
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
@@ -33,8 +36,8 @@ type InfrahubProvider struct {
 
 // InfrahubProviderModel describes the provider data model.
 type InfrahubProviderModel struct {
-	ApiKey         types.String `tfsdk:"api_key"`
-	InfrahubServer types.String `tfsdk:"infrahub_server"`
+	ApiKey         types.String ` + "`tfsdk:\"api_key\"`" + `
+	InfrahubServer types.String ` + "`tfsdk:\"infrahub_server\"`" + `
 }
 
 func New(version string) func() provider.Provider {
@@ -150,13 +153,15 @@ func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Reso
 }
 
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{
-		NewAccountsDataSource,
-		NewBgpsessionsDataSource,
-		NewDeviceDataSource,
-		NewDevicesDataSource,
-		NewInterfaceDataSource,
-	}
+    {{- if .DataSources }}
+    return []func() datasource.DataSource{
+        {{- range .DataSources }}
+        New{{ . | title }}DataSource,
+        {{- end }}
+    }
+    {{- else }}
+    return nil
+    {{- end }}
 }
 
 func (p *InfrahubProvider) Functions(ctx context.Context) []func() function.Function {
@@ -173,3 +178,4 @@ func (a *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	req.Header.Add("Authorization", "Bearer "+a.Token)
 	return a.Transport.RoundTrip(req)
 }
+`

@@ -1,5 +1,13 @@
 default: fmt lint install generate
 
+all: automatic_generator generate_sdk fmt lint install generate
+
+automatic_generator:
+	cd generator; go run *.go
+
+generate_sdk:
+	cd sdk; go run github.com/Khan/genqlient
+
 build:
 	go build -v ./...
 

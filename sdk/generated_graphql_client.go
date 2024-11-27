@@ -8,6 +8,219 @@ import (
 	"github.com/Khan/genqlient/graphql"
 )
 
+// AccountsCoreAccountPaginatedCoreAccount includes the requested fields of the GraphQL type PaginatedCoreAccount.
+// The GraphQL type's documentation follows.
+//
+// User Account for Infrahub
+type AccountsCoreAccountPaginatedCoreAccount struct {
+	Edges []AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount `json:"edges"`
+}
+
+// GetEdges returns AccountsCoreAccountPaginatedCoreAccount.Edges, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccount) GetEdges() []AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount {
+	return v.Edges
+}
+
+// AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount includes the requested fields of the GraphQL type EdgedCoreAccount.
+// The GraphQL type's documentation follows.
+//
+// User Account for Infrahub
+type AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount struct {
+	Node AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount `json:"node"`
+}
+
+// GetNode returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount.Node, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccount) GetNode() AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount {
+	return v.Node
+}
+
+// AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount includes the requested fields of the GraphQL type CoreAccount.
+// The GraphQL type's documentation follows.
+//
+// User Account for Infrahub
+type AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount struct {
+	// Unique identifier
+	Id            string                                                                                    `json:"id"`
+	Status        AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown `json:"status"`
+	Display_label string                                                                                    `json:"display_label"`
+}
+
+// GetId returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount.Id, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount) GetId() string {
+	return v.Id
+}
+
+// GetStatus returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount.Status, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount) GetStatus() AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown {
+	return v.Status
+}
+
+// GetDisplay_label returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount.Display_label, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccount) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown includes the requested fields of the GraphQL type Dropdown.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Dropdown
+type AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown struct {
+	Id          string `json:"id"`
+	Description string `json:"description"`
+	Color       string `json:"color"`
+	Value       string `json:"value"`
+}
+
+// GetId returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown.Id, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown) GetId() string {
+	return v.Id
+}
+
+// GetDescription returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown.Description, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown) GetDescription() string {
+	return v.Description
+}
+
+// GetColor returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown.Color, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown) GetColor() string {
+	return v.Color
+}
+
+// GetValue returns AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown.Value, and is useful for accessing the field via an interface.
+func (v *AccountsCoreAccountPaginatedCoreAccountEdgesEdgedCoreAccountNodeCoreAccountStatusDropdown) GetValue() string {
+	return v.Value
+}
+
+// AccountsResponse is returned by Accounts on success.
+type AccountsResponse struct {
+	CoreAccount AccountsCoreAccountPaginatedCoreAccount `json:"CoreAccount"`
+}
+
+// GetCoreAccount returns AccountsResponse.CoreAccount, and is useful for accessing the field via an interface.
+func (v *AccountsResponse) GetCoreAccount() AccountsCoreAccountPaginatedCoreAccount {
+	return v.CoreAccount
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSession includes the requested fields of the GraphQL type PaginatedInfraBGPSession.
+// The GraphQL type's documentation follows.
+//
+// A BGP Session represent a point to point connection between two routers
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSession struct {
+	Edges []BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession `json:"edges"`
+}
+
+// GetEdges returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSession.Edges, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSession) GetEdges() []BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession {
+	return v.Edges
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession includes the requested fields of the GraphQL type EdgedInfraBGPSession.
+// The GraphQL type's documentation follows.
+//
+// A BGP Session represent a point to point connection between two routers
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession struct {
+	Node BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession `json:"node"`
+}
+
+// GetNode returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession.Node, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSession) GetNode() BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession {
+	return v.Node
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession includes the requested fields of the GraphQL type InfraBGPSession.
+// The GraphQL type's documentation follows.
+//
+// A BGP Session represent a point to point connection between two routers
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession struct {
+	// Unique identifier
+	Id            string                                                                                                                           `json:"id"`
+	Display_label string                                                                                                                           `json:"display_label"`
+	Description   BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute           `json:"description"`
+	Remote_ip     BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress `json:"remote_ip"`
+}
+
+// GetId returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession.Id, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession) GetId() string {
+	return v.Id
+}
+
+// GetDisplay_label returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession.Display_label, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// GetDescription returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession.Description, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession) GetDescription() BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute {
+	return v.Description
+}
+
+// GetRemote_ip returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession.Remote_ip, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSession) GetRemote_ip() BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress {
+	return v.Remote_ip
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionDescriptionTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress includes the requested fields of the GraphQL type NestedEdgedInfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress struct {
+	Node BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress `json:"node"`
+}
+
+// GetNode returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress.Node, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddress) GetNode() BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress {
+	return v.Node
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress includes the requested fields of the GraphQL type InfraIPAddress.
+// The GraphQL type's documentation follows.
+//
+// IP Address
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress struct {
+	Address BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost `json:"address"`
+}
+
+// GetAddress returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress.Address, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddress) GetAddress() BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost {
+	return v.Address
+}
+
+// BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost includes the requested fields of the GraphQL type IPHost.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type IPHost
+type BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost.Value, and is useful for accessing the field via an interface.
+func (v *BgpsessionsInfraBGPSessionPaginatedInfraBGPSessionEdgesEdgedInfraBGPSessionNodeInfraBGPSessionRemote_ipNestedEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost) GetValue() string {
+	return v.Value
+}
+
+// BgpsessionsResponse is returned by Bgpsessions on success.
+type BgpsessionsResponse struct {
+	InfraBGPSession BgpsessionsInfraBGPSessionPaginatedInfraBGPSession `json:"InfraBGPSession"`
+}
+
+// GetInfraBGPSession returns BgpsessionsResponse.InfraBGPSession, and is useful for accessing the field via an interface.
+func (v *BgpsessionsResponse) GetInfraBGPSession() BgpsessionsInfraBGPSessionPaginatedInfraBGPSession {
+	return v.InfraBGPSession
+}
+
 // DeviceInfraDevicePaginatedInfraDevice includes the requested fields of the GraphQL type PaginatedInfraDevice.
 type DeviceInfraDevicePaginatedInfraDevice struct {
 	Edges []DeviceInfraDevicePaginatedInfraDeviceEdgesEdgedInfraDevice `json:"edges"`
@@ -518,6 +731,94 @@ type __InterfaceInput struct {
 
 // GetInterface_name returns __InterfaceInput.Interface_name, and is useful for accessing the field via an interface.
 func (v *__InterfaceInput) GetInterface_name() string { return v.Interface_name }
+
+// The query or mutation executed by Accounts.
+const Accounts_Operation = `
+query Accounts {
+	CoreAccount {
+		edges {
+			node {
+				id
+				status {
+					id
+					description
+					color
+					value
+				}
+				display_label
+			}
+		}
+	}
+}
+`
+
+func Accounts(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (*AccountsResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Accounts",
+		Query:  Accounts_Operation,
+	}
+	var err_ error
+
+	var data_ AccountsResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by Bgpsessions.
+const Bgpsessions_Operation = `
+query Bgpsessions {
+	InfraBGPSession {
+		edges {
+			node {
+				id
+				display_label
+				description {
+					value
+				}
+				remote_ip {
+					node {
+						address {
+							value
+						}
+					}
+				}
+			}
+		}
+	}
+}
+`
+
+func Bgpsessions(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (*BgpsessionsResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Bgpsessions",
+		Query:  Bgpsessions_Operation,
+	}
+	var err_ error
+
+	var data_ BgpsessionsResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
 
 // The query or mutation executed by Device.
 const Device_Operation = `

@@ -1,0 +1,16 @@
+query Accounts {
+  CoreAccount {
+    edges {
+      node {
+        id
+        status {
+          id
+          description
+          color
+          value
+        }
+        display_label
+      }
+    }
+  }
+}

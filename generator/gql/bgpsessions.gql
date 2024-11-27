@@ -1,0 +1,20 @@
+query Bgpsessions {
+  InfraBGPSession {
+    edges {
+      node {
+        id
+        display_label
+        description {
+          value
+        }
+        remote_ip {
+          node {
+            address {
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}
