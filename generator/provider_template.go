@@ -131,7 +131,6 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
-	//TODO: FIXME: Don't hijack JWT Token from browser
 	httpClient := &http.Client{
 		Transport: &AuthTransport{
 			Token:     infrahubApi,
@@ -175,7 +174,7 @@ type AuthTransport struct {
 
 // RoundTrip adds the authorization header and delegates the request to the original transport.
 func (a *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Add("Authorization", "Bearer "+a.Token)
+	req.Header.Add("X-INFRAHUB-KEY", a.Token)
 	return a.Transport.RoundTrip(req)
 }
 `
