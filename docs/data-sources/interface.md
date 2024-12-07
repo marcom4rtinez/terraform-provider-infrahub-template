@@ -21,7 +21,6 @@ description: |-
 
 ### Read-Only
 
-- `edges_node_address_hostmask` (String)
 - `edges_node_address_ip` (String)
 - `edges_node_address_value` (String)
 - `edges_node_description_value` (String)

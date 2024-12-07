@@ -35,6 +35,7 @@ type devicesModel struct {
 	Edges_node_id         types.String `tfsdk:"edges_node_id"`
 	Edges_node_name_value types.String `tfsdk:"edges_node_name_value"`
 	Edges_node_role_value types.String `tfsdk:"edges_node_role_value"`
+	Edges_node_role_color types.String `tfsdk:"edges_node_role_color"`
 }
 
 func (d *devicesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -55,6 +56,9 @@ func (d *devicesDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 							Computed: true,
 						},
 						"edges_node_role_value": schema.StringAttribute{
+							Computed: true,
+						},
+						"edges_node_role_color": schema.StringAttribute{
 							Computed: true,
 						},
 					},
@@ -88,6 +92,7 @@ func (d *devicesDataSource) Read(ctx context.Context, req datasource.ReadRequest
 			Edges_node_id:         types.StringValue(response.InfraDevice.Edges[i].Node.Id),
 			Edges_node_name_value: types.StringValue(response.InfraDevice.Edges[i].Node.Name.Value),
 			Edges_node_role_value: types.StringValue(response.InfraDevice.Edges[i].Node.Role.Value),
+			Edges_node_role_color: types.StringValue(response.InfraDevice.Edges[i].Node.Role.Color),
 		}
 		state.Devices = append(state.Devices, current)
 	}

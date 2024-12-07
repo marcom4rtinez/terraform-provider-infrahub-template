@@ -1,10 +1,9 @@
-package main
-
-const providerTemplateContent = `
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0
 
-package provider
+package main
+
+const providerTemplateContent = `package provider
 
 import (
 	"context"
@@ -145,10 +144,15 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 }
 
 func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Resource {
-	// return []func() resource.Resource{
-	// 	NewDeviceResource,
-	// }
-	return nil
+    {{- if .Resources }}
+    return []func() resource.Resource{
+        {{- range .Resources }}
+        New{{ . | title }}Resource,
+        {{- end }}
+    }
+    {{- else }}
+    return nil
+    {{- end }}
 }
 
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
@@ -176,5 +180,13 @@ type AuthTransport struct {
 func (a *AuthTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	req.Header.Add("X-INFRAHUB-KEY", a.Token)
 	return a.Transport.RoundTrip(req)
+}
+
+// Helper function to set a string value with a default if empty.
+func setDefault(value, defaultValue string) string {
+	if value == "" {
+		return defaultValue
+	}
+	return value
 }
 `

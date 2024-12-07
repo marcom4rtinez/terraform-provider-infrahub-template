@@ -3,8 +3,7 @@
 
 package main
 
-const datasourceTemplateContent = `
-package provider
+const datasourceTemplateContent = `package provider
 
 import (
 	"context"

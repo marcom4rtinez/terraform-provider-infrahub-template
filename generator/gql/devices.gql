@@ -8,6 +8,7 @@ query Devices {
         }
         role {
           value
+          color
         }
       }
     }

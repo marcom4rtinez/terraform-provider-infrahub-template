@@ -34,7 +34,6 @@ type interfaceDataSource struct {
 	Edges_node_display_label     types.String `tfsdk:"edges_node_display_label"`
 	Edges_node_description_value types.String `tfsdk:"edges_node_description_value"`
 	Edges_node_address_ip        types.String `tfsdk:"edges_node_address_ip"`
-	Edges_node_address_hostmask  types.String `tfsdk:"edges_node_address_hostmask"`
 	Edges_node_address_value     types.String `tfsdk:"edges_node_address_value"`
 }
 
@@ -58,9 +57,6 @@ func (d *interfaceDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Computed: true,
 			},
 			"edges_node_address_ip": schema.StringAttribute{
-				Computed: true,
-			},
-			"edges_node_address_hostmask": schema.StringAttribute{
 				Computed: true,
 			},
 			"edges_node_address_value": schema.StringAttribute{
@@ -103,7 +99,6 @@ func (d *interfaceDataSource) Read(ctx context.Context, req datasource.ReadReque
 		Edges_node_display_label:     types.StringValue(response.InfraIPAddress.Edges[0].Node.Display_label),
 		Edges_node_description_value: types.StringValue(response.InfraIPAddress.Edges[0].Node.Description.Value),
 		Edges_node_address_ip:        types.StringValue(response.InfraIPAddress.Edges[0].Node.Address.Ip),
-		Edges_node_address_hostmask:  types.StringValue(response.InfraIPAddress.Edges[0].Node.Address.Hostmask),
 		Edges_node_address_value:     types.StringValue(response.InfraIPAddress.Edges[0].Node.Address.Value),
 	}
 
