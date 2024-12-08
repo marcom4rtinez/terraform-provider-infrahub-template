@@ -143,7 +143,7 @@ func readAndGenerateDataSourcesAndResources(graphqlQuery string) (string, string
 		}
 
 		fmt.Printf("Content written to %s_resource.go file successfully!\n", parsedQuery.QueryName)
-		return "", "", nil
+		return "", parsedQuery.QueryName, nil
 	}
 
 	return "", "", fmt.Errorf("No Resource or DataSource")
