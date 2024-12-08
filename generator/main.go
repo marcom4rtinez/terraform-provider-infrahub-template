@@ -127,23 +127,19 @@ func readAndGenerateDataSourcesAndResources(graphqlQuery string) (string, string
 		fmt.Printf("Content written to %s_data_source.go file successfully!\n", parsedQuery.QueryName)
 		return parsedQuery.QueryName, "", nil
 	} else if parsedQuery.ResourceType == Resource {
-		fmt.Println(parsedQuery)
 		code, err := GenerateTerraformResource(parsedQuery)
 		if err != nil {
-			fmt.Println("Error generating Terraform resource:", err)
-			os.Exit(1)
+			return "", "", fmt.Errorf("Error generating Terraform resource: %s", err)
 		}
 		file, err := os.Create(fmt.Sprintf("../internal/provider/%s_resource.go", parsedQuery.QueryName))
 		if err != nil {
-			fmt.Println("Error creating the file:", err)
-			return "", "", err
+			return "", "", fmt.Errorf("Error creating the file: %s", err)
 		}
 		defer file.Close()
 
 		_, err = file.WriteString(code)
 		if err != nil {
-			fmt.Println("Error writing to the file:", err)
-			return "", "", err
+			return "", "", fmt.Errorf("Error writing to the file: %s", err)
 		}
 
 		fmt.Printf("Content written to %s_resource.go file successfully!\n", parsedQuery.QueryName)

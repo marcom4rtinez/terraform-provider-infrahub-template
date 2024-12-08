@@ -71,7 +71,7 @@ func (r *{{.QueryName}}Resource) Create(ctx context.Context, req resource.Create
 		return
 	}
 
-	var default{{ .QueryName | title }} infrahub_sdk.{{ .QueryName | title }}CreateInput
+	var default{{ .QueryName | title }} infrahub_sdk.{{ .ObjectName }}CreateInput
 
 	// Assign each field, using the helper function to handle defaults
 	{{- $defaultCreate :=  .QueryName | title  }}
@@ -81,7 +81,7 @@ func (r *{{.QueryName}}Resource) Create(ctx context.Context, req resource.Create
 
 	tflog.Info(ctx, fmt.Sprint("Creating {{ .QueryName | title }} ", plan.{{.Required | title }}))
 
-	response, err := infrahub_sdk.{{ .ObjectName }}Create(ctx, *r.client, default{{ .QueryName | title }})
+	response, err := infrahub_sdk.{{ .QueryName | title }}Create(ctx, *r.client, default{{ .QueryName | title }})
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to create {{ .QueryName }} in Infrahub",
@@ -190,7 +190,7 @@ func (r *{{.QueryName}}Resource) Update(ctx context.Context, req resource.Update
 
 	{{- $defaultUpsertObject :=  .ObjectName }}
 	{{- range .GenqlientFields }}
-	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultUpsertObject }}Upsert.Object.{{ .InputObjectNames }})
+	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultUpsertObject }}Upsert.Object.{{ .QueryNoPrefixReplaceId }})
 	{{- end }}
 
 	// Set the updated state with the latest data

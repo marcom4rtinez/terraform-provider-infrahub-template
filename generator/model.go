@@ -26,9 +26,10 @@ type Field struct {
 }
 
 type GenqlientField struct {
-	Name             string
-	Query            string
-	InputObjectNames string
+	Name                   string
+	Query                  string
+	QueryNoPrefixReplaceId string
+	InputObjectNames       string
 }
 
 type DataSourceTemplateData struct {

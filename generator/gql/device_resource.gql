@@ -134,6 +134,26 @@ query Device($device_name: String!) {
         }
         role {
           value
+          id
+        }
+        asn {
+          node {
+            id
+          }
+        }
+        description {
+          id
+          value
+        }
+        device_type {
+          node {
+            id
+          }
+        }
+        location {
+          node {
+            id
+          }
         }
         platform {
           node {
@@ -147,21 +167,13 @@ query Device($device_name: String!) {
         }
         status {
           id
+          value
         }
         topology {
           node {
             id
-          }
-        }
-        device_type {
-          node {
-            id
-          }
-        }
-        asn {
-          node {
-            asn {
-              id
+            name {
+              value
             }
           }
         }

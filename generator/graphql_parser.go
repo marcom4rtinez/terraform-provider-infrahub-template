@@ -68,7 +68,6 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 	index := 0
 	for number, line := range lines {
 		line = strings.TrimSpace(line)
-		fmt.Println(line)
 		if strings.HasPrefix(line, "query ") {
 			parts := strings.Fields(line)
 			if len(parts) > 1 {
@@ -167,11 +166,12 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 
 		// Capitalize each part except for the first one
 		caser := cases.Title(language.English)
-		var filtered []string
+		var filtered, noPrefix []string
 		for i := range parts {
 			// Capitalize the first letter of each part
 			parts[i] = caser.String(parts[i])
 			if parts[i] != "Edges" && parts[i] != "Node" {
+				noPrefix = append(noPrefix, parts[i])
 				filtered = append(filtered, parts[i])
 			}
 			if required != "" {
@@ -183,13 +183,18 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 					parts[i] = "Edges[i]"
 				}
 			}
-
+		}
+		for _, x := range [][]string{parts, noPrefix} {
+			if len(x) > 0 && x[len(x)-1] == "Id" {
+				x[len(x)-1] = "GetId()"
+			}
 		}
 
 		genqlientFields = append(genqlientFields, GenqlientField{
-			Name:             entry.Name,
-			Query:            objectName + "." + strings.Join(parts, "."),
-			InputObjectNames: strings.Join(filtered, "."),
+			Name:                   entry.Name,
+			Query:                  objectName + "." + strings.Join(parts, "."),
+			QueryNoPrefixReplaceId: strings.Join(noPrefix, "."),
+			InputObjectNames:       strings.Join(filtered, "."),
 		})
 	}
 

@@ -139,7 +139,7 @@ func (r *deviceResource) Create(ctx context.Context, req resource.CreateRequest,
 
 	// Assign each field, using the helper function to handle defaults
 	defaultDevice.Id = plan.Edges_node_id.ValueString()
-	defaultDevice.Name.Value = plan.Edges_node_name_value.ValueString()
+	defaultDevice.Name.Value = plan.Device_name.ValueString()
 	defaultDevice.Role.Value = plan.Edges_node_role_value.ValueString()
 	defaultDevice.Asn.Id = plan.Edges_node_asn_node_id.ValueString()
 	defaultDevice.Description.Value = plan.Edges_node_description_value.ValueString()
@@ -164,16 +164,16 @@ func (r *deviceResource) Create(ctx context.Context, req resource.CreateRequest,
 	plan.Edges_node_name_value = types.StringValue(response.InfraDeviceCreate.Object.Name.Value)
 	plan.Edges_node_role_value = types.StringValue(response.InfraDeviceCreate.Object.Role.Value)
 	plan.Edges_node_role_id = types.StringValue(response.InfraDeviceCreate.Object.Role.Id)
-	plan.Edges_node_asn_node_id = types.StringValue(response.InfraDeviceCreate.Object.Asn.Node.GetId())
+	plan.Edges_node_asn_node_id = types.StringValue(response.InfraDeviceCreate.Object.Asn.Node.Id)
 	plan.Edges_node_description_id = types.StringValue(response.InfraDeviceCreate.Object.Description.Id)
 	plan.Edges_node_description_value = types.StringValue(response.InfraDeviceCreate.Object.Description.Value)
-	plan.Edges_node_device_type_node_id = types.StringValue(response.InfraDeviceCreate.Object.Device_type.Node.GetId())
+	plan.Edges_node_device_type_node_id = types.StringValue(response.InfraDeviceCreate.Object.Device_type.Node.Id)
 	plan.Edges_node_location_node_id = types.StringValue(response.InfraDeviceCreate.Object.Location.Node.GetId())
 	plan.Edges_node_platform_node_id = types.StringValue(response.InfraDeviceCreate.Object.Platform.Node.Id)
-	plan.Edges_node_primary_address_node_id = types.StringValue(response.InfraDeviceCreate.Object.Primary_address.Node.GetId())
+	plan.Edges_node_primary_address_node_id = types.StringValue(response.InfraDeviceCreate.Object.Primary_address.Node.Id)
 	plan.Edges_node_status_id = types.StringValue(response.InfraDeviceCreate.Object.Status.Id)
 	plan.Edges_node_status_value = types.StringValue(response.InfraDeviceCreate.Object.Status.Value)
-	plan.Edges_node_topology_node_id = types.StringValue(response.InfraDeviceCreate.Object.Topology.Node.GetId())
+	plan.Edges_node_topology_node_id = types.StringValue(response.InfraDeviceCreate.Object.Topology.Node.Id)
 	plan.Edges_node_topology_node_name_value = types.StringValue(response.InfraDeviceCreate.Object.Topology.Node.Name.Value)
 
 	// Set state to fully populated data
@@ -208,6 +208,7 @@ func (r *deviceResource) Read(ctx context.Context, req resource.ReadRequest, res
 		)
 		return
 	}
+	tflog.Info(ctx, fmt.Sprintln(response))
 
 	if len(response.InfraDevice.Edges) != 1 {
 		resp.Diagnostics.AddError(
@@ -216,20 +217,20 @@ func (r *deviceResource) Read(ctx context.Context, req resource.ReadRequest, res
 		)
 		return
 	}
-	state.Edges_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.GetId())
+	state.Edges_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Id)
 	state.Edges_node_name_value = types.StringValue(response.InfraDevice.Edges[0].Node.Name.Value)
 	state.Edges_node_role_value = types.StringValue(response.InfraDevice.Edges[0].Node.Role.Value)
-	state.Edges_node_role_id = types.StringValue(response.InfraDevice.Edges[0].Node.Role.GetId())
-	state.Edges_node_asn_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Asn.Node.GetId())
-	state.Edges_node_description_id = types.StringValue(response.InfraDevice.Edges[0].Node.Description.GetId())
+	state.Edges_node_role_id = types.StringValue(response.InfraDevice.Edges[0].Node.Role.Id)
+	state.Edges_node_asn_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Asn.Node.Id)
+	state.Edges_node_description_id = types.StringValue(response.InfraDevice.Edges[0].Node.Description.Id)
 	state.Edges_node_description_value = types.StringValue(response.InfraDevice.Edges[0].Node.Description.Value)
-	state.Edges_node_device_type_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Device_type.Node.GetId())
+	state.Edges_node_device_type_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Device_type.Node.Id)
 	state.Edges_node_location_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Location.Node.GetId())
-	state.Edges_node_platform_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Platform.Node.GetId())
-	state.Edges_node_primary_address_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Primary_address.Node.GetId())
-	state.Edges_node_status_id = types.StringValue(response.InfraDevice.Edges[0].Node.Status.GetId())
+	state.Edges_node_platform_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Platform.Node.Id)
+	state.Edges_node_primary_address_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Primary_address.Node.Id)
+	state.Edges_node_status_id = types.StringValue(response.InfraDevice.Edges[0].Node.Status.Id)
 	state.Edges_node_status_value = types.StringValue(response.InfraDevice.Edges[0].Node.Status.Value)
-	state.Edges_node_topology_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Topology.Node.GetId())
+	state.Edges_node_topology_node_id = types.StringValue(response.InfraDevice.Edges[0].Node.Topology.Node.Id)
 	state.Edges_node_topology_node_name_value = types.StringValue(response.InfraDevice.Edges[0].Node.Topology.Node.Name.Value)
 
 	diags = resp.State.Set(ctx, &state)
@@ -284,20 +285,20 @@ func (r *deviceResource) Update(ctx context.Context, req resource.UpdateRequest,
 		)
 		return
 	}
-	plan.Edges_node_id = types.StringValue(response.InfraDeviceUpsert.Object.GetId())
+	plan.Edges_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Id)
 	plan.Edges_node_name_value = types.StringValue(response.InfraDeviceUpsert.Object.Name.Value)
 	plan.Edges_node_role_value = types.StringValue(response.InfraDeviceUpsert.Object.Role.Value)
-	plan.Edges_node_role_id = types.StringValue(response.InfraDeviceUpsert.Object.Role.GetId())
-	plan.Edges_node_asn_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Asn.Node.GetId())
-	plan.Edges_node_description_id = types.StringValue(response.InfraDeviceUpsert.Object.Description.GetId())
+	plan.Edges_node_role_id = types.StringValue(response.InfraDeviceUpsert.Object.Role.Id)
+	plan.Edges_node_asn_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Asn.Node.Id)
+	plan.Edges_node_description_id = types.StringValue(response.InfraDeviceUpsert.Object.Description.Id)
 	plan.Edges_node_description_value = types.StringValue(response.InfraDeviceUpsert.Object.Description.Value)
-	plan.Edges_node_device_type_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Device_type.Node.GetId())
+	plan.Edges_node_device_type_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Device_type.Node.Id)
 	plan.Edges_node_location_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Location.Node.GetId())
-	plan.Edges_node_platform_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Platform.Node.GetId())
-	plan.Edges_node_primary_address_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Primary_address.Node.GetId())
-	plan.Edges_node_status_id = types.StringValue(response.InfraDeviceUpsert.Object.Status.GetId())
+	plan.Edges_node_platform_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Platform.Node.Id)
+	plan.Edges_node_primary_address_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Primary_address.Node.Id)
+	plan.Edges_node_status_id = types.StringValue(response.InfraDeviceUpsert.Object.Status.Id)
 	plan.Edges_node_status_value = types.StringValue(response.InfraDeviceUpsert.Object.Status.Value)
-	plan.Edges_node_topology_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Topology.Node.GetId())
+	plan.Edges_node_topology_node_id = types.StringValue(response.InfraDeviceUpsert.Object.Topology.Node.Id)
 	plan.Edges_node_topology_node_name_value = types.StringValue(response.InfraDeviceUpsert.Object.Topology.Node.Name.Value)
 
 	// Set the updated state with the latest data
