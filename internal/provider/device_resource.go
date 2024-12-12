@@ -29,9 +29,8 @@ func NewDeviceResource() resource.Resource {
 // deviceResource is the resource implementation.
 type deviceResource struct {
 	client                              *graphql.Client
-	Device_name                         types.String `tfsdk:"device_name"`
-	Edges_node_id                       types.String `tfsdk:"edges_node_id"`
 	Edges_node_name_value               types.String `tfsdk:"edges_node_name_value"`
+	Edges_node_id                       types.String `tfsdk:"edges_node_id"`
 	Edges_node_role_value               types.String `tfsdk:"edges_node_role_value"`
 	Edges_node_role_id                  types.String `tfsdk:"edges_node_role_id"`
 	Edges_node_asn_node_id              types.String `tfsdk:"edges_node_asn_node_id"`
@@ -56,30 +55,29 @@ func (r *deviceResource) Metadata(_ context.Context, req resource.MetadataReques
 func (r *deviceResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"device_name": schema.StringAttribute{
+			"edges_node_name_value": schema.StringAttribute{
 				Required: true,
 			},
 			"edges_node_id": schema.StringAttribute{
 				Computed: true,
-				Optional: true,
 			},
-			"edges_node_name_value": schema.StringAttribute{
+			"edges_node_role_id": schema.StringAttribute{
 				Computed: true,
-				Optional: true,
+			},
+			"edges_node_description_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_status_id": schema.StringAttribute{
+				Computed: true,
+			},
+			"edges_node_topology_node_name_value": schema.StringAttribute{
+				Computed: true,
 			},
 			"edges_node_role_value": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
 			},
-			"edges_node_role_id": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-			},
 			"edges_node_asn_node_id": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-			},
-			"edges_node_description_id": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
 			},
@@ -103,19 +101,11 @@ func (r *deviceResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 				Computed: true,
 				Optional: true,
 			},
-			"edges_node_status_id": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-			},
 			"edges_node_status_value": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
 			},
 			"edges_node_topology_node_id": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-			},
-			"edges_node_topology_node_name_value": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
 			},
@@ -138,7 +128,6 @@ func (r *deviceResource) Create(ctx context.Context, req resource.CreateRequest,
 	var defaultDevice infrahub_sdk.InfraDeviceCreateInput
 
 	// Assign each field, using the helper function to handle defaults
-	defaultDevice.Id = plan.Edges_node_id.ValueString()
 	defaultDevice.Name.Value = plan.Edges_node_name_value.ValueString()
 	defaultDevice.Role.Value = plan.Edges_node_role_value.ValueString()
 	defaultDevice.Asn.Id = plan.Edges_node_asn_node_id.ValueString()
@@ -150,7 +139,7 @@ func (r *deviceResource) Create(ctx context.Context, req resource.CreateRequest,
 	defaultDevice.Status.Value = plan.Edges_node_status_value.ValueString()
 	defaultDevice.Topology.Id = plan.Edges_node_topology_node_id.ValueString()
 
-	tflog.Info(ctx, fmt.Sprint("Creating Device ", plan.Device_name))
+	tflog.Info(ctx, fmt.Sprint("Creating Device ", plan.Edges_node_name_value))
 
 	response, err := infrahub_sdk.DeviceCreate(ctx, *r.client, defaultDevice)
 	if err != nil {
@@ -160,18 +149,18 @@ func (r *deviceResource) Create(ctx context.Context, req resource.CreateRequest,
 		)
 		return
 	}
-	plan.Edges_node_id = types.StringValue(response.InfraDeviceCreate.Object.Id)
+	plan.Edges_node_id = types.StringValue(response.InfraDeviceCreate.Object.GetId())
 	plan.Edges_node_name_value = types.StringValue(response.InfraDeviceCreate.Object.Name.Value)
 	plan.Edges_node_role_value = types.StringValue(response.InfraDeviceCreate.Object.Role.Value)
-	plan.Edges_node_role_id = types.StringValue(response.InfraDeviceCreate.Object.Role.Id)
+	plan.Edges_node_role_id = types.StringValue(response.InfraDeviceCreate.Object.Role.GetId())
 	plan.Edges_node_asn_node_id = types.StringValue(response.InfraDeviceCreate.Object.Asn.Node.GetId())
-	plan.Edges_node_description_id = types.StringValue(response.InfraDeviceCreate.Object.Description.Id)
+	plan.Edges_node_description_id = types.StringValue(response.InfraDeviceCreate.Object.Description.GetId())
 	plan.Edges_node_description_value = types.StringValue(response.InfraDeviceCreate.Object.Description.Value)
 	plan.Edges_node_device_type_node_id = types.StringValue(response.InfraDeviceCreate.Object.Device_type.Node.GetId())
 	plan.Edges_node_location_node_id = types.StringValue(response.InfraDeviceCreate.Object.Location.Node.GetId())
-	plan.Edges_node_platform_node_id = types.StringValue(response.InfraDeviceCreate.Object.Platform.Node.Id)
+	plan.Edges_node_platform_node_id = types.StringValue(response.InfraDeviceCreate.Object.Platform.Node.GetId())
 	plan.Edges_node_primary_address_node_id = types.StringValue(response.InfraDeviceCreate.Object.Primary_address.Node.GetId())
-	plan.Edges_node_status_id = types.StringValue(response.InfraDeviceCreate.Object.Status.Id)
+	plan.Edges_node_status_id = types.StringValue(response.InfraDeviceCreate.Object.Status.GetId())
 	plan.Edges_node_status_value = types.StringValue(response.InfraDeviceCreate.Object.Status.Value)
 	plan.Edges_node_topology_node_id = types.StringValue(response.InfraDeviceCreate.Object.Topology.Node.GetId())
 	plan.Edges_node_topology_node_name_value = types.StringValue(response.InfraDeviceCreate.Object.Topology.Node.Name.Value)
@@ -197,10 +186,10 @@ func (r *deviceResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	tflog.Info(ctx, fmt.Sprint("Reading Device ", state.Device_name))
+	tflog.Info(ctx, fmt.Sprint("Reading Device ", state.Edges_node_name_value))
 
 	// Call the API with the specified device_name from the configuration
-	response, err := infrahub_sdk.Device(ctx, *r.client, state.Device_name.ValueString())
+	response, err := infrahub_sdk.Device(ctx, *r.client, state.Edges_node_name_value.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to read device from Infrahub",
@@ -260,7 +249,6 @@ func (r *deviceResource) Update(ctx context.Context, req resource.UpdateRequest,
 	var updateInput infrahub_sdk.InfraDeviceUpsertInput
 
 	// Prepare the update input using values from the plan and applying defaults
-	updateInput.Id = setDefault(plan.Edges_node_id.ValueString(), state.Edges_node_id.ValueString())
 	updateInput.Name.Value = setDefault(plan.Edges_node_name_value.ValueString(), state.Edges_node_name_value.ValueString())
 	updateInput.Role.Value = setDefault(plan.Edges_node_role_value.ValueString(), state.Edges_node_role_value.ValueString())
 	updateInput.Asn.Id = setDefault(plan.Edges_node_asn_node_id.ValueString(), state.Edges_node_asn_node_id.ValueString())
@@ -273,7 +261,7 @@ func (r *deviceResource) Update(ctx context.Context, req resource.UpdateRequest,
 	updateInput.Topology.Id = setDefault(plan.Edges_node_topology_node_id.ValueString(), state.Edges_node_topology_node_id.ValueString())
 
 	// Log the update operation
-	tflog.Info(ctx, fmt.Sprintf("Updating Device %s", state.Device_name.ValueString()))
+	tflog.Info(ctx, fmt.Sprintf("Updating Device %s", state.Edges_node_name_value.ValueString()))
 
 	// Send the update request to the API
 	response, err := infrahub_sdk.DeviceUpsert(ctx, *r.client, updateInput)
@@ -317,8 +305,6 @@ func (r *deviceResource) Delete(ctx context.Context, req resource.DeleteRequest,
 	if resp.Diagnostics.HasError() {
 		return
 	}
-
-	//TODO: FIXME: get id in here
 	_, err := infrahub_sdk.DeviceDelete(ctx, *r.client, state.Edges_node_id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(

@@ -124,8 +124,8 @@ mutation DeviceDelete($id: String!) {
   }
 }
 
-query Device($device_name: String!) {
-  InfraDevice(name__value: $device_name) {
+query Device($edges_node_name_value: String!) {
+  InfraDevice(name__value: $edges_node_name_value) {
     edges {
       node {
         id

@@ -45,13 +45,15 @@ func GenerateTerraformDataSource(parsedQuery *InputGraphQLQuery) (string, error)
 
 func GenerateTerraformResource(parsedQuery *InputGraphQLQuery) (string, error) {
 	structName := parsedQuery.QueryName + "Resource"
-	data := DataSourceTemplateData{
-		QueryName:       parsedQuery.QueryName,
-		ObjectName:      parsedQuery.ObjectName,
-		Required:        parsedQuery.Required,
-		StructName:      structName,
-		Fields:          parsedQuery.Fields,
-		GenqlientFields: parsedQuery.GenqlientFields,
+	data := ResourceTemplateData{
+		QueryName:               parsedQuery.QueryName,
+		ObjectName:              parsedQuery.ObjectName,
+		Required:                parsedQuery.Required,
+		StructName:              structName,
+		Fields:                  parsedQuery.Fields,
+		GenqlientFields:         parsedQuery.GenqlientFields,
+		GenqlientFieldsModify:   parsedQuery.genqlientFieldsModify,
+		GenqlientFieldsReadOnly: parsedQuery.genqlientFieldsReadOnly,
 	}
 
 	// Render the template

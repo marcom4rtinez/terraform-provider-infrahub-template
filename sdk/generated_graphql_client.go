@@ -3152,11 +3152,11 @@ func (v *__DeviceDeleteInput) GetId() string { return v.Id }
 
 // __DeviceInput is used internally by genqlient
 type __DeviceInput struct {
-	Device_name string `json:"device_name"`
+	Edges_node_name_value string `json:"edges_node_name_value"`
 }
 
-// GetDevice_name returns __DeviceInput.Device_name, and is useful for accessing the field via an interface.
-func (v *__DeviceInput) GetDevice_name() string { return v.Device_name }
+// GetEdges_node_name_value returns __DeviceInput.Edges_node_name_value, and is useful for accessing the field via an interface.
+func (v *__DeviceInput) GetEdges_node_name_value() string { return v.Edges_node_name_value }
 
 // __DeviceUpsertInput is used internally by genqlient
 type __DeviceUpsertInput struct {
@@ -3272,8 +3272,8 @@ func Bgpsessions(
 
 // The query or mutation executed by Device.
 const Device_Operation = `
-query Device ($device_name: String!) {
-	InfraDevice(name__value: $device_name) {
+query Device ($edges_node_name_value: String!) {
+	InfraDevice(name__value: $edges_node_name_value) {
 		edges {
 			node {
 				id
@@ -3335,13 +3335,13 @@ query Device ($device_name: String!) {
 func Device(
 	ctx_ context.Context,
 	client_ graphql.Client,
-	device_name string,
+	edges_node_name_value string,
 ) (*DeviceResponse, error) {
 	req_ := &graphql.Request{
 		OpName: "Device",
 		Query:  Device_Operation,
 		Variables: &__DeviceInput{
-			Device_name: device_name,
+			Edges_node_name_value: edges_node_name_value,
 		},
 	}
 	var err_ error

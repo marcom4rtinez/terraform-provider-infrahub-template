@@ -63,7 +63,7 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 	var inBlock bool
 	var prefixList, prefixListImmutable []string
 	var fields []Field
-	var genqlientFields []GenqlientField
+	var genqlientFields, genqlientFieldsModify, genqlientFieldsReadOnly []GenqlientField
 
 	index := 0
 	for number, line := range lines {
@@ -166,10 +166,12 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 
 		// Capitalize each part except for the first one
 		caser := cases.Title(language.English)
-		var filtered, noPrefix []string
+		var filtered, noPrefix, plain []string
+
 		for i := range parts {
 			// Capitalize the first letter of each part
 			parts[i] = caser.String(parts[i])
+			plain = append(plain, parts[i])
 			if parts[i] != "Edges" && parts[i] != "Node" {
 				noPrefix = append(noPrefix, parts[i])
 				filtered = append(filtered, parts[i])
@@ -184,18 +186,31 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 				}
 			}
 		}
-		for _, x := range [][]string{parts, noPrefix} {
+		// skippedEdges = false
+		// skippedNode = false
+
+		for _, x := range [][]string{parts, noPrefix, plain} {
 			if len(x) > 0 && x[len(x)-1] == "Id" {
 				x[len(x)-1] = "GetId()"
 			}
 		}
 
-		genqlientFields = append(genqlientFields, GenqlientField{
+		newField := GenqlientField{
 			Name:                   entry.Name,
 			Query:                  objectName + "." + strings.Join(parts, "."),
 			QueryNoPrefixReplaceId: strings.Join(noPrefix, "."),
 			InputObjectNames:       strings.Join(filtered, "."),
-		})
+			PlainObject:            strings.Join(plain[2:], "."),
+		}
+
+		if strings.Count(strings.ToLower(newField.Query), "node") < 2 && strings.Count(strings.ToLower(newField.Query), "id") < 1 {
+			genqlientFieldsModify = append(genqlientFieldsModify, newField)
+		} else if strings.Count(strings.ToLower(newField.Query), "node") >= 2 && strings.Count(strings.ToLower(newField.Query), "id") >= 1 {
+			genqlientFieldsModify = append(genqlientFieldsModify, newField)
+		} else {
+			genqlientFieldsReadOnly = append(genqlientFieldsReadOnly, newField)
+		}
+		genqlientFields = append(genqlientFields, newField)
 	}
 
 	if queryName == "" {
@@ -203,11 +218,13 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 	}
 
 	return InputGraphQLQuery{
-		QueryName:       queryName,
-		ObjectName:      objectName,
-		Required:        required,
-		Fields:          fields,
-		GenqlientFields: genqlientFields,
+		QueryName:               queryName,
+		ObjectName:              objectName,
+		Required:                required,
+		Fields:                  fields,
+		GenqlientFields:         genqlientFields,
+		genqlientFieldsReadOnly: genqlientFieldsReadOnly,
+		genqlientFieldsModify:   genqlientFieldsModify,
 	}, nil
 }
 

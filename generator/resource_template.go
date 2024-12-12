@@ -49,7 +49,12 @@ func (r *{{.QueryName}}Resource) Schema(_ context.Context, _ resource.SchemaRequ
 			"{{.Required}}": schema.StringAttribute{
 				Required: true,
 			},
-			{{- range .Fields }}
+			{{- range .GenqlientFieldsReadOnly }}
+			"{{ .Name }}": schema.StringAttribute{
+				Computed: true,
+			},
+			{{- end }}
+			{{- range .GenqlientFieldsModify }}
 			"{{ .Name }}": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
@@ -75,7 +80,7 @@ func (r *{{.QueryName}}Resource) Create(ctx context.Context, req resource.Create
 
 	// Assign each field, using the helper function to handle defaults
 	{{- $defaultCreate :=  .QueryName | title  }}
-	{{- range .GenqlientFields }}
+	{{- range .GenqlientFieldsModify }}
 	default{{$defaultCreate}}.{{ .InputObjectNames }} = plan.{{ .Name | title }}.ValueString()
 	{{- end }}
 
@@ -92,7 +97,7 @@ func (r *{{.QueryName}}Resource) Create(ctx context.Context, req resource.Create
 
 	{{- $defaultCreateObject :=  .ObjectName }}
 	{{- range .GenqlientFields }}
-	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultCreateObject }}Create.Object.{{ .InputObjectNames }})
+	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultCreateObject }}Create.Object.{{ .PlainObject }})
 	{{- end }}
 
 
@@ -171,7 +176,7 @@ func (r *{{.QueryName}}Resource) Update(ctx context.Context, req resource.Update
 	var updateInput infrahub_sdk.{{ .ObjectName }}UpsertInput
 
 	// Prepare the update input using values from the plan and applying defaults
-	{{- range .GenqlientFields }}
+	{{- range .GenqlientFieldsModify }}
 	updateInput.{{ .InputObjectNames }} = setDefault(plan.{{ .Name | title }}.ValueString(), state.{{ .Name | title }}.ValueString())
 	{{- end }}
 
@@ -190,7 +195,7 @@ func (r *{{.QueryName}}Resource) Update(ctx context.Context, req resource.Update
 
 	{{- $defaultUpsertObject :=  .ObjectName }}
 	{{- range .GenqlientFields }}
-	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultUpsertObject }}Upsert.Object.{{ .QueryNoPrefixReplaceId }})
+	plan.{{ .Name | title }} = types.StringValue(response.{{ $defaultUpsertObject }}Upsert.Object.{{ .PlainObject }})
 	{{- end }}
 
 	// Set the updated state with the latest data
@@ -211,8 +216,8 @@ func (r *{{.QueryName}}Resource) Delete(ctx context.Context, req resource.Delete
 		return
 	}
 
-	//TODO: FIXME: get id in here
-	_, err := infrahub_sdk.{{ .QueryName | title }}Delete(ctx, *r.client, state.Id.ValueString())
+	{{- $firstId :=  (index .GenqlientFieldsReadOnly 0).Name | title  }}
+	_, err := infrahub_sdk.{{ .QueryName | title }}Delete(ctx, *r.client, state.{{$firstId}}.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Deleting {{ .QueryName | title }}",
