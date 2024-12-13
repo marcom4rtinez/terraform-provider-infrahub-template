@@ -30,11 +30,10 @@ func NewInterfaceDataSource() datasource.DataSource {
 type interfaceDataSource struct {
 	client                       *graphql.Client
 	Interface_name               types.String `tfsdk:"interface_name"`
-	Edges_node_id                types.String `tfsdk:"edges_node_id"`
-	Edges_node_display_label     types.String `tfsdk:"edges_node_display_label"`
-	Edges_node_description_value types.String `tfsdk:"edges_node_description_value"`
-	Edges_node_address_ip        types.String `tfsdk:"edges_node_address_ip"`
-	Edges_node_address_value     types.String `tfsdk:"edges_node_address_value"`
+	Edges_node_id                types.String `tfsdk:"id"`
+	Edges_node_description_value types.String `tfsdk:"description_value"`
+	Edges_node_address_ip        types.String `tfsdk:"address_ip"`
+	Edges_node_address_value     types.String `tfsdk:"address_value"`
 }
 
 func (d *interfaceDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -47,19 +46,16 @@ func (d *interfaceDataSource) Schema(ctx context.Context, req datasource.SchemaR
 			"interface_name": schema.StringAttribute{
 				Required: true,
 			},
-			"edges_node_id": schema.StringAttribute{
+			"id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_display_label": schema.StringAttribute{
+			"description_value": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_description_value": schema.StringAttribute{
+			"address_ip": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_address_ip": schema.StringAttribute{
-				Computed: true,
-			},
-			"edges_node_address_value": schema.StringAttribute{
+			"address_value": schema.StringAttribute{
 				Computed: true,
 			},
 		},
@@ -96,7 +92,6 @@ func (d *interfaceDataSource) Read(ctx context.Context, req datasource.ReadReque
 	state := interfaceDataSource{
 		Interface_name:               config.Interface_name,
 		Edges_node_id:                types.StringValue(response.InfraIPAddress.Edges[0].Node.Id),
-		Edges_node_display_label:     types.StringValue(response.InfraIPAddress.Edges[0].Node.Display_label),
 		Edges_node_description_value: types.StringValue(response.InfraIPAddress.Edges[0].Node.Description.Value),
 		Edges_node_address_ip:        types.StringValue(response.InfraIPAddress.Edges[0].Node.Address.Ip),
 		Edges_node_address_value:     types.StringValue(response.InfraIPAddress.Edges[0].Node.Address.Value),

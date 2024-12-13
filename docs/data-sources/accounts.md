@@ -24,8 +24,8 @@ description: |-
 
 Read-Only:
 
-- `edges_node_id` (String)
-- `edges_node_status_color` (String)
-- `edges_node_status_description` (String)
-- `edges_node_status_id` (String)
-- `edges_node_status_value` (String)
+- `id` (String)
+- `status_color` (String)
+- `status_description` (String)
+- `status_id` (String)
+- `status_value` (String)

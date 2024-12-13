@@ -99,7 +99,6 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 
 		line = strings.TrimSpace(line)
 		if strings.HasPrefix(line, "query ") || number == 1 {
-			//already handled
 		} else if strings.HasSuffix(line, " {") {
 			inBlock = true
 			prefix := line[:len(line)-2]
@@ -186,8 +185,6 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 				}
 			}
 		}
-		// skippedEdges = false
-		// skippedNode = false
 
 		for _, x := range [][]string{parts, noPrefix, plain} {
 			if len(x) > 0 && x[len(x)-1] == "Id" {
@@ -196,7 +193,10 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 		}
 
 		newField := GenqlientField{
-			Name:                   entry.Name,
+			Field: Field{
+				Name: entry.Name,
+				Type: entry.Type,
+			},
 			Query:                  objectName + "." + strings.Join(parts, "."),
 			QueryNoPrefixReplaceId: strings.Join(noPrefix, "."),
 			InputObjectNames:       strings.Join(filtered, "."),
@@ -217,11 +217,14 @@ func parseResourceInput(lines []string) (InputGraphQLQuery, error) {
 		return InputGraphQLQuery{}, fmt.Errorf("failed to parse GraphQL query: missing query name")
 	}
 
+	addHumanReadableField(genqlientFields)
+	addHumanReadableField(genqlientFieldsReadOnly)
+	addHumanReadableField(genqlientFieldsModify)
+
 	return InputGraphQLQuery{
 		QueryName:               queryName,
 		ObjectName:              objectName,
 		Required:                required,
-		Fields:                  fields,
 		GenqlientFields:         genqlientFields,
 		genqlientFieldsReadOnly: genqlientFieldsReadOnly,
 		genqlientFieldsModify:   genqlientFieldsModify,
@@ -342,7 +345,10 @@ func parseDataSourceInput(lines []string) (InputGraphQLQuery, error) {
 
 		// Join the parts using a dot separator
 		genqlientFields = append(genqlientFields, GenqlientField{
-			Name:  entry.Name,
+			Field: Field{
+				Name: entry.Name,
+				Type: entry.Type,
+			},
 			Query: objectName + "." + strings.Join(parts, "."),
 		})
 	}
@@ -351,11 +357,19 @@ func parseDataSourceInput(lines []string) (InputGraphQLQuery, error) {
 		return InputGraphQLQuery{}, fmt.Errorf("failed to parse GraphQL query: missing query name")
 	}
 
+	addHumanReadableField(genqlientFields)
+
 	return InputGraphQLQuery{
 		QueryName:       queryName,
 		ObjectName:      objectName,
 		Required:        required,
-		Fields:          fields,
 		GenqlientFields: genqlientFields,
 	}, nil
+}
+
+func addHumanReadableField(fields []GenqlientField) {
+
+	for i, field := range fields {
+		fields[i].HumanReadableName = strings.ReplaceAll(field.Name, "edges_node_", "")
+	}
 }

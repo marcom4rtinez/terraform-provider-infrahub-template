@@ -24,7 +24,7 @@ description: |-
 
 Read-Only:
 
-- `edges_node_description_value` (String)
-- `edges_node_display_label` (String)
-- `edges_node_id` (String)
-- `edges_node_remote_ip_node_address_value` (String)
+- `description_value` (String)
+- `display_label` (String)
+- `id` (String)
+- `remote_ip_node_address_value` (String)

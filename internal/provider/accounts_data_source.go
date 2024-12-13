@@ -32,11 +32,11 @@ type accountsDataSource struct {
 	Accounts []accountsModel `tfsdk:"accounts"`
 }
 type accountsModel struct {
-	Edges_node_id                 types.String `tfsdk:"edges_node_id"`
-	Edges_node_status_id          types.String `tfsdk:"edges_node_status_id"`
-	Edges_node_status_description types.String `tfsdk:"edges_node_status_description"`
-	Edges_node_status_color       types.String `tfsdk:"edges_node_status_color"`
-	Edges_node_status_value       types.String `tfsdk:"edges_node_status_value"`
+	Edges_node_id                 types.String `tfsdk:"id"`
+	Edges_node_status_id          types.String `tfsdk:"status_id"`
+	Edges_node_status_description types.String `tfsdk:"status_description"`
+	Edges_node_status_color       types.String `tfsdk:"status_color"`
+	Edges_node_status_value       types.String `tfsdk:"status_value"`
 }
 
 func (d *accountsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -50,19 +50,19 @@ func (d *accountsDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"edges_node_id": schema.StringAttribute{
+						"id": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_status_id": schema.StringAttribute{
+						"status_id": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_status_description": schema.StringAttribute{
+						"status_description": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_status_color": schema.StringAttribute{
+						"status_color": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_status_value": schema.StringAttribute{
+						"status_value": schema.StringAttribute{
 							Computed: true,
 						},
 					},

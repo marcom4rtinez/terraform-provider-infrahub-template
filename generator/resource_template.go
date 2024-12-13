@@ -32,8 +32,8 @@ func New{{.QueryName | title }}Resource() resource.Resource {
 type {{.QueryName }}Resource struct {
 	client         *graphql.Client
 	{{.Required | title }} types.String ` + "`tfsdk:\"{{.Required}}\"`" + `
-	{{- range .Fields }}
-	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .Name }}\"`" + `
+	{{- range .GenqlientFields }}
+	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .HumanReadableName }}\"`" + `
 	{{- end }}
 }
 
@@ -50,12 +50,12 @@ func (r *{{.QueryName}}Resource) Schema(_ context.Context, _ resource.SchemaRequ
 				Required: true,
 			},
 			{{- range .GenqlientFieldsReadOnly }}
-			"{{ .Name }}": schema.StringAttribute{
+			"{{ .HumanReadableName }}": schema.StringAttribute{
 				Computed: true,
 			},
 			{{- end }}
 			{{- range .GenqlientFieldsModify }}
-			"{{ .Name }}": schema.StringAttribute{
+			"{{ .HumanReadableName }}": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
 			},

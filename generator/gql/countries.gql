@@ -1,0 +1,16 @@
+query Countries {
+  LocationCountry {
+    edges {
+      node {
+        id
+        display_label
+        name {
+          value
+        }
+        description {
+          value
+        }
+      }
+    }
+  }
+}

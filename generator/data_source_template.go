@@ -34,8 +34,8 @@ type {{.StructName}} struct {
 	client     *graphql.Client
 	{{- if .Required }}
 	{{.Required | title }} types.String ` + "`tfsdk:\"{{.Required}}\"`" + `
-	{{- range .Fields }}
-	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .Name }}\"`" + `
+	{{- range .GenqlientFields }}
+	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .HumanReadableName }}\"`" + `
 	{{- end }}
 	{{- else }}
 	{{ .QueryName | title }} []{{ .QueryName }}Model ` + "`tfsdk:\"{{ .QueryName }}\"`" + `
@@ -44,8 +44,8 @@ type {{.StructName}} struct {
 
 {{- if not .Required }}
 type {{ .QueryName}}Model struct {
-	{{- range .Fields }}
-	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .Name }}\"`" + `
+	{{- range .GenqlientFields }}
+	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .HumanReadableName }}\"`" + `
 	{{- end }}
 }
 {{- end }}
@@ -61,8 +61,8 @@ func (d *{{.QueryName}}DataSource) Schema(ctx context.Context, req datasource.Sc
 			"{{.Required}}": schema.StringAttribute{
 				Required: true,
 			},
-			{{- range .Fields }}
-			"{{ .Name }}": schema.StringAttribute{
+			{{- range .GenqlientFields }}
+			"{{ .HumanReadableName }}": schema.StringAttribute{
 				Computed: true,
 			},
 			{{- end }}
@@ -71,8 +71,8 @@ func (d *{{.QueryName}}DataSource) Schema(ctx context.Context, req datasource.Sc
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						{{- range .Fields }}
-						"{{ .Name }}": schema.StringAttribute{
+						{{- range .GenqlientFields }}
+						"{{ .HumanReadableName }}": schema.StringAttribute{
 							Computed: true,
 						},
 						{{- end }}

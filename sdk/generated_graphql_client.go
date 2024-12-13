@@ -223,6 +223,176 @@ func (v *BgpsessionsResponse) GetInfraBGPSession() BgpsessionsInfraBGPSessionPag
 	return v.InfraBGPSession
 }
 
+// CountriesLocationCountryPaginatedLocationCountry includes the requested fields of the GraphQL type PaginatedLocationCountry.
+type CountriesLocationCountryPaginatedLocationCountry struct {
+	Edges []CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry `json:"edges"`
+}
+
+// GetEdges returns CountriesLocationCountryPaginatedLocationCountry.Edges, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountry) GetEdges() []CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry {
+	return v.Edges
+}
+
+// CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry includes the requested fields of the GraphQL type EdgedLocationCountry.
+type CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry struct {
+	Node CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry `json:"node"`
+}
+
+// GetNode returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry.Node, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry) GetNode() CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry {
+	return v.Node
+}
+
+// CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry includes the requested fields of the GraphQL type LocationCountry.
+type CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry struct {
+	// Unique identifier
+	Id            string                                                                                                               `json:"id"`
+	Display_label string                                                                                                               `json:"display_label"`
+	Name          CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute        `json:"name"`
+	Description   CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute `json:"description"`
+}
+
+// GetId returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Id, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetId() string {
+	return v.Id
+}
+
+// GetDisplay_label returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Display_label, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// GetName returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Name, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetName() CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute {
+	return v.Name
+}
+
+// GetDescription returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Description, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetDescription() CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute {
+	return v.Description
+}
+
+// CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *CountriesLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// CountriesResponse is returned by Countries on success.
+type CountriesResponse struct {
+	LocationCountry CountriesLocationCountryPaginatedLocationCountry `json:"LocationCountry"`
+}
+
+// GetLocationCountry returns CountriesResponse.LocationCountry, and is useful for accessing the field via an interface.
+func (v *CountriesResponse) GetLocationCountry() CountriesLocationCountryPaginatedLocationCountry {
+	return v.LocationCountry
+}
+
+// CountryLocationCountryPaginatedLocationCountry includes the requested fields of the GraphQL type PaginatedLocationCountry.
+type CountryLocationCountryPaginatedLocationCountry struct {
+	Edges []CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry `json:"edges"`
+}
+
+// GetEdges returns CountryLocationCountryPaginatedLocationCountry.Edges, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountry) GetEdges() []CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry {
+	return v.Edges
+}
+
+// CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry includes the requested fields of the GraphQL type EdgedLocationCountry.
+type CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry struct {
+	Node CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry `json:"node"`
+}
+
+// GetNode returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry.Node, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountry) GetNode() CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry {
+	return v.Node
+}
+
+// CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry includes the requested fields of the GraphQL type LocationCountry.
+type CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry struct {
+	// Unique identifier
+	Id            string                                                                                                             `json:"id"`
+	Display_label string                                                                                                             `json:"display_label"`
+	Name          CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute        `json:"name"`
+	Description   CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute `json:"description"`
+}
+
+// GetId returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Id, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetId() string {
+	return v.Id
+}
+
+// GetDisplay_label returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Display_label, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetDisplay_label() string {
+	return v.Display_label
+}
+
+// GetName returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Name, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetName() CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute {
+	return v.Name
+}
+
+// GetDescription returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry.Description, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountry) GetDescription() CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute {
+	return v.Description
+}
+
+// CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryDescriptionTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute includes the requested fields of the GraphQL type TextAttribute.
+// The GraphQL type's documentation follows.
+//
+// Attribute of type Text
+type CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute struct {
+	Value string `json:"value"`
+}
+
+// GetValue returns CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute.Value, and is useful for accessing the field via an interface.
+func (v *CountryLocationCountryPaginatedLocationCountryEdgesEdgedLocationCountryNodeLocationCountryNameTextAttribute) GetValue() string {
+	return v.Value
+}
+
+// CountryResponse is returned by Country on success.
+type CountryResponse struct {
+	LocationCountry CountryLocationCountryPaginatedLocationCountry `json:"LocationCountry"`
+}
+
+// GetLocationCountry returns CountryResponse.LocationCountry, and is useful for accessing the field via an interface.
+func (v *CountryResponse) GetLocationCountry() CountryLocationCountryPaginatedLocationCountry {
+	return v.LocationCountry
+}
+
 // DeviceCreateInfraDeviceCreate includes the requested fields of the GraphQL type InfraDeviceCreate.
 type DeviceCreateInfraDeviceCreate struct {
 	Object   DeviceCreateInfraDeviceCreateObjectInfraDevice `json:"object"`
@@ -2958,20 +3128,14 @@ func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddress)
 // IP Address
 type InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress struct {
 	// Unique identifier
-	Id            string                                                                                                           `json:"id"`
-	Display_label string                                                                                                           `json:"display_label"`
-	Description   InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute `json:"description"`
-	Address       InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost            `json:"address"`
+	Id          string                                                                                                           `json:"id"`
+	Description InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressDescriptionTextAttribute `json:"description"`
+	Address     InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddressAddressIPHost            `json:"address"`
 }
 
 // GetId returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Id, and is useful for accessing the field via an interface.
 func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetId() string {
 	return v.Id
-}
-
-// GetDisplay_label returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Display_label, and is useful for accessing the field via an interface.
-func (v *InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress) GetDisplay_label() string {
-	return v.Display_label
 }
 
 // GetDescription returns InterfaceInfraIPAddressPaginatedInfraIPAddressEdgesEdgedInfraIPAddressNodeInfraIPAddress.Description, and is useful for accessing the field via an interface.
@@ -3134,6 +3298,14 @@ func (v *TextAttributeUpdate) GetOwner() string { return v.Owner }
 // GetValue returns TextAttributeUpdate.Value, and is useful for accessing the field via an interface.
 func (v *TextAttributeUpdate) GetValue() string { return v.Value }
 
+// __CountryInput is used internally by genqlient
+type __CountryInput struct {
+	Country_name string `json:"country_name"`
+}
+
+// GetCountry_name returns __CountryInput.Country_name, and is useful for accessing the field via an interface.
+func (v *__CountryInput) GetCountry_name() string { return v.Country_name }
+
 // __DeviceCreateInput is used internally by genqlient
 type __DeviceCreateInput struct {
 	Data InfraDeviceCreateInput `json:"data"`
@@ -3259,6 +3431,94 @@ func Bgpsessions(
 	var err_ error
 
 	var data_ BgpsessionsResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by Countries.
+const Countries_Operation = `
+query Countries {
+	LocationCountry {
+		edges {
+			node {
+				id
+				display_label
+				name {
+					value
+				}
+				description {
+					value
+				}
+			}
+		}
+	}
+}
+`
+
+func Countries(
+	ctx_ context.Context,
+	client_ graphql.Client,
+) (*CountriesResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Countries",
+		Query:  Countries_Operation,
+	}
+	var err_ error
+
+	var data_ CountriesResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
+// The query or mutation executed by Country.
+const Country_Operation = `
+query Country ($country_name: String!) {
+	LocationCountry(name__value: $country_name) {
+		edges {
+			node {
+				id
+				display_label
+				name {
+					value
+				}
+				description {
+					value
+				}
+			}
+		}
+	}
+}
+`
+
+func Country(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	country_name string,
+) (*CountryResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "Country",
+		Query:  Country_Operation,
+		Variables: &__CountryInput{
+			Country_name: country_name,
+		},
+	}
+	var err_ error
+
+	var data_ CountryResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(
@@ -3701,7 +3961,6 @@ query Interface ($interface_name: String!) {
 		edges {
 			node {
 				id
-				display_label
 				description {
 					value
 				}

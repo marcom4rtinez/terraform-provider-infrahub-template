@@ -23,12 +23,13 @@ type InputGraphQLQuery struct {
 }
 
 type Field struct {
-	Name string
-	Type string
+	Name              string
+	HumanReadableName string
+	Type              string
 }
 
 type GenqlientField struct {
-	Name                   string
+	Field
 	Query                  string
 	QueryNoPrefixReplaceId string
 	InputObjectNames       string

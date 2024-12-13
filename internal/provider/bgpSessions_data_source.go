@@ -32,10 +32,10 @@ type bgpsessionsDataSource struct {
 	Bgpsessions []bgpsessionsModel `tfsdk:"bgpsessions"`
 }
 type bgpsessionsModel struct {
-	Edges_node_id                           types.String `tfsdk:"edges_node_id"`
-	Edges_node_display_label                types.String `tfsdk:"edges_node_display_label"`
-	Edges_node_description_value            types.String `tfsdk:"edges_node_description_value"`
-	Edges_node_remote_ip_node_address_value types.String `tfsdk:"edges_node_remote_ip_node_address_value"`
+	Edges_node_id                           types.String `tfsdk:"id"`
+	Edges_node_display_label                types.String `tfsdk:"display_label"`
+	Edges_node_description_value            types.String `tfsdk:"description_value"`
+	Edges_node_remote_ip_node_address_value types.String `tfsdk:"remote_ip_node_address_value"`
 }
 
 func (d *bgpsessionsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -49,16 +49,16 @@ func (d *bgpsessionsDataSource) Schema(ctx context.Context, req datasource.Schem
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"edges_node_id": schema.StringAttribute{
+						"id": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_display_label": schema.StringAttribute{
+						"display_label": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_description_value": schema.StringAttribute{
+						"description_value": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_remote_ip_node_address_value": schema.StringAttribute{
+						"remote_ip_node_address_value": schema.StringAttribute{
 							Computed: true,
 						},
 					},

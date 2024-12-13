@@ -30,19 +30,19 @@ func NewDevicequeryDataSource() datasource.DataSource {
 type devicequeryDataSource struct {
 	client                             *graphql.Client
 	Device_name                        types.String `tfsdk:"device_name"`
-	Edges_node_id                      types.String `tfsdk:"edges_node_id"`
-	Edges_node_name_value              types.String `tfsdk:"edges_node_name_value"`
-	Edges_node_role_value              types.String `tfsdk:"edges_node_role_value"`
-	Edges_node_role_color              types.String `tfsdk:"edges_node_role_color"`
-	Edges_node_role_description        types.String `tfsdk:"edges_node_role_description"`
-	Edges_node_role_id                 types.String `tfsdk:"edges_node_role_id"`
-	Edges_node_platform_node_id        types.String `tfsdk:"edges_node_platform_node_id"`
-	Edges_node_primary_address_node_id types.String `tfsdk:"edges_node_primary_address_node_id"`
-	Edges_node_status_id               types.String `tfsdk:"edges_node_status_id"`
-	Edges_node_topology_node_id        types.String `tfsdk:"edges_node_topology_node_id"`
-	Edges_node_device_type_node_id     types.String `tfsdk:"edges_node_device_type_node_id"`
-	Edges_node_asn_node_asn_id         types.String `tfsdk:"edges_node_asn_node_asn_id"`
-	Edges_node_description_value       types.String `tfsdk:"edges_node_description_value"`
+	Edges_node_id                      types.String `tfsdk:"id"`
+	Edges_node_name_value              types.String `tfsdk:"name_value"`
+	Edges_node_role_value              types.String `tfsdk:"role_value"`
+	Edges_node_role_color              types.String `tfsdk:"role_color"`
+	Edges_node_role_description        types.String `tfsdk:"role_description"`
+	Edges_node_role_id                 types.String `tfsdk:"role_id"`
+	Edges_node_platform_node_id        types.String `tfsdk:"platform_node_id"`
+	Edges_node_primary_address_node_id types.String `tfsdk:"primary_address_node_id"`
+	Edges_node_status_id               types.String `tfsdk:"status_id"`
+	Edges_node_topology_node_id        types.String `tfsdk:"topology_node_id"`
+	Edges_node_device_type_node_id     types.String `tfsdk:"device_type_node_id"`
+	Edges_node_asn_node_asn_id         types.String `tfsdk:"asn_node_asn_id"`
+	Edges_node_description_value       types.String `tfsdk:"description_value"`
 }
 
 func (d *devicequeryDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -55,43 +55,43 @@ func (d *devicequeryDataSource) Schema(ctx context.Context, req datasource.Schem
 			"device_name": schema.StringAttribute{
 				Required: true,
 			},
-			"edges_node_id": schema.StringAttribute{
+			"id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_name_value": schema.StringAttribute{
+			"name_value": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_role_value": schema.StringAttribute{
+			"role_value": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_role_color": schema.StringAttribute{
+			"role_color": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_role_description": schema.StringAttribute{
+			"role_description": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_role_id": schema.StringAttribute{
+			"role_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_platform_node_id": schema.StringAttribute{
+			"platform_node_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_primary_address_node_id": schema.StringAttribute{
+			"primary_address_node_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_status_id": schema.StringAttribute{
+			"status_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_topology_node_id": schema.StringAttribute{
+			"topology_node_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_device_type_node_id": schema.StringAttribute{
+			"device_type_node_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_asn_node_asn_id": schema.StringAttribute{
+			"asn_node_asn_id": schema.StringAttribute{
 				Computed: true,
 			},
-			"edges_node_description_value": schema.StringAttribute{
+			"description_value": schema.StringAttribute{
 				Computed: true,
 			},
 		},

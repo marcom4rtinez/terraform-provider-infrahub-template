@@ -21,20 +21,20 @@ description: |-
 
 ### Optional
 
-- `edges_node_asn_node_id` (String)
-- `edges_node_description_value` (String)
-- `edges_node_device_type_node_id` (String)
-- `edges_node_location_node_id` (String)
-- `edges_node_platform_node_id` (String)
-- `edges_node_primary_address_node_id` (String)
-- `edges_node_role_value` (String)
-- `edges_node_status_value` (String)
-- `edges_node_topology_node_id` (String)
+- `asn_node_id` (String)
+- `description_value` (String)
+- `device_type_node_id` (String)
+- `location_node_id` (String)
+- `platform_node_id` (String)
+- `primary_address_node_id` (String)
+- `role_value` (String)
+- `status_value` (String)
+- `topology_node_id` (String)
 
 ### Read-Only
 
-- `edges_node_description_id` (String)
-- `edges_node_id` (String)
-- `edges_node_role_id` (String)
-- `edges_node_status_id` (String)
-- `edges_node_topology_node_name_value` (String)
+- `description_id` (String)
+- `id` (String) The ID of this resource.
+- `role_id` (String)
+- `status_id` (String)
+- `topology_node_name_value` (String)

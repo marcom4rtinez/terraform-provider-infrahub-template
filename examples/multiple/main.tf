@@ -75,21 +75,38 @@ provider "infrahub" {
 #   value = data.infrahub_bgpsessions.all_bgp_sessions
 # }
 
-resource "infrahub_device" "device_res" {
-  edges_node_name_value = "test_device3"
-  # edges_node_asn_node_id             = "180d513c-c700-f27f-36ae-c5147a57daa5"
-  # edges_node_device_type_node_id     = "180d513e-0bc4-6766-36af-c514f3173dcf"
-  # edges_node_location_node_id        = "180d5144-a48a-161d-36ad-c51efb37fd26"
-  # edges_node_platform_node_id        = "180d513d-b76a-dd27-36a0-c51c912c8d09"
-  # edges_node_primary_address_node_id = "180d52a5-84a6-a85d-36ac-c511c32e48bf"
-  # edges_node_status_value            = "active"
-  # edges_node_topology_node_id        = "180d514e-d1c0-61df-36af-c51a2a0d705b"
-  # edges_node_role_value              = "client"
-  # edges_node_description_id           = ""
-  # edges_node_description_value        = ""
-  # edges_node_id                       = ""
-  # edges_node_name_value               = ""
-  # edges_node_role_id                  = ""
-  # edges_node_status_id                = ""
-  # edges_node_topology_node_name_value = ""
+# output "device_res" {
+#   value = infrahub_device.device_res.edges_node_topology_node_name_value
+# }
+
+# data "infrahub_devicequery" "tset" {
+#   device_name = infrahub_device.device_res.edges_node_name_value
+# }
+
+# output "device_name_queried" {
+#   value = data.infrahub_devicequery.tset.edges_node_role_value
+# }
+
+data "infrahub_country" "germany" {
+  country_name = "Germany"
 }
+
+resource "infrahub_device" "device_res" {
+  edges_node_name_value              = "test_device3"
+  edges_node_asn_node_id             = "180d513c-c700-f27f-36ae-c5147a57daa5"
+  edges_node_device_type_node_id     = "180d513e-0bc4-6766-36af-c514f3173dcf"
+  edges_node_location_node_id        = data.infrahub_country.germany.id
+  edges_node_platform_node_id        = "180d513d-b76a-dd27-36a0-c51c912c8d09"
+  edges_node_primary_address_node_id = "180d52a5-84a6-a85d-36ac-c511c32e48bf"
+  edges_node_status_value            = "active"
+  edges_node_topology_node_id        = "180d514e-d1c0-61df-36af-c51a2a0d705b"
+  edges_node_role_value              = "client"
+  #   # edges_node_description_id           = ""
+  #   # edges_node_description_value        = ""
+  #   # edges_node_id                       = ""
+  #   # edges_node_name_value               = ""
+  #   # edges_node_role_id                  = ""
+  #   # edges_node_status_id                = ""
+  #   # edges_node_topology_node_name_value = ""
+}
+

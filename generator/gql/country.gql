@@ -1,0 +1,16 @@
+query Country($country_name: String!) {
+  LocationCountry(name__value: $country_name) {
+    edges {
+      node {
+        id
+        display_label
+        name {
+          value
+        }
+        description {
+          value
+        }
+      }
+    }
+  }
+}

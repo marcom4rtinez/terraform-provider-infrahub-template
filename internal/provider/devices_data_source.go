@@ -32,10 +32,10 @@ type devicesDataSource struct {
 	Devices []devicesModel `tfsdk:"devices"`
 }
 type devicesModel struct {
-	Edges_node_id         types.String `tfsdk:"edges_node_id"`
-	Edges_node_name_value types.String `tfsdk:"edges_node_name_value"`
-	Edges_node_role_value types.String `tfsdk:"edges_node_role_value"`
-	Edges_node_role_color types.String `tfsdk:"edges_node_role_color"`
+	Edges_node_id         types.String `tfsdk:"id"`
+	Edges_node_name_value types.String `tfsdk:"name_value"`
+	Edges_node_role_value types.String `tfsdk:"role_value"`
+	Edges_node_role_color types.String `tfsdk:"role_color"`
 }
 
 func (d *devicesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -49,16 +49,16 @@ func (d *devicesDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"edges_node_id": schema.StringAttribute{
+						"id": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_name_value": schema.StringAttribute{
+						"name_value": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_role_value": schema.StringAttribute{
+						"role_value": schema.StringAttribute{
 							Computed: true,
 						},
-						"edges_node_role_color": schema.StringAttribute{
+						"role_color": schema.StringAttribute{
 							Computed: true,
 						},
 					},
