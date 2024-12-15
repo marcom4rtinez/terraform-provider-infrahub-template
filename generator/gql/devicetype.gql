@@ -1,0 +1,27 @@
+query Devicetype($device_type_name: String!) {
+  InfraDeviceType(name__value: $device_type_name) {
+    edges {
+      node {
+        id
+        platform {
+          node {
+            id
+            name {
+              value
+            }
+          }
+        }
+        description {
+          id
+          value
+        }
+        name {
+          value
+        }
+        weight {
+          value
+        }
+      }
+    }
+  }
+}

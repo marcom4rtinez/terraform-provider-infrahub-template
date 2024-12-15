@@ -1,0 +1,19 @@
+query Autonomoussystem($as_name: String!) {
+  InfraAutonomousSystem(name__value: $as_name) {
+    edges {
+      node {
+        id
+        name {
+          value
+        }
+        asn {
+          id
+        }
+        display_label
+        description {
+          value
+        }
+      }
+    }
+  }
+}

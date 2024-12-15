@@ -150,12 +150,17 @@ func (p *InfrahubProvider) Resources(ctx context.Context) []func() resource.Reso
 func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewAccountsDataSource,
+		NewAutonomoussystemDataSource,
 		NewBgpsessionsDataSource,
 		NewCountriesDataSource,
 		NewCountryDataSource,
 		NewDevicequeryDataSource,
 		NewDevicesDataSource,
+		NewDevicetypeDataSource,
 		NewInterfaceDataSource,
+		NewIpaddressDataSource,
+		NewPlatformDataSource,
+		NewTopologyDataSource,
 	}
 }
 

@@ -1,0 +1,27 @@
+query Platform($platform_name: String!) {
+  InfraPlatform(name__value: $platform_name) {
+    edges {
+      node {
+        id
+        description {
+          value
+        }
+        containerlab_os {
+          value
+        }
+        name {
+          value
+        }
+        nornir_platform {
+          value
+        }
+        netmiko_device_type {
+          value
+        }
+        napalm_driver {
+          value
+        }
+      }
+    }
+  }
+}

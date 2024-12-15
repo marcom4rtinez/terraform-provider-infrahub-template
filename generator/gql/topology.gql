@@ -1,0 +1,18 @@
+query Topology($topology_name: String!) {
+  TopologyTopology(name__value: $topology_name) {
+    edges {
+      node {
+        id
+        display_label
+        description {
+          value
+          id
+        }
+        name {
+          value
+          id
+        }
+      }
+    }
+  }
+}

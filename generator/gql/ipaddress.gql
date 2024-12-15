@@ -1,0 +1,20 @@
+query Ipaddress($ip_address_value: String!) {
+  InfraIPAddress(address__value: $ip_address_value) {
+    edges {
+      node {
+        id
+        address {
+          value
+          ip
+          netmask
+          with_hostmask
+          with_netmask
+        }
+        display_label
+        description {
+          value
+        }
+      }
+    }
+  }
+}

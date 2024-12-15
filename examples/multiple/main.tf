@@ -91,22 +91,35 @@ data "infrahub_country" "germany" {
   country_name = "Germany"
 }
 
+data "infrahub_topology" "de1-pod1" {
+  topology_name = "de1-pod1"
+}
+
+data "infrahub_devicetype" "ccs" {
+  device_type_name = "CCS-720DP-48S-2F"
+}
+
+data "infrahub_autonomoussystem" "AS174" {
+  as_name = "AS174"
+}
+
+data "infrahub_platform" "Arista" {
+  platform_name = "Arista EOS"
+}
+
+data "infrahub_ipaddress" "mgmt_address" {
+  ip_address_value = "10.0.0.1/24"
+}
+
 resource "infrahub_device" "device_res" {
-  name_value              = "test_device37"
-  asn_node_id             = "180d513c-c700-f27f-36ae-c5147a57daa5"
-  device_type_node_id     = "180d513e-0bc4-6766-36af-c514f3173dcf"
+  name_value              = "switch27"
+  asn_node_id             = data.infrahub_autonomoussystem.AS174.id
+  device_type_node_id     = data.infrahub_devicetype.ccs.id
   location_node_id        = data.infrahub_country.germany.id
-  platform_node_id        = "180d513d-b76a-dd27-36a0-c51c912c8d09"
-  primary_address_node_id = "180d52a5-84a6-a85d-36ac-c511c32e48bf"
+  platform_node_id        = data.infrahub_platform.Arista.id
+  primary_address_node_id = data.infrahub_ipaddress.mgmt_address.id
   status_value            = "active"
-  topology_node_id        = "180d514e-d1c0-61df-36af-c51a2a0d705b"
-  role_value              = "client"
-  #   # edges_node_description_id           = ""
-  #   # edges_node_description_value        = ""
-  #   # edges_node_id                       = ""
-  #   # edges_node_name_value               = ""
-  #   # edges_node_role_id                  = ""
-  #   # edges_node_status_id                = ""
-  #   # edges_node_topology_node_name_value = ""
+  topology_node_id        = data.infrahub_topology.de1-pod1.id
+  role_value              = "leaf"
 }
 
