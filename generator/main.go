@@ -163,16 +163,18 @@ func main() {
 		}
 
 		if !info.IsDir() {
-			data, err := os.ReadFile(path)
-			if err != nil {
-				return err
-			}
-			dataSourceName, resourceName, err := readAndGenerateDataSourcesAndResources(string(data))
-			if err == nil {
-				if dataSourceName != "" {
-					dataSources = append(dataSources, dataSourceName)
-				} else if resourceName != "" {
-					resources = append(resources, resourceName)
+			if filepath.Ext(path) == ".gql" {
+				data, err := os.ReadFile(path)
+				if err != nil {
+					return err
+				}
+				dataSourceName, resourceName, err := readAndGenerateDataSourcesAndResources(string(data))
+				if err == nil {
+					if dataSourceName != "" {
+						dataSources = append(dataSources, dataSourceName)
+					} else if resourceName != "" {
+						resources = append(resources, resourceName)
+					}
 				}
 			}
 		}

@@ -31,7 +31,6 @@ func New{{.QueryName | title }}Resource() resource.Resource {
 // {{.QueryName }}Resource is the resource implementation.
 type {{.QueryName }}Resource struct {
 	client         *graphql.Client
-	{{.Required | title }} types.String ` + "`tfsdk:\"{{.Required}}\"`" + `
 	{{- range .GenqlientFields }}
 	{{ .Name | title }} types.String ` + "`tfsdk:\"{{ .HumanReadableName }}\"`" + `
 	{{- end }}
@@ -46,19 +45,23 @@ func (r *{{.QueryName}}Resource) Metadata(_ context.Context, req resource.Metada
 func (r *{{.QueryName}}Resource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"{{.Required}}": schema.StringAttribute{
-				Required: true,
-			},
 			{{- range .GenqlientFieldsReadOnly }}
 			"{{ .HumanReadableName }}": schema.StringAttribute{
 				Computed: true,
 			},
 			{{- end }}
+			{{- $requiredName :=  .Required  }}
 			{{- range .GenqlientFieldsModify }}
-			"{{ .HumanReadableName }}": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-			},
+				{{- if eq .Name $requiredName }}
+					"{{.HumanReadableName}}": schema.StringAttribute{
+						Required: true,
+					},
+				{{- else }}
+					"{{ .HumanReadableName }}": schema.StringAttribute{
+						Computed: true,
+						Optional: true,
+					},
+				{{- end }}
 			{{- end }}
 		},
 	}
@@ -179,6 +182,9 @@ func (r *{{.QueryName}}Resource) Update(ctx context.Context, req resource.Update
 	{{- range .GenqlientFieldsModify }}
 	updateInput.{{ .InputObjectNames }} = setDefault(plan.{{ .Name | title }}.ValueString(), state.{{ .Name | title }}.ValueString())
 	{{- end }}
+	{{- $idElement :=  (index .GenqlientFieldsReadOnly 0).Name | title  }}
+	updateInput.Id = state.{{$idElement}}.ValueString()
+
 
 	// Log the update operation
 	tflog.Info(ctx, fmt.Sprintf("Updating {{ .QueryName | title }} %s", state.{{ .Required | title }}.ValueString()))

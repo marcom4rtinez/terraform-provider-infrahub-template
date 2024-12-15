@@ -29,8 +29,8 @@ func NewDeviceResource() resource.Resource {
 // deviceResource is the resource implementation.
 type deviceResource struct {
 	client                              *graphql.Client
-	Edges_node_name_value               types.String `tfsdk:"edges_node_name_value"`
 	Edges_node_id                       types.String `tfsdk:"id"`
+	Edges_node_name_value               types.String `tfsdk:"name_value"`
 	Edges_node_role_value               types.String `tfsdk:"role_value"`
 	Edges_node_role_id                  types.String `tfsdk:"role_id"`
 	Edges_node_asn_node_id              types.String `tfsdk:"asn_node_id"`
@@ -55,9 +55,6 @@ func (r *deviceResource) Metadata(_ context.Context, req resource.MetadataReques
 func (r *deviceResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			"edges_node_name_value": schema.StringAttribute{
-				Required: true,
-			},
 			"id": schema.StringAttribute{
 				Computed: true,
 			},
@@ -72,6 +69,9 @@ func (r *deviceResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 			},
 			"topology_node_name_value": schema.StringAttribute{
 				Computed: true,
+			},
+			"name_value": schema.StringAttribute{
+				Required: true,
 			},
 			"role_value": schema.StringAttribute{
 				Computed: true,
@@ -259,6 +259,7 @@ func (r *deviceResource) Update(ctx context.Context, req resource.UpdateRequest,
 	updateInput.Primary_address.Id = setDefault(plan.Edges_node_primary_address_node_id.ValueString(), state.Edges_node_primary_address_node_id.ValueString())
 	updateInput.Status.Value = setDefault(plan.Edges_node_status_value.ValueString(), state.Edges_node_status_value.ValueString())
 	updateInput.Topology.Id = setDefault(plan.Edges_node_topology_node_id.ValueString(), state.Edges_node_topology_node_id.ValueString())
+	updateInput.Id = state.Edges_node_id.ValueString()
 
 	// Log the update operation
 	tflog.Info(ctx, fmt.Sprintf("Updating Device %s", state.Edges_node_name_value.ValueString()))

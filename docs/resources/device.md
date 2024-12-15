@@ -17,7 +17,7 @@ description: |-
 
 ### Required
 
-- `edges_node_name_value` (String)
+- `name_value` (String)
 
 ### Optional
 
