@@ -6,7 +6,7 @@ automatic_generator:
 	cd generator; go run *.go
 
 generate_sdk:
-	cd sdk; go run github.com/Khan/genqlient
+	cd sdk; bash run.sh; go run github.com/Khan/genqlient
 
 build:
 	go build -v ./...

@@ -879,32 +879,6 @@ type PaginatedCoreMenu {
   permissions: PaginatedObjectPermission!
 }
 
-"""Base Profile in Infrahub."""
-interface CoreProfile {
-  """Unique identifier"""
-  id: String
-
-  """Human friendly identifier"""
-  hfid: [String]
-  display_label: String
-  profile_name: TextAttribute!
-  profile_priority: NumberAttribute
-  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-}
-
-"""Base Profile in Infrahub."""
-type EdgedCoreProfile {
-  node: CoreProfile
-}
-
-"""Base Profile in Infrahub."""
-type PaginatedCoreProfile {
-  count: Int
-  edges: [EdgedCoreProfile]
-  permissions: PaginatedObjectPermission!
-}
-
 """Generic Endpoint to connect two objects together."""
 interface InfraEndpoint {
   """Unique identifier"""
@@ -1321,6 +1295,32 @@ type PaginatedTopologyNetworkStrategy {
   permissions: PaginatedObjectPermission!
 }
 
+"""Base Profile in Infrahub."""
+interface CoreProfile {
+  """Unique identifier"""
+  id: String
+
+  """Human friendly identifier"""
+  hfid: [String]
+  display_label: String
+  profile_name: TextAttribute!
+  profile_priority: NumberAttribute
+  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+}
+
+"""Base Profile in Infrahub."""
+type EdgedCoreProfile {
+  node: CoreProfile
+}
+
+"""Base Profile in Infrahub."""
+type PaginatedCoreProfile {
+  count: Int
+  edges: [EdgedCoreProfile]
+  permissions: PaginatedObjectPermission!
+}
+
 """Defines properties for relationships"""
 type RelationshipProperty {
   is_visible: Boolean
@@ -1603,19 +1603,6 @@ type NestedEdgedCoreMenu {
   properties: RelationshipProperty
 }
 
-"""Base Profile in Infrahub."""
-type NestedPaginatedCoreProfile {
-  count: Int
-  edges: [NestedEdgedCoreProfile]
-}
-
-"""Base Profile in Infrahub."""
-type NestedEdgedCoreProfile {
-  node: CoreProfile
-  _updated_at: DateTime
-  properties: RelationshipProperty
-}
-
 """Generic Endpoint to connect two objects together."""
 type NestedPaginatedInfraEndpoint {
   count: Int
@@ -1792,8 +1779,21 @@ type NestedEdgedTopologyNetworkStrategy {
   properties: RelationshipProperty
 }
 
+"""Base Profile in Infrahub."""
+type NestedPaginatedCoreProfile {
+  count: Int
+  edges: [NestedEdgedCoreProfile]
+}
+
+"""Base Profile in Infrahub."""
+type NestedEdgedCoreProfile {
+  node: CoreProfile
+  _updated_at: DateTime
+  properties: RelationshipProperty
+}
+
 """Menu Item"""
-type CoreMenuItem implements CoreNode & CoreMenu {
+type CoreMenuItem implements CoreMenu & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2037,7 +2037,7 @@ type NestedPaginatedBuiltinTag {
 }
 
 """User Account for Infrahub"""
-type CoreAccount implements LineageSource & CoreNode & LineageOwner & CoreGenericAccount {
+type CoreAccount implements LineageSource & LineageOwner & CoreGenericAccount & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2124,7 +2124,7 @@ type NestedPaginatedInternalAccountToken {
 }
 
 """Username/Password based credential"""
-type CorePasswordCredential implements CoreNode & CoreCredential {
+type CorePasswordCredential implements CoreCredential & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2207,7 +2207,7 @@ type NestedPaginatedInternalRefreshToken {
 }
 
 """Metadata related to a proposed change"""
-type CoreProposedChange implements CoreNode & CoreTaskTarget {
+type CoreProposedChange implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2256,7 +2256,7 @@ type NestedPaginatedCoreProposedChange {
 }
 
 """A thread on proposed change"""
-type CoreChangeThread implements CoreThread & CoreNode {
+type CoreChangeThread implements CoreNode & CoreThread {
   """Unique identifier"""
   id: String!
 
@@ -2300,7 +2300,7 @@ type NestedPaginatedCoreChangeThread {
 }
 
 """A thread related to a file on a proposed change"""
-type CoreFileThread implements CoreThread & CoreNode {
+type CoreFileThread implements CoreNode & CoreThread {
   """Unique identifier"""
   id: String!
 
@@ -2348,7 +2348,7 @@ type NestedPaginatedCoreFileThread {
 }
 
 """A thread related to an artifact on a proposed change"""
-type CoreArtifactThread implements CoreThread & CoreNode {
+type CoreArtifactThread implements CoreNode & CoreThread {
   """Unique identifier"""
   id: String!
 
@@ -2395,7 +2395,7 @@ type NestedPaginatedCoreArtifactThread {
 }
 
 """A thread related to an object on a proposed change"""
-type CoreObjectThread implements CoreThread & CoreNode {
+type CoreObjectThread implements CoreNode & CoreThread {
   """Unique identifier"""
   id: String!
 
@@ -2440,7 +2440,7 @@ type NestedPaginatedCoreObjectThread {
 }
 
 """A comment on proposed change"""
-type CoreChangeComment implements CoreNode & CoreComment {
+type CoreChangeComment implements CoreComment & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2482,7 +2482,7 @@ type NestedPaginatedCoreChangeComment {
 }
 
 """A comment on thread within a Proposed Change"""
-type CoreThreadComment implements CoreNode & CoreComment {
+type CoreThreadComment implements CoreComment & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2524,7 +2524,7 @@ type NestedPaginatedCoreThreadComment {
 }
 
 """A Git Repository integrated with Infrahub"""
-type CoreRepository implements LineageOwner & LineageSource & CoreNode & CoreGenericRepository & CoreTaskTarget {
+type CoreRepository implements CoreTaskTarget & LineageSource & CoreNode & LineageOwner & CoreGenericRepository {
   """Unique identifier"""
   id: String!
 
@@ -2578,7 +2578,7 @@ type NestedPaginatedCoreRepository {
 """
 A Git Repository integrated with Infrahub, Git-side will not be updated
 """
-type CoreReadOnlyRepository implements LineageOwner & LineageSource & CoreNode & CoreGenericRepository & CoreTaskTarget {
+type CoreReadOnlyRepository implements CoreTaskTarget & LineageSource & CoreNode & LineageOwner & CoreGenericRepository {
   """Unique identifier"""
   id: String!
 
@@ -2638,7 +2638,7 @@ type NestedPaginatedCoreReadOnlyRepository {
 }
 
 """A file rendered from a Jinja2 template"""
-type CoreTransformJinja2 implements CoreNode & CoreTransformation {
+type CoreTransformJinja2 implements CoreTransformation & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2684,7 +2684,7 @@ type NestedPaginatedCoreTransformJinja2 {
 }
 
 """A check related to some Data"""
-type CoreDataCheck implements CoreNode & CoreCheck {
+type CoreDataCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2734,7 +2734,7 @@ type NestedPaginatedCoreDataCheck {
 }
 
 """A standard check"""
-type CoreStandardCheck implements CoreNode & CoreCheck {
+type CoreStandardCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2781,7 +2781,7 @@ type NestedPaginatedCoreStandardCheck {
 }
 
 """A check related to the schema"""
-type CoreSchemaCheck implements CoreNode & CoreCheck {
+type CoreSchemaCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2830,7 +2830,7 @@ type NestedPaginatedCoreSchemaCheck {
 }
 
 """A check related to a file in a Git Repository"""
-type CoreFileCheck implements CoreNode & CoreCheck {
+type CoreFileCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2879,7 +2879,7 @@ type NestedPaginatedCoreFileCheck {
 }
 
 """A check related to an artifact"""
-type CoreArtifactCheck implements CoreNode & CoreCheck {
+type CoreArtifactCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2931,7 +2931,7 @@ type NestedPaginatedCoreArtifactCheck {
 }
 
 """A check related to a Generator instance"""
-type CoreGeneratorCheck implements CoreNode & CoreCheck {
+type CoreGeneratorCheck implements CoreCheck & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3253,7 +3253,7 @@ type NestedPaginatedCoreGeneratorValidator {
   permissions: PaginatedObjectPermission!
 }
 
-type CoreCheckDefinition implements CoreNode & CoreTaskTarget {
+type CoreCheckDefinition implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3297,7 +3297,7 @@ type NestedPaginatedCoreCheckDefinition {
 }
 
 """A transform function written in Python"""
-type CoreTransformPython implements CoreNode & CoreTransformation {
+type CoreTransformPython implements CoreTransformation & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3403,7 +3403,7 @@ type NestedPaginatedCoreGraphQLQuery {
   permissions: PaginatedObjectPermission!
 }
 
-type CoreArtifact implements CoreNode & CoreTaskTarget {
+type CoreArtifact implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3446,7 +3446,7 @@ type NestedPaginatedCoreArtifact {
   permissions: PaginatedObjectPermission!
 }
 
-type CoreArtifactDefinition implements CoreNode & CoreTaskTarget {
+type CoreArtifactDefinition implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3486,7 +3486,7 @@ type NestedPaginatedCoreArtifactDefinition {
   permissions: PaginatedObjectPermission!
 }
 
-type CoreGeneratorDefinition implements CoreNode & CoreTaskTarget {
+type CoreGeneratorDefinition implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3528,7 +3528,7 @@ type NestedPaginatedCoreGeneratorDefinition {
   permissions: PaginatedObjectPermission!
 }
 
-type CoreGeneratorInstance implements CoreNode & CoreTaskTarget {
+type CoreGeneratorInstance implements CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3566,7 +3566,7 @@ type NestedPaginatedCoreGeneratorInstance {
 }
 
 """A webhook that connects to an external integration"""
-type CoreStandardWebhook implements CoreNode & CoreTaskTarget & CoreWebhook {
+type CoreStandardWebhook implements CoreWebhook & CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3609,7 +3609,7 @@ type NestedPaginatedCoreStandardWebhook {
 }
 
 """A webhook that connects to an external integration"""
-type CoreCustomWebhook implements CoreNode & CoreTaskTarget & CoreWebhook {
+type CoreCustomWebhook implements CoreWebhook & CoreTaskTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3652,7 +3652,7 @@ type NestedPaginatedCoreCustomWebhook {
 }
 
 """A namespace that segments IPAM"""
-type IpamNamespace implements CoreNode & BuiltinIPNamespace {
+type IpamNamespace implements BuiltinIPNamespace & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3696,7 +3696,7 @@ type NestedPaginatedIpamNamespace {
 }
 
 """A pool of IP prefix resources"""
-type CoreIPPrefixPool implements LineageSource & CoreNode & CoreResourcePool {
+type CoreIPPrefixPool implements LineageSource & CoreResourcePool & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3745,7 +3745,7 @@ type NestedPaginatedCoreIPPrefixPool {
 }
 
 """A pool of IP address resources"""
-type CoreIPAddressPool implements LineageSource & CoreNode & CoreResourcePool {
+type CoreIPAddressPool implements LineageSource & CoreResourcePool & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3795,7 +3795,7 @@ type NestedPaginatedCoreIPAddressPool {
 }
 
 """A pool of number resources"""
-type CoreNumberPool implements LineageSource & CoreNode & CoreResourcePool {
+type CoreNumberPool implements LineageSource & CoreResourcePool & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4143,7 +4143,7 @@ type NestedPaginatedInfraBGPPeerGroup {
 """
 A BGP Session represent a point to point connection between two routers
 """
-type InfraBGPSession implements CoreArtifactTarget & CoreNode {
+type InfraBGPSession implements CoreNode & CoreArtifactTarget {
   """Unique identifier"""
   id: String!
 
@@ -4251,7 +4251,7 @@ type NestedPaginatedInfraCircuit {
 }
 
 """A Circuit endpoint is attached to each end of a circuit"""
-type InfraCircuitEndpoint implements CoreNode & InfraEndpoint {
+type InfraCircuitEndpoint implements InfraEndpoint & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4335,7 +4335,7 @@ type NestedPaginatedInfraCircuitType {
   permissions: PaginatedObjectPermission!
 }
 
-type InfraDevice implements CoreArtifactTarget & InfraGenericDevice & CoreNode {
+type InfraDevice implements InfraGenericDevice & CoreNode & CoreArtifactTarget {
   """Unique identifier"""
   id: String!
 
@@ -4475,7 +4475,7 @@ type NestedPaginatedInfraIPAddress {
 }
 
 """Network Layer 2 Interface"""
-type InfraInterfaceL2 implements CoreArtifactTarget & InfraInterface & CoreNode & InfraEndpoint {
+type InfraInterfaceL2 implements InfraEndpoint & CoreNode & CoreArtifactTarget & InfraInterface {
   """Unique identifier"""
   id: String!
 
@@ -4528,7 +4528,7 @@ type NestedPaginatedInfraInterfaceL2 {
 }
 
 """Network Layer 3 Interface"""
-type InfraInterfaceL3 implements CoreArtifactTarget & InfraInterface & CoreNode & InfraEndpoint {
+type InfraInterfaceL3 implements InfraEndpoint & CoreNode & CoreArtifactTarget & InfraInterface {
   """Unique identifier"""
   id: String!
 
@@ -4627,7 +4627,7 @@ type NestedPaginatedInfraPlatform {
 }
 
 """IPv4 or IPv6 network (with mask)"""
-type InfraPrefix implements CoreNode & BuiltinIPPrefix {
+type InfraPrefix implements BuiltinIPPrefix & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5392,7 +5392,7 @@ type NestedPaginatedNetworkNameServer {
 }
 
 """Device Manufacturer"""
-type OrganizationManufacturer implements OrganizationGeneric & CoreNode {
+type OrganizationManufacturer implements CoreNode & OrganizationGeneric {
   """Unique identifier"""
   id: String!
 
@@ -5437,7 +5437,7 @@ type NestedPaginatedOrganizationManufacturer {
 }
 
 """Circuit or Location Provider"""
-type OrganizationProvider implements OrganizationGeneric & CoreNode {
+type OrganizationProvider implements CoreNode & OrganizationGeneric {
   """Unique identifier"""
   id: String!
 
@@ -5482,7 +5482,7 @@ type NestedPaginatedOrganizationProvider {
 }
 
 """Customer"""
-type OrganizationTenant implements OrganizationGeneric & CoreNode {
+type OrganizationTenant implements CoreNode & OrganizationGeneric {
   """Unique identifier"""
   id: String!
 
@@ -5573,7 +5573,7 @@ type NestedPaginatedSecurityAddressGroup {
 }
 
 """Full Qualified Domain Name"""
-type SecurityFQDN implements SecurityGenericAddress & CoreNode {
+type SecurityFQDN implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -5614,7 +5614,7 @@ type NestedPaginatedSecurityFQDN {
   permissions: PaginatedObjectPermission!
 }
 
-type SecurityFirewall implements CoreArtifactTarget & InfraGenericDevice & SecurityPolicyAssignment & CoreNode {
+type SecurityFirewall implements InfraGenericDevice & SecurityPolicyAssignment & CoreNode & CoreArtifactTarget {
   """Unique identifier"""
   id: String!
 
@@ -5663,7 +5663,7 @@ type NestedPaginatedSecurityFirewall {
   permissions: PaginatedObjectPermission!
 }
 
-type SecurityFirewallInterface implements InfraInterface & CoreNode & InfraEndpoint {
+type SecurityFirewallInterface implements InfraEndpoint & CoreNode & InfraInterface {
   """Unique identifier"""
   id: String!
 
@@ -5710,7 +5710,7 @@ type NestedPaginatedSecurityFirewallInterface {
 }
 
 """Infrahub IPv4/6 address"""
-type SecurityIPAMIPAddress implements SecurityGenericAddress & CoreNode {
+type SecurityIPAMIPAddress implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -5753,7 +5753,7 @@ type NestedPaginatedSecurityIPAMIPAddress {
 }
 
 """Infrahub IPv4/6 prefix"""
-type SecurityIPAMIPPrefix implements SecurityGenericAddress & CoreNode {
+type SecurityIPAMIPPrefix implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -5796,7 +5796,7 @@ type NestedPaginatedSecurityIPAMIPPrefix {
 }
 
 """IPv4/6 address"""
-type SecurityIPAddress implements SecurityGenericAddress & CoreNode {
+type SecurityIPAddress implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -5839,7 +5839,7 @@ type NestedPaginatedSecurityIPAddress {
 }
 
 """IP protocol"""
-type SecurityIPProtocol implements CoreNode & SecurityGenericService {
+type SecurityIPProtocol implements SecurityGenericService & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5882,7 +5882,7 @@ type NestedPaginatedSecurityIPProtocol {
 }
 
 """IPv4/6 Range"""
-type SecurityIPRange implements SecurityGenericAddress & CoreNode {
+type SecurityIPRange implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -6018,7 +6018,7 @@ type NestedPaginatedSecurityPolicyRule {
 }
 
 """IPv4/6 prefix"""
-type SecurityPrefix implements SecurityGenericAddress & CoreNode {
+type SecurityPrefix implements CoreNode & SecurityGenericAddress {
   """Unique identifier"""
   id: String!
 
@@ -6115,7 +6115,7 @@ type NestedPaginatedSecurityRenderedPolicyRule {
 }
 
 """Service"""
-type SecurityService implements CoreNode & SecurityGenericService {
+type SecurityService implements SecurityGenericService & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6205,7 +6205,7 @@ type NestedPaginatedSecurityServiceGroup {
 }
 
 """Service range"""
-type SecurityServiceRange implements CoreNode & SecurityGenericService {
+type SecurityServiceRange implements SecurityGenericService & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6291,7 +6291,7 @@ type NestedPaginatedSecurityZone {
 }
 
 """Specific strategy attributes for EVPN."""
-type TopologyEVPNStrategy implements CoreNode & TopologyNetworkStrategy {
+type TopologyEVPNStrategy implements TopologyNetworkStrategy & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6335,7 +6335,7 @@ type NestedPaginatedTopologyEVPNStrategy {
 }
 
 """Layer 2 network service attached to a Topology."""
-type TopologyLayer2NetworkService implements CoreNode & TopologyNetworkService {
+type TopologyLayer2NetworkService implements TopologyNetworkService & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6379,7 +6379,7 @@ type NestedPaginatedTopologyLayer2NetworkService {
 }
 
 """Layer 3 network service attached to a Topology."""
-type TopologyLayer3NetworkService implements CoreNode & TopologyNetworkService {
+type TopologyLayer3NetworkService implements TopologyNetworkService & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6424,7 +6424,7 @@ type NestedPaginatedTopologyLayer3NetworkService {
 }
 
 """Specific strategy attributes for MPLS."""
-type TopologyMPLSStrategy implements CoreNode & TopologyNetworkStrategy {
+type TopologyMPLSStrategy implements TopologyNetworkStrategy & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6516,7 +6516,7 @@ type NestedPaginatedTopologyPhysicalElement {
 }
 
 """A Topology represents the entire network pod."""
-type TopologyTopology implements CoreArtifactTarget & CoreNode {
+type TopologyTopology implements CoreNode & CoreArtifactTarget {
   """Unique identifier"""
   id: String!
 
@@ -6563,7 +6563,7 @@ type NestedPaginatedTopologyTopology {
 }
 
 """Profile for BuiltinTag"""
-type ProfileBuiltinTag implements LineageSource & CoreProfile & CoreNode {
+type ProfileBuiltinTag implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6603,7 +6603,7 @@ type NestedPaginatedProfileBuiltinTag {
 }
 
 """Profile for IpamNamespace"""
-type ProfileIpamNamespace implements LineageSource & CoreProfile & CoreNode {
+type ProfileIpamNamespace implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6642,92 +6642,8 @@ type NestedPaginatedProfileIpamNamespace {
   edges: [NestedEdgedProfileIpamNamespace]
 }
 
-"""Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefix implements LineageSource & CoreProfile & CoreNode {
-  """Unique identifier"""
-  id: String!
-
-  """Human friendly identifier"""
-  hfid: [String]
-  display_label: String
-  profile_name: TextAttribute!
-  profile_priority: NumberAttribute
-  _updated_at: DateTime
-  description: TextAttribute
-  member_type: Dropdown
-
-  """All IP addresses within this prefix are considered usable"""
-  is_pool: CheckboxAttribute
-  related_nodes(offset: Int, limit: Int, ids: [ID], isnull: Boolean, prefix__value: String, prefix__values: [String], prefix__source__id: ID, prefix__owner__id: ID, prefix__is_visible: Boolean, prefix__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, member_type__value: String, member_type__values: [String], member_type__source__id: ID, member_type__owner__id: ID, member_type__is_visible: Boolean, member_type__is_protected: Boolean, is_pool__value: Boolean, is_pool__values: [Boolean], is_pool__source__id: ID, is_pool__owner__id: ID, is_pool__is_visible: Boolean, is_pool__is_protected: Boolean, is_top_level__value: Boolean, is_top_level__values: [Boolean], is_top_level__source__id: ID, is_top_level__owner__id: ID, is_top_level__is_visible: Boolean, is_top_level__is_protected: Boolean, utilization__value: BigInt, utilization__values: [BigInt], utilization__source__id: ID, utilization__owner__id: ID, utilization__is_visible: Boolean, utilization__is_protected: Boolean, netmask__value: String, netmask__values: [String], netmask__source__id: ID, netmask__owner__id: ID, netmask__is_visible: Boolean, netmask__is_protected: Boolean, hostmask__value: String, hostmask__values: [String], hostmask__source__id: ID, hostmask__owner__id: ID, hostmask__is_visible: Boolean, hostmask__is_protected: Boolean, network_address__value: String, network_address__values: [String], network_address__source__id: ID, network_address__owner__id: ID, network_address__is_visible: Boolean, network_address__is_protected: Boolean, broadcast_address__value: String, broadcast_address__values: [String], broadcast_address__source__id: ID, broadcast_address__owner__id: ID, broadcast_address__is_visible: Boolean, broadcast_address__is_protected: Boolean): NestedPaginatedBuiltinIPPrefix
-  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-}
-
-"""Profile for BuiltinIPPrefix"""
-type EdgedProfileBuiltinIPPrefix {
-  node: ProfileBuiltinIPPrefix
-}
-
-"""Profile for BuiltinIPPrefix"""
-type NestedEdgedProfileBuiltinIPPrefix {
-  node: ProfileBuiltinIPPrefix
-  properties: RelationshipProperty
-}
-
-"""Profile for BuiltinIPPrefix"""
-type PaginatedProfileBuiltinIPPrefix {
-  count: Int
-  edges: [EdgedProfileBuiltinIPPrefix]
-}
-
-"""Profile for BuiltinIPPrefix"""
-type NestedPaginatedProfileBuiltinIPPrefix {
-  count: Int
-  edges: [NestedEdgedProfileBuiltinIPPrefix]
-}
-
-"""Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddress implements LineageSource & CoreProfile & CoreNode {
-  """Unique identifier"""
-  id: String!
-
-  """Human friendly identifier"""
-  hfid: [String]
-  display_label: String
-  profile_name: TextAttribute!
-  profile_priority: NumberAttribute
-  _updated_at: DateTime
-  description: TextAttribute
-  related_nodes(offset: Int, limit: Int, ids: [ID], isnull: Boolean, address__value: String, address__values: [String], address__source__id: ID, address__owner__id: ID, address__is_visible: Boolean, address__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean): NestedPaginatedBuiltinIPAddress
-  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
-}
-
-"""Profile for BuiltinIPAddress"""
-type EdgedProfileBuiltinIPAddress {
-  node: ProfileBuiltinIPAddress
-}
-
-"""Profile for BuiltinIPAddress"""
-type NestedEdgedProfileBuiltinIPAddress {
-  node: ProfileBuiltinIPAddress
-  properties: RelationshipProperty
-}
-
-"""Profile for BuiltinIPAddress"""
-type PaginatedProfileBuiltinIPAddress {
-  count: Int
-  edges: [EdgedProfileBuiltinIPAddress]
-}
-
-"""Profile for BuiltinIPAddress"""
-type NestedPaginatedProfileBuiltinIPAddress {
-  count: Int
-  edges: [NestedEdgedProfileBuiltinIPAddress]
-}
-
 """Profile for InfraAutonomousSystem"""
-type ProfileInfraAutonomousSystem implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraAutonomousSystem implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6767,7 +6683,7 @@ type NestedPaginatedProfileInfraAutonomousSystem {
 }
 
 """Profile for InfraBGPPeerGroup"""
-type ProfileInfraBGPPeerGroup implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraBGPPeerGroup implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6811,7 +6727,7 @@ type NestedPaginatedProfileInfraBGPPeerGroup {
 }
 
 """Profile for InfraBGPSession"""
-type ProfileInfraBGPSession implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraBGPSession implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6853,7 +6769,7 @@ type NestedPaginatedProfileInfraBGPSession {
 }
 
 """Profile for InfraCircuit"""
-type ProfileInfraCircuit implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraCircuit implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6894,7 +6810,7 @@ type NestedPaginatedProfileInfraCircuit {
 }
 
 """Profile for InfraCircuitEndpoint"""
-type ProfileInfraCircuitEndpoint implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraCircuitEndpoint implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6934,7 +6850,7 @@ type NestedPaginatedProfileInfraCircuitEndpoint {
 }
 
 """Profile for InfraCircuitType"""
-type ProfileInfraCircuitType implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraCircuitType implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -6974,7 +6890,7 @@ type NestedPaginatedProfileInfraCircuitType {
 }
 
 """Profile for InfraDevice"""
-type ProfileInfraDevice implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraDevice implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7016,7 +6932,7 @@ type NestedPaginatedProfileInfraDevice {
 }
 
 """Profile for InfraDeviceType"""
-type ProfileInfraDeviceType implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraDeviceType implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7060,7 +6976,7 @@ type NestedPaginatedProfileInfraDeviceType {
 }
 
 """Profile for InfraIPAddress"""
-type ProfileInfraIPAddress implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraIPAddress implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7100,7 +7016,7 @@ type NestedPaginatedProfileInfraIPAddress {
 }
 
 """Profile for InfraInterfaceL2"""
-type ProfileInfraInterfaceL2 implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraInterfaceL2 implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7144,7 +7060,7 @@ type NestedPaginatedProfileInfraInterfaceL2 {
 }
 
 """Profile for InfraInterfaceL3"""
-type ProfileInfraInterfaceL3 implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraInterfaceL3 implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7188,7 +7104,7 @@ type NestedPaginatedProfileInfraInterfaceL3 {
 }
 
 """Profile for InfraPlatform"""
-type ProfileInfraPlatform implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraPlatform implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7233,7 +7149,7 @@ type NestedPaginatedProfileInfraPlatform {
 }
 
 """Profile for InfraPrefix"""
-type ProfileInfraPrefix implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraPrefix implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7279,7 +7195,7 @@ type NestedPaginatedProfileInfraPrefix {
 }
 
 """Profile for InfraRouteTarget"""
-type ProfileInfraRouteTarget implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraRouteTarget implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7319,7 +7235,7 @@ type NestedPaginatedProfileInfraRouteTarget {
 }
 
 """Profile for InfraVLAN"""
-type ProfileInfraVLAN implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraVLAN implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7359,7 +7275,7 @@ type NestedPaginatedProfileInfraVLAN {
 }
 
 """Profile for InfraVRF"""
-type ProfileInfraVRF implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraVRF implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7399,7 +7315,7 @@ type NestedPaginatedProfileInfraVRF {
 }
 
 """Profile for LocationBuilding"""
-type ProfileLocationBuilding implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationBuilding implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7442,7 +7358,7 @@ type NestedPaginatedProfileLocationBuilding {
 }
 
 """Profile for LocationContinent"""
-type ProfileLocationContinent implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationContinent implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7483,7 +7399,7 @@ type NestedPaginatedProfileLocationContinent {
 }
 
 """Profile for LocationCountry"""
-type ProfileLocationCountry implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationCountry implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7524,7 +7440,7 @@ type NestedPaginatedProfileLocationCountry {
 }
 
 """Profile for LocationFloor"""
-type ProfileLocationFloor implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationFloor implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7565,7 +7481,7 @@ type NestedPaginatedProfileLocationFloor {
 }
 
 """Profile for LocationMetro"""
-type ProfileLocationMetro implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationMetro implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7606,7 +7522,7 @@ type NestedPaginatedProfileLocationMetro {
 }
 
 """Profile for LocationRack"""
-type ProfileLocationRack implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationRack implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7648,7 +7564,7 @@ type NestedPaginatedProfileLocationRack {
 }
 
 """Profile for LocationRegion"""
-type ProfileLocationRegion implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationRegion implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7689,7 +7605,7 @@ type NestedPaginatedProfileLocationRegion {
 }
 
 """Profile for LocationSuite"""
-type ProfileLocationSuite implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationSuite implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7731,7 +7647,7 @@ type NestedPaginatedProfileLocationSuite {
 }
 
 """Profile for NetworkDhcpOption"""
-type ProfileNetworkDhcpOption implements LineageSource & CoreProfile & CoreNode {
+type ProfileNetworkDhcpOption implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7771,7 +7687,7 @@ type NestedPaginatedProfileNetworkDhcpOption {
 }
 
 """Profile for NetworkDhcpServer"""
-type ProfileNetworkDhcpServer implements LineageSource & CoreProfile & CoreNode {
+type ProfileNetworkDhcpServer implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7811,7 +7727,7 @@ type NestedPaginatedProfileNetworkDhcpServer {
 }
 
 """Profile for NetworkNTPServer"""
-type ProfileNetworkNTPServer implements LineageSource & CoreProfile & CoreNode {
+type ProfileNetworkNTPServer implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7851,7 +7767,7 @@ type NestedPaginatedProfileNetworkNTPServer {
 }
 
 """Profile for NetworkNameServer"""
-type ProfileNetworkNameServer implements LineageSource & CoreProfile & CoreNode {
+type ProfileNetworkNameServer implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7891,7 +7807,7 @@ type NestedPaginatedProfileNetworkNameServer {
 }
 
 """Profile for OrganizationManufacturer"""
-type ProfileOrganizationManufacturer implements LineageSource & CoreProfile & CoreNode {
+type ProfileOrganizationManufacturer implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7931,7 +7847,7 @@ type NestedPaginatedProfileOrganizationManufacturer {
 }
 
 """Profile for OrganizationProvider"""
-type ProfileOrganizationProvider implements LineageSource & CoreProfile & CoreNode {
+type ProfileOrganizationProvider implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -7971,7 +7887,7 @@ type NestedPaginatedProfileOrganizationProvider {
 }
 
 """Profile for OrganizationTenant"""
-type ProfileOrganizationTenant implements LineageSource & CoreProfile & CoreNode {
+type ProfileOrganizationTenant implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8011,7 +7927,7 @@ type NestedPaginatedProfileOrganizationTenant {
 }
 
 """Profile for SecurityAddressGroup"""
-type ProfileSecurityAddressGroup implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityAddressGroup implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8051,7 +7967,7 @@ type NestedPaginatedProfileSecurityAddressGroup {
 }
 
 """Profile for SecurityFQDN"""
-type ProfileSecurityFQDN implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityFQDN implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8090,7 +8006,7 @@ type NestedPaginatedProfileSecurityFQDN {
 }
 
 """Profile for SecurityFirewall"""
-type ProfileSecurityFirewall implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityFirewall implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8132,7 +8048,7 @@ type NestedPaginatedProfileSecurityFirewall {
 }
 
 """Profile for SecurityFirewallInterface"""
-type ProfileSecurityFirewallInterface implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityFirewallInterface implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8176,7 +8092,7 @@ type NestedPaginatedProfileSecurityFirewallInterface {
 }
 
 """Profile for SecurityIPAMIPAddress"""
-type ProfileSecurityIPAMIPAddress implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityIPAMIPAddress implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8216,7 +8132,7 @@ type NestedPaginatedProfileSecurityIPAMIPAddress {
 }
 
 """Profile for SecurityIPAMIPPrefix"""
-type ProfileSecurityIPAMIPPrefix implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityIPAMIPPrefix implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8256,7 +8172,7 @@ type NestedPaginatedProfileSecurityIPAMIPPrefix {
 }
 
 """Profile for SecurityIPAddress"""
-type ProfileSecurityIPAddress implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityIPAddress implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8296,7 +8212,7 @@ type NestedPaginatedProfileSecurityIPAddress {
 }
 
 """Profile for SecurityIPProtocol"""
-type ProfileSecurityIPProtocol implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityIPProtocol implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8337,7 +8253,7 @@ type NestedPaginatedProfileSecurityIPProtocol {
 }
 
 """Profile for SecurityIPRange"""
-type ProfileSecurityIPRange implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityIPRange implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8376,7 +8292,7 @@ type NestedPaginatedProfileSecurityIPRange {
 }
 
 """Profile for SecurityPolicy"""
-type ProfileSecurityPolicy implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityPolicy implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8416,7 +8332,7 @@ type NestedPaginatedProfileSecurityPolicy {
 }
 
 """Profile for SecurityPolicyRule"""
-type ProfileSecurityPolicyRule implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityPolicyRule implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8457,7 +8373,7 @@ type NestedPaginatedProfileSecurityPolicyRule {
 }
 
 """Profile for SecurityPrefix"""
-type ProfileSecurityPrefix implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityPrefix implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8497,7 +8413,7 @@ type NestedPaginatedProfileSecurityPrefix {
 }
 
 """Profile for SecurityRenderedPolicyRule"""
-type ProfileSecurityRenderedPolicyRule implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityRenderedPolicyRule implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8538,7 +8454,7 @@ type NestedPaginatedProfileSecurityRenderedPolicyRule {
 }
 
 """Profile for SecurityService"""
-type ProfileSecurityService implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityService implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8578,7 +8494,7 @@ type NestedPaginatedProfileSecurityService {
 }
 
 """Profile for SecurityServiceGroup"""
-type ProfileSecurityServiceGroup implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityServiceGroup implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8618,7 +8534,7 @@ type NestedPaginatedProfileSecurityServiceGroup {
 }
 
 """Profile for SecurityServiceRange"""
-type ProfileSecurityServiceRange implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityServiceRange implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8658,7 +8574,7 @@ type NestedPaginatedProfileSecurityServiceRange {
 }
 
 """Profile for SecurityZone"""
-type ProfileSecurityZone implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityZone implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8697,7 +8613,7 @@ type NestedPaginatedProfileSecurityZone {
 }
 
 """Profile for TopologyEVPNStrategy"""
-type ProfileTopologyEVPNStrategy implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyEVPNStrategy implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8737,7 +8653,7 @@ type NestedPaginatedProfileTopologyEVPNStrategy {
 }
 
 """Profile for TopologyLayer2NetworkService"""
-type ProfileTopologyLayer2NetworkService implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyLayer2NetworkService implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8777,7 +8693,7 @@ type NestedPaginatedProfileTopologyLayer2NetworkService {
 }
 
 """Profile for TopologyLayer3NetworkService"""
-type ProfileTopologyLayer3NetworkService implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyLayer3NetworkService implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8817,7 +8733,7 @@ type NestedPaginatedProfileTopologyLayer3NetworkService {
 }
 
 """Profile for TopologyMPLSStrategy"""
-type ProfileTopologyMPLSStrategy implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyMPLSStrategy implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8857,7 +8773,7 @@ type NestedPaginatedProfileTopologyMPLSStrategy {
 }
 
 """Profile for TopologyPhysicalElement"""
-type ProfileTopologyPhysicalElement implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyPhysicalElement implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8900,7 +8816,7 @@ type NestedPaginatedProfileTopologyPhysicalElement {
 }
 
 """Profile for TopologyTopology"""
-type ProfileTopologyTopology implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyTopology implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8939,8 +8855,92 @@ type NestedPaginatedProfileTopologyTopology {
   edges: [NestedEdgedProfileTopologyTopology]
 }
 
+"""Profile for BuiltinIPPrefix"""
+type ProfileBuiltinIPPrefix implements LineageSource & CoreNode & CoreProfile {
+  """Unique identifier"""
+  id: String!
+
+  """Human friendly identifier"""
+  hfid: [String]
+  display_label: String
+  profile_name: TextAttribute!
+  profile_priority: NumberAttribute
+  _updated_at: DateTime
+  description: TextAttribute
+  member_type: Dropdown
+
+  """All IP addresses within this prefix are considered usable"""
+  is_pool: CheckboxAttribute
+  related_nodes(offset: Int, limit: Int, ids: [ID], isnull: Boolean, prefix__value: String, prefix__values: [String], prefix__source__id: ID, prefix__owner__id: ID, prefix__is_visible: Boolean, prefix__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, member_type__value: String, member_type__values: [String], member_type__source__id: ID, member_type__owner__id: ID, member_type__is_visible: Boolean, member_type__is_protected: Boolean, is_pool__value: Boolean, is_pool__values: [Boolean], is_pool__source__id: ID, is_pool__owner__id: ID, is_pool__is_visible: Boolean, is_pool__is_protected: Boolean, is_top_level__value: Boolean, is_top_level__values: [Boolean], is_top_level__source__id: ID, is_top_level__owner__id: ID, is_top_level__is_visible: Boolean, is_top_level__is_protected: Boolean, utilization__value: BigInt, utilization__values: [BigInt], utilization__source__id: ID, utilization__owner__id: ID, utilization__is_visible: Boolean, utilization__is_protected: Boolean, netmask__value: String, netmask__values: [String], netmask__source__id: ID, netmask__owner__id: ID, netmask__is_visible: Boolean, netmask__is_protected: Boolean, hostmask__value: String, hostmask__values: [String], hostmask__source__id: ID, hostmask__owner__id: ID, hostmask__is_visible: Boolean, hostmask__is_protected: Boolean, network_address__value: String, network_address__values: [String], network_address__source__id: ID, network_address__owner__id: ID, network_address__is_visible: Boolean, network_address__is_protected: Boolean, broadcast_address__value: String, broadcast_address__values: [String], broadcast_address__source__id: ID, broadcast_address__owner__id: ID, broadcast_address__is_visible: Boolean, broadcast_address__is_protected: Boolean): NestedPaginatedBuiltinIPPrefix
+  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+}
+
+"""Profile for BuiltinIPPrefix"""
+type EdgedProfileBuiltinIPPrefix {
+  node: ProfileBuiltinIPPrefix
+}
+
+"""Profile for BuiltinIPPrefix"""
+type NestedEdgedProfileBuiltinIPPrefix {
+  node: ProfileBuiltinIPPrefix
+  properties: RelationshipProperty
+}
+
+"""Profile for BuiltinIPPrefix"""
+type PaginatedProfileBuiltinIPPrefix {
+  count: Int
+  edges: [EdgedProfileBuiltinIPPrefix]
+}
+
+"""Profile for BuiltinIPPrefix"""
+type NestedPaginatedProfileBuiltinIPPrefix {
+  count: Int
+  edges: [NestedEdgedProfileBuiltinIPPrefix]
+}
+
+"""Profile for BuiltinIPAddress"""
+type ProfileBuiltinIPAddress implements LineageSource & CoreNode & CoreProfile {
+  """Unique identifier"""
+  id: String!
+
+  """Human friendly identifier"""
+  hfid: [String]
+  display_label: String
+  profile_name: TextAttribute!
+  profile_priority: NumberAttribute
+  _updated_at: DateTime
+  description: TextAttribute
+  related_nodes(offset: Int, limit: Int, ids: [ID], isnull: Boolean, address__value: String, address__values: [String], address__source__id: ID, address__owner__id: ID, address__is_visible: Boolean, address__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean): NestedPaginatedBuiltinIPAddress
+  member_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+  subscriber_of_groups(offset: Int, limit: Int, ids: [ID], isnull: Boolean, name__value: String, name__values: [String], name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, group_type__value: String, group_type__values: [String], group_type__source__id: ID, group_type__owner__id: ID, group_type__is_visible: Boolean, group_type__is_protected: Boolean): NestedPaginatedCoreGroup
+}
+
+"""Profile for BuiltinIPAddress"""
+type EdgedProfileBuiltinIPAddress {
+  node: ProfileBuiltinIPAddress
+}
+
+"""Profile for BuiltinIPAddress"""
+type NestedEdgedProfileBuiltinIPAddress {
+  node: ProfileBuiltinIPAddress
+  properties: RelationshipProperty
+}
+
+"""Profile for BuiltinIPAddress"""
+type PaginatedProfileBuiltinIPAddress {
+  count: Int
+  edges: [EdgedProfileBuiltinIPAddress]
+}
+
+"""Profile for BuiltinIPAddress"""
+type NestedPaginatedProfileBuiltinIPAddress {
+  count: Int
+  edges: [NestedEdgedProfileBuiltinIPAddress]
+}
+
 """Profile for InfraEndpoint"""
-type ProfileInfraEndpoint implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraEndpoint implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -8979,7 +8979,7 @@ type NestedPaginatedProfileInfraEndpoint {
 }
 
 """Profile for InfraGenericDevice"""
-type ProfileInfraGenericDevice implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraGenericDevice implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9020,7 +9020,7 @@ type NestedPaginatedProfileInfraGenericDevice {
 }
 
 """Profile for InfraInterface"""
-type ProfileInfraInterface implements LineageSource & CoreProfile & CoreNode {
+type ProfileInfraInterface implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9064,7 +9064,7 @@ type NestedPaginatedProfileInfraInterface {
 }
 
 """Profile for LocationGeneric"""
-type ProfileLocationGeneric implements LineageSource & CoreProfile & CoreNode {
+type ProfileLocationGeneric implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9105,7 +9105,7 @@ type NestedPaginatedProfileLocationGeneric {
 }
 
 """Profile for NetworkManagementServer"""
-type ProfileNetworkManagementServer implements LineageSource & CoreProfile & CoreNode {
+type ProfileNetworkManagementServer implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9145,7 +9145,7 @@ type NestedPaginatedProfileNetworkManagementServer {
 }
 
 """Profile for OrganizationGeneric"""
-type ProfileOrganizationGeneric implements LineageSource & CoreProfile & CoreNode {
+type ProfileOrganizationGeneric implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9185,7 +9185,7 @@ type NestedPaginatedProfileOrganizationGeneric {
 }
 
 """Profile for SecurityGenericAddress"""
-type ProfileSecurityGenericAddress implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityGenericAddress implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9224,7 +9224,7 @@ type NestedPaginatedProfileSecurityGenericAddress {
 }
 
 """Profile for SecurityGenericAddressGroup"""
-type ProfileSecurityGenericAddressGroup implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityGenericAddressGroup implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9264,7 +9264,7 @@ type NestedPaginatedProfileSecurityGenericAddressGroup {
 }
 
 """Profile for SecurityGenericService"""
-type ProfileSecurityGenericService implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityGenericService implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9304,7 +9304,7 @@ type NestedPaginatedProfileSecurityGenericService {
 }
 
 """Profile for SecurityGenericServiceGroup"""
-type ProfileSecurityGenericServiceGroup implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityGenericServiceGroup implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9344,7 +9344,7 @@ type NestedPaginatedProfileSecurityGenericServiceGroup {
 }
 
 """Profile for SecurityPolicyAssignment"""
-type ProfileSecurityPolicyAssignment implements LineageSource & CoreProfile & CoreNode {
+type ProfileSecurityPolicyAssignment implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9383,7 +9383,7 @@ type NestedPaginatedProfileSecurityPolicyAssignment {
 }
 
 """Profile for TopologyGenericElement"""
-type ProfileTopologyGenericElement implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyGenericElement implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9423,7 +9423,7 @@ type NestedPaginatedProfileTopologyGenericElement {
 }
 
 """Profile for TopologyNetworkService"""
-type ProfileTopologyNetworkService implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyNetworkService implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9463,7 +9463,7 @@ type NestedPaginatedProfileTopologyNetworkService {
 }
 
 """Profile for TopologyNetworkStrategy"""
-type ProfileTopologyNetworkStrategy implements LineageSource & CoreProfile & CoreNode {
+type ProfileTopologyNetworkStrategy implements LineageSource & CoreNode & CoreProfile {
   """Unique identifier"""
   id: String!
 
@@ -9680,7 +9680,6 @@ type Query {
   CoreBasePermission(offset: Int, limit: Int, ids: [ID], description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, identifier__value: String, identifier__values: [String], identifier__isnull: Boolean, identifier__source__id: ID, identifier__owner__id: ID, identifier__is_visible: Boolean, identifier__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, roles__ids: [ID], roles__isnull: Boolean, roles__name__value: String, roles__name__values: [String], roles__name__source__id: ID, roles__name__owner__id: ID, roles__name__is_visible: Boolean, roles__name__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedCoreBasePermission
   CoreCredential(offset: Int, limit: Int, ids: [ID], hfid: [String], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__isnull: Boolean, label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedCoreCredential
   CoreMenu(offset: Int, limit: Int, ids: [ID], hfid: [String], namespace__value: String, namespace__values: [String], namespace__isnull: Boolean, namespace__source__id: ID, namespace__owner__id: ID, namespace__is_visible: Boolean, namespace__is_protected: Boolean, name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, label__value: String, label__values: [String], label__isnull: Boolean, label__source__id: ID, label__owner__id: ID, label__is_visible: Boolean, label__is_protected: Boolean, kind__value: String, kind__values: [String], kind__isnull: Boolean, kind__source__id: ID, kind__owner__id: ID, kind__is_visible: Boolean, kind__is_protected: Boolean, path__value: String, path__values: [String], path__isnull: Boolean, path__source__id: ID, path__owner__id: ID, path__is_visible: Boolean, path__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, icon__value: String, icon__values: [String], icon__isnull: Boolean, icon__source__id: ID, icon__owner__id: ID, icon__is_visible: Boolean, icon__is_protected: Boolean, protected__value: Boolean, protected__values: [Boolean], protected__isnull: Boolean, protected__source__id: ID, protected__owner__id: ID, protected__is_visible: Boolean, protected__is_protected: Boolean, order_weight__value: BigInt, order_weight__values: [BigInt], order_weight__isnull: Boolean, order_weight__source__id: ID, order_weight__owner__id: ID, order_weight__is_visible: Boolean, order_weight__is_protected: Boolean, required_permissions__value: GenericScalar, required_permissions__values: [GenericScalar], required_permissions__isnull: Boolean, required_permissions__source__id: ID, required_permissions__owner__id: ID, required_permissions__is_visible: Boolean, required_permissions__is_protected: Boolean, section__value: String, section__values: [String], section__isnull: Boolean, section__source__id: ID, section__owner__id: ID, section__is_visible: Boolean, section__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String], parent__ids: [ID], parent__isnull: Boolean, parent__namespace__value: String, parent__namespace__values: [String], parent__namespace__source__id: ID, parent__namespace__owner__id: ID, parent__namespace__is_visible: Boolean, parent__namespace__is_protected: Boolean, parent__name__value: String, parent__name__values: [String], parent__name__source__id: ID, parent__name__owner__id: ID, parent__name__is_visible: Boolean, parent__name__is_protected: Boolean, parent__label__value: String, parent__label__values: [String], parent__label__source__id: ID, parent__label__owner__id: ID, parent__label__is_visible: Boolean, parent__label__is_protected: Boolean, parent__kind__value: String, parent__kind__values: [String], parent__kind__source__id: ID, parent__kind__owner__id: ID, parent__kind__is_visible: Boolean, parent__kind__is_protected: Boolean, parent__path__value: String, parent__path__values: [String], parent__path__source__id: ID, parent__path__owner__id: ID, parent__path__is_visible: Boolean, parent__path__is_protected: Boolean, parent__description__value: String, parent__description__values: [String], parent__description__source__id: ID, parent__description__owner__id: ID, parent__description__is_visible: Boolean, parent__description__is_protected: Boolean, parent__icon__value: String, parent__icon__values: [String], parent__icon__source__id: ID, parent__icon__owner__id: ID, parent__icon__is_visible: Boolean, parent__icon__is_protected: Boolean, parent__protected__value: Boolean, parent__protected__values: [Boolean], parent__protected__source__id: ID, parent__protected__owner__id: ID, parent__protected__is_visible: Boolean, parent__protected__is_protected: Boolean, parent__order_weight__value: BigInt, parent__order_weight__values: [BigInt], parent__order_weight__source__id: ID, parent__order_weight__owner__id: ID, parent__order_weight__is_visible: Boolean, parent__order_weight__is_protected: Boolean, parent__required_permissions__value: GenericScalar, parent__required_permissions__values: [GenericScalar], parent__required_permissions__source__id: ID, parent__required_permissions__owner__id: ID, parent__required_permissions__is_visible: Boolean, parent__required_permissions__is_protected: Boolean, parent__section__value: String, parent__section__values: [String], parent__section__source__id: ID, parent__section__owner__id: ID, parent__section__is_visible: Boolean, parent__section__is_protected: Boolean, children__ids: [ID], children__isnull: Boolean, children__namespace__value: String, children__namespace__values: [String], children__namespace__source__id: ID, children__namespace__owner__id: ID, children__namespace__is_visible: Boolean, children__namespace__is_protected: Boolean, children__name__value: String, children__name__values: [String], children__name__source__id: ID, children__name__owner__id: ID, children__name__is_visible: Boolean, children__name__is_protected: Boolean, children__label__value: String, children__label__values: [String], children__label__source__id: ID, children__label__owner__id: ID, children__label__is_visible: Boolean, children__label__is_protected: Boolean, children__kind__value: String, children__kind__values: [String], children__kind__source__id: ID, children__kind__owner__id: ID, children__kind__is_visible: Boolean, children__kind__is_protected: Boolean, children__path__value: String, children__path__values: [String], children__path__source__id: ID, children__path__owner__id: ID, children__path__is_visible: Boolean, children__path__is_protected: Boolean, children__description__value: String, children__description__values: [String], children__description__source__id: ID, children__description__owner__id: ID, children__description__is_visible: Boolean, children__description__is_protected: Boolean, children__icon__value: String, children__icon__values: [String], children__icon__source__id: ID, children__icon__owner__id: ID, children__icon__is_visible: Boolean, children__icon__is_protected: Boolean, children__protected__value: Boolean, children__protected__values: [Boolean], children__protected__source__id: ID, children__protected__owner__id: ID, children__protected__is_visible: Boolean, children__protected__is_protected: Boolean, children__order_weight__value: BigInt, children__order_weight__values: [BigInt], children__order_weight__source__id: ID, children__order_weight__owner__id: ID, children__order_weight__is_visible: Boolean, children__order_weight__is_protected: Boolean, children__required_permissions__value: GenericScalar, children__required_permissions__values: [GenericScalar], children__required_permissions__source__id: ID, children__required_permissions__owner__id: ID, children__required_permissions__is_visible: Boolean, children__required_permissions__is_protected: Boolean, children__section__value: String, children__section__values: [String], children__section__source__id: ID, children__section__owner__id: ID, children__section__is_visible: Boolean, children__section__is_protected: Boolean): PaginatedCoreMenu
-  CoreProfile(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedCoreProfile
   InfraEndpoint(offset: Int, limit: Int, ids: [ID], any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, connected_endpoint__ids: [ID], connected_endpoint__isnull: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedInfraEndpoint
   InfraGenericDevice(offset: Int, limit: Int, ids: [ID], hfid: [String], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, status__value: String, status__values: [String], status__isnull: Boolean, status__source__id: ID, status__owner__id: ID, status__is_visible: Boolean, status__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, location__ids: [ID], location__isnull: Boolean, location__name__value: String, location__name__values: [String], location__name__source__id: ID, location__name__owner__id: ID, location__name__is_visible: Boolean, location__name__is_protected: Boolean, location__shortname__value: String, location__shortname__values: [String], location__shortname__source__id: ID, location__shortname__owner__id: ID, location__shortname__is_visible: Boolean, location__shortname__is_protected: Boolean, location__description__value: String, location__description__values: [String], location__description__source__id: ID, location__description__owner__id: ID, location__description__is_visible: Boolean, location__description__is_protected: Boolean, location__timezone__value: String, location__timezone__values: [String], location__timezone__source__id: ID, location__timezone__owner__id: ID, location__timezone__is_visible: Boolean, location__timezone__is_protected: Boolean, interfaces__ids: [ID], interfaces__isnull: Boolean, interfaces__name__value: String, interfaces__name__values: [String], interfaces__name__source__id: ID, interfaces__name__owner__id: ID, interfaces__name__is_visible: Boolean, interfaces__name__is_protected: Boolean, interfaces__description__value: String, interfaces__description__values: [String], interfaces__description__source__id: ID, interfaces__description__owner__id: ID, interfaces__description__is_visible: Boolean, interfaces__description__is_protected: Boolean, interfaces__speed__value: BigInt, interfaces__speed__values: [BigInt], interfaces__speed__source__id: ID, interfaces__speed__owner__id: ID, interfaces__speed__is_visible: Boolean, interfaces__speed__is_protected: Boolean, interfaces__mtu__value: BigInt, interfaces__mtu__values: [BigInt], interfaces__mtu__source__id: ID, interfaces__mtu__owner__id: ID, interfaces__mtu__is_visible: Boolean, interfaces__mtu__is_protected: Boolean, interfaces__enabled__value: Boolean, interfaces__enabled__values: [Boolean], interfaces__enabled__source__id: ID, interfaces__enabled__owner__id: ID, interfaces__enabled__is_visible: Boolean, interfaces__enabled__is_protected: Boolean, interfaces__status__value: String, interfaces__status__values: [String], interfaces__status__source__id: ID, interfaces__status__owner__id: ID, interfaces__status__is_visible: Boolean, interfaces__status__is_protected: Boolean, interfaces__role__value: String, interfaces__role__values: [String], interfaces__role__source__id: ID, interfaces__role__owner__id: ID, interfaces__role__is_visible: Boolean, interfaces__role__is_protected: Boolean, asn__ids: [ID], asn__isnull: Boolean, asn__name__value: String, asn__name__values: [String], asn__name__source__id: ID, asn__name__owner__id: ID, asn__name__is_visible: Boolean, asn__name__is_protected: Boolean, asn__asn__value: BigInt, asn__asn__values: [BigInt], asn__asn__source__id: ID, asn__asn__owner__id: ID, asn__asn__is_visible: Boolean, asn__asn__is_protected: Boolean, asn__description__value: String, asn__description__values: [String], asn__description__source__id: ID, asn__description__owner__id: ID, asn__description__is_visible: Boolean, asn__description__is_protected: Boolean, tags__ids: [ID], tags__isnull: Boolean, tags__name__value: String, tags__name__values: [String], tags__name__source__id: ID, tags__name__owner__id: ID, tags__name__is_visible: Boolean, tags__name__is_protected: Boolean, tags__description__value: String, tags__description__values: [String], tags__description__source__id: ID, tags__description__owner__id: ID, tags__description__is_visible: Boolean, tags__description__is_protected: Boolean, primary_address__ids: [ID], primary_address__isnull: Boolean, primary_address__address__value: String, primary_address__address__values: [String], primary_address__address__source__id: ID, primary_address__address__owner__id: ID, primary_address__address__is_visible: Boolean, primary_address__address__is_protected: Boolean, primary_address__description__value: String, primary_address__description__values: [String], primary_address__description__source__id: ID, primary_address__description__owner__id: ID, primary_address__description__is_visible: Boolean, primary_address__description__is_protected: Boolean, device_type__ids: [ID], device_type__isnull: Boolean, device_type__name__value: String, device_type__name__values: [String], device_type__name__source__id: ID, device_type__name__owner__id: ID, device_type__name__is_visible: Boolean, device_type__name__is_protected: Boolean, device_type__description__value: String, device_type__description__values: [String], device_type__description__source__id: ID, device_type__description__owner__id: ID, device_type__description__is_visible: Boolean, device_type__description__is_protected: Boolean, device_type__part_number__value: String, device_type__part_number__values: [String], device_type__part_number__source__id: ID, device_type__part_number__owner__id: ID, device_type__part_number__is_visible: Boolean, device_type__part_number__is_protected: Boolean, device_type__height__value: BigInt, device_type__height__values: [BigInt], device_type__height__source__id: ID, device_type__height__owner__id: ID, device_type__height__is_visible: Boolean, device_type__height__is_protected: Boolean, device_type__full_depth__value: Boolean, device_type__full_depth__values: [Boolean], device_type__full_depth__source__id: ID, device_type__full_depth__owner__id: ID, device_type__full_depth__is_visible: Boolean, device_type__full_depth__is_protected: Boolean, device_type__weight__value: BigInt, device_type__weight__values: [BigInt], device_type__weight__source__id: ID, device_type__weight__owner__id: ID, device_type__weight__is_visible: Boolean, device_type__weight__is_protected: Boolean, platform__ids: [ID], platform__isnull: Boolean, platform__name__value: String, platform__name__values: [String], platform__name__source__id: ID, platform__name__owner__id: ID, platform__name__is_visible: Boolean, platform__name__is_protected: Boolean, platform__description__value: String, platform__description__values: [String], platform__description__source__id: ID, platform__description__owner__id: ID, platform__description__is_visible: Boolean, platform__description__is_protected: Boolean, platform__nornir_platform__value: String, platform__nornir_platform__values: [String], platform__nornir_platform__source__id: ID, platform__nornir_platform__owner__id: ID, platform__nornir_platform__is_visible: Boolean, platform__nornir_platform__is_protected: Boolean, platform__napalm_driver__value: String, platform__napalm_driver__values: [String], platform__napalm_driver__source__id: ID, platform__napalm_driver__owner__id: ID, platform__napalm_driver__is_visible: Boolean, platform__napalm_driver__is_protected: Boolean, platform__netmiko_device_type__value: String, platform__netmiko_device_type__values: [String], platform__netmiko_device_type__source__id: ID, platform__netmiko_device_type__owner__id: ID, platform__netmiko_device_type__is_visible: Boolean, platform__netmiko_device_type__is_protected: Boolean, platform__ansible_network_os__value: String, platform__ansible_network_os__values: [String], platform__ansible_network_os__source__id: ID, platform__ansible_network_os__owner__id: ID, platform__ansible_network_os__is_visible: Boolean, platform__ansible_network_os__is_protected: Boolean, platform__containerlab_os__value: String, platform__containerlab_os__values: [String], platform__containerlab_os__source__id: ID, platform__containerlab_os__owner__id: ID, platform__containerlab_os__is_visible: Boolean, platform__containerlab_os__is_protected: Boolean, topology__ids: [ID], topology__isnull: Boolean, topology__name__value: String, topology__name__values: [String], topology__name__source__id: ID, topology__name__owner__id: ID, topology__name__is_visible: Boolean, topology__name__is_protected: Boolean, topology__description__value: String, topology__description__values: [String], topology__description__source__id: ID, topology__description__owner__id: ID, topology__description__is_visible: Boolean, topology__description__is_protected: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedInfraGenericDevice
   InfraInterface(offset: Int, limit: Int, ids: [ID], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, speed__value: BigInt, speed__values: [BigInt], speed__isnull: Boolean, speed__source__id: ID, speed__owner__id: ID, speed__is_visible: Boolean, speed__is_protected: Boolean, mtu__value: BigInt, mtu__values: [BigInt], mtu__isnull: Boolean, mtu__source__id: ID, mtu__owner__id: ID, mtu__is_visible: Boolean, mtu__is_protected: Boolean, enabled__value: Boolean, enabled__values: [Boolean], enabled__isnull: Boolean, enabled__source__id: ID, enabled__owner__id: ID, enabled__is_visible: Boolean, enabled__is_protected: Boolean, status__value: String, status__values: [String], status__isnull: Boolean, status__source__id: ID, status__owner__id: ID, status__is_visible: Boolean, status__is_protected: Boolean, role__value: String, role__values: [String], role__isnull: Boolean, role__source__id: ID, role__owner__id: ID, role__is_visible: Boolean, role__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, device__ids: [ID], device__isnull: Boolean, device__name__value: String, device__name__values: [String], device__name__source__id: ID, device__name__owner__id: ID, device__name__is_visible: Boolean, device__name__is_protected: Boolean, device__description__value: String, device__description__values: [String], device__description__source__id: ID, device__description__owner__id: ID, device__description__is_visible: Boolean, device__description__is_protected: Boolean, device__status__value: String, device__status__values: [String], device__status__source__id: ID, device__status__owner__id: ID, device__status__is_visible: Boolean, device__status__is_protected: Boolean, tags__ids: [ID], tags__isnull: Boolean, tags__name__value: String, tags__name__values: [String], tags__name__source__id: ID, tags__name__owner__id: ID, tags__name__is_visible: Boolean, tags__name__is_protected: Boolean, tags__description__value: String, tags__description__values: [String], tags__description__source__id: ID, tags__description__owner__id: ID, tags__description__is_visible: Boolean, tags__description__is_protected: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedInfraInterface
@@ -9695,10 +9694,9 @@ type Query {
   TopologyGenericElement(offset: Int, limit: Int, ids: [ID], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, quantity__value: BigInt, quantity__values: [BigInt], quantity__isnull: Boolean, quantity__source__id: ID, quantity__owner__id: ID, quantity__is_visible: Boolean, quantity__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, topology__ids: [ID], topology__isnull: Boolean, topology__name__value: String, topology__name__values: [String], topology__name__source__id: ID, topology__name__owner__id: ID, topology__name__is_visible: Boolean, topology__name__is_protected: Boolean, topology__description__value: String, topology__description__values: [String], topology__description__source__id: ID, topology__description__owner__id: ID, topology__description__is_visible: Boolean, topology__description__is_protected: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedTopologyGenericElement
   TopologyNetworkService(offset: Int, limit: Int, ids: [ID], hfid: [String], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, status__value: String, status__values: [String], status__isnull: Boolean, status__source__id: ID, status__owner__id: ID, status__is_visible: Boolean, status__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, topology__ids: [ID], topology__isnull: Boolean, topology__name__value: String, topology__name__values: [String], topology__name__source__id: ID, topology__name__owner__id: ID, topology__name__is_visible: Boolean, topology__name__is_protected: Boolean, topology__description__value: String, topology__description__values: [String], topology__description__source__id: ID, topology__description__owner__id: ID, topology__description__is_visible: Boolean, topology__description__is_protected: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedTopologyNetworkService
   TopologyNetworkStrategy(offset: Int, limit: Int, ids: [ID], name__value: String, name__values: [String], name__isnull: Boolean, name__source__id: ID, name__owner__id: ID, name__is_visible: Boolean, name__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, topology__ids: [ID], topology__isnull: Boolean, topology__name__value: String, topology__name__values: [String], topology__name__source__id: ID, topology__name__owner__id: ID, topology__name__is_visible: Boolean, topology__name__is_protected: Boolean, topology__description__value: String, topology__description__values: [String], topology__description__source__id: ID, topology__description__owner__id: ID, topology__description__is_visible: Boolean, topology__description__is_protected: Boolean, profiles__ids: [ID], profiles__isnull: Boolean, profiles__profile_name__value: String, profiles__profile_name__values: [String], profiles__profile_name__source__id: ID, profiles__profile_name__owner__id: ID, profiles__profile_name__is_visible: Boolean, profiles__profile_name__is_protected: Boolean, profiles__profile_priority__value: BigInt, profiles__profile_priority__values: [BigInt], profiles__profile_priority__source__id: ID, profiles__profile_priority__owner__id: ID, profiles__profile_priority__is_visible: Boolean, profiles__profile_priority__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedTopologyNetworkStrategy
+  CoreProfile(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedCoreProfile
   ProfileBuiltinTag(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileBuiltinTag
   ProfileIpamNamespace(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__default__value: Boolean, related_nodes__default__values: [Boolean], related_nodes__default__source__id: ID, related_nodes__default__owner__id: ID, related_nodes__default__is_visible: Boolean, related_nodes__default__is_protected: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileIpamNamespace
-  ProfileBuiltinIPPrefix(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, member_type__value: String, member_type__values: [String], member_type__isnull: Boolean, member_type__source__id: ID, member_type__owner__id: ID, member_type__is_visible: Boolean, member_type__is_protected: Boolean, is_pool__value: Boolean, is_pool__values: [Boolean], is_pool__isnull: Boolean, is_pool__source__id: ID, is_pool__owner__id: ID, is_pool__is_visible: Boolean, is_pool__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__prefix__value: String, related_nodes__prefix__values: [String], related_nodes__prefix__source__id: ID, related_nodes__prefix__owner__id: ID, related_nodes__prefix__is_visible: Boolean, related_nodes__prefix__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__member_type__value: String, related_nodes__member_type__values: [String], related_nodes__member_type__source__id: ID, related_nodes__member_type__owner__id: ID, related_nodes__member_type__is_visible: Boolean, related_nodes__member_type__is_protected: Boolean, related_nodes__is_pool__value: Boolean, related_nodes__is_pool__values: [Boolean], related_nodes__is_pool__source__id: ID, related_nodes__is_pool__owner__id: ID, related_nodes__is_pool__is_visible: Boolean, related_nodes__is_pool__is_protected: Boolean, related_nodes__is_top_level__value: Boolean, related_nodes__is_top_level__values: [Boolean], related_nodes__is_top_level__source__id: ID, related_nodes__is_top_level__owner__id: ID, related_nodes__is_top_level__is_visible: Boolean, related_nodes__is_top_level__is_protected: Boolean, related_nodes__utilization__value: BigInt, related_nodes__utilization__values: [BigInt], related_nodes__utilization__source__id: ID, related_nodes__utilization__owner__id: ID, related_nodes__utilization__is_visible: Boolean, related_nodes__utilization__is_protected: Boolean, related_nodes__netmask__value: String, related_nodes__netmask__values: [String], related_nodes__netmask__source__id: ID, related_nodes__netmask__owner__id: ID, related_nodes__netmask__is_visible: Boolean, related_nodes__netmask__is_protected: Boolean, related_nodes__hostmask__value: String, related_nodes__hostmask__values: [String], related_nodes__hostmask__source__id: ID, related_nodes__hostmask__owner__id: ID, related_nodes__hostmask__is_visible: Boolean, related_nodes__hostmask__is_protected: Boolean, related_nodes__network_address__value: String, related_nodes__network_address__values: [String], related_nodes__network_address__source__id: ID, related_nodes__network_address__owner__id: ID, related_nodes__network_address__is_visible: Boolean, related_nodes__network_address__is_protected: Boolean, related_nodes__broadcast_address__value: String, related_nodes__broadcast_address__values: [String], related_nodes__broadcast_address__source__id: ID, related_nodes__broadcast_address__owner__id: ID, related_nodes__broadcast_address__is_visible: Boolean, related_nodes__broadcast_address__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileBuiltinIPPrefix
-  ProfileBuiltinIPAddress(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__address__value: String, related_nodes__address__values: [String], related_nodes__address__source__id: ID, related_nodes__address__owner__id: ID, related_nodes__address__is_visible: Boolean, related_nodes__address__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileBuiltinIPAddress
   ProfileInfraAutonomousSystem(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__asn__value: BigInt, related_nodes__asn__values: [BigInt], related_nodes__asn__source__id: ID, related_nodes__asn__owner__id: ID, related_nodes__asn__is_visible: Boolean, related_nodes__asn__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraAutonomousSystem
   ProfileInfraBGPPeerGroup(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, import_policies__value: String, import_policies__values: [String], import_policies__isnull: Boolean, import_policies__source__id: ID, import_policies__owner__id: ID, import_policies__is_visible: Boolean, import_policies__is_protected: Boolean, export_policies__value: String, export_policies__values: [String], export_policies__isnull: Boolean, export_policies__source__id: ID, export_policies__owner__id: ID, export_policies__is_visible: Boolean, export_policies__is_protected: Boolean, maximum_routes__value: BigInt, maximum_routes__values: [BigInt], maximum_routes__isnull: Boolean, maximum_routes__source__id: ID, maximum_routes__owner__id: ID, maximum_routes__is_visible: Boolean, maximum_routes__is_protected: Boolean, send_community__value: Boolean, send_community__values: [Boolean], send_community__isnull: Boolean, send_community__source__id: ID, send_community__owner__id: ID, send_community__is_visible: Boolean, send_community__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__import_policies__value: String, related_nodes__import_policies__values: [String], related_nodes__import_policies__source__id: ID, related_nodes__import_policies__owner__id: ID, related_nodes__import_policies__is_visible: Boolean, related_nodes__import_policies__is_protected: Boolean, related_nodes__export_policies__value: String, related_nodes__export_policies__values: [String], related_nodes__export_policies__source__id: ID, related_nodes__export_policies__owner__id: ID, related_nodes__export_policies__is_visible: Boolean, related_nodes__export_policies__is_protected: Boolean, related_nodes__maximum_routes__value: BigInt, related_nodes__maximum_routes__values: [BigInt], related_nodes__maximum_routes__source__id: ID, related_nodes__maximum_routes__owner__id: ID, related_nodes__maximum_routes__is_visible: Boolean, related_nodes__maximum_routes__is_protected: Boolean, related_nodes__send_community__value: Boolean, related_nodes__send_community__values: [Boolean], related_nodes__send_community__source__id: ID, related_nodes__send_community__owner__id: ID, related_nodes__send_community__is_visible: Boolean, related_nodes__send_community__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraBGPPeerGroup
   ProfileInfraBGPSession(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, import_policies__value: String, import_policies__values: [String], import_policies__isnull: Boolean, import_policies__source__id: ID, import_policies__owner__id: ID, import_policies__is_visible: Boolean, import_policies__is_protected: Boolean, export_policies__value: String, export_policies__values: [String], export_policies__isnull: Boolean, export_policies__source__id: ID, export_policies__owner__id: ID, export_policies__is_visible: Boolean, export_policies__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__type__value: String, related_nodes__type__values: [String], related_nodes__type__source__id: ID, related_nodes__type__owner__id: ID, related_nodes__type__is_visible: Boolean, related_nodes__type__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__import_policies__value: String, related_nodes__import_policies__values: [String], related_nodes__import_policies__source__id: ID, related_nodes__import_policies__owner__id: ID, related_nodes__import_policies__is_visible: Boolean, related_nodes__import_policies__is_protected: Boolean, related_nodes__export_policies__value: String, related_nodes__export_policies__values: [String], related_nodes__export_policies__source__id: ID, related_nodes__export_policies__owner__id: ID, related_nodes__export_policies__is_visible: Boolean, related_nodes__export_policies__is_protected: Boolean, related_nodes__status__value: String, related_nodes__status__values: [String], related_nodes__status__source__id: ID, related_nodes__status__owner__id: ID, related_nodes__status__is_visible: Boolean, related_nodes__status__is_protected: Boolean, related_nodes__role__value: String, related_nodes__role__values: [String], related_nodes__role__source__id: ID, related_nodes__role__owner__id: ID, related_nodes__role__is_visible: Boolean, related_nodes__role__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraBGPSession
@@ -9753,6 +9751,8 @@ type Query {
   ProfileTopologyMPLSStrategy(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__underlay__value: String, related_nodes__underlay__values: [String], related_nodes__underlay__source__id: ID, related_nodes__underlay__owner__id: ID, related_nodes__underlay__is_visible: Boolean, related_nodes__underlay__is_protected: Boolean, related_nodes__overlay__value: String, related_nodes__overlay__values: [String], related_nodes__overlay__source__id: ID, related_nodes__overlay__owner__id: ID, related_nodes__overlay__is_visible: Boolean, related_nodes__overlay__is_protected: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileTopologyMPLSStrategy
   ProfileTopologyPhysicalElement(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, mtu__value: BigInt, mtu__values: [BigInt], mtu__isnull: Boolean, mtu__source__id: ID, mtu__owner__id: ID, mtu__is_visible: Boolean, mtu__is_protected: Boolean, border__value: Boolean, border__values: [Boolean], border__isnull: Boolean, border__source__id: ID, border__owner__id: ID, border__is_visible: Boolean, border__is_protected: Boolean, mlag_support__value: Boolean, mlag_support__values: [Boolean], mlag_support__isnull: Boolean, mlag_support__source__id: ID, mlag_support__owner__id: ID, mlag_support__is_visible: Boolean, mlag_support__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__mtu__value: BigInt, related_nodes__mtu__values: [BigInt], related_nodes__mtu__source__id: ID, related_nodes__mtu__owner__id: ID, related_nodes__mtu__is_visible: Boolean, related_nodes__mtu__is_protected: Boolean, related_nodes__border__value: Boolean, related_nodes__border__values: [Boolean], related_nodes__border__source__id: ID, related_nodes__border__owner__id: ID, related_nodes__border__is_visible: Boolean, related_nodes__border__is_protected: Boolean, related_nodes__mlag_support__value: Boolean, related_nodes__mlag_support__values: [Boolean], related_nodes__mlag_support__source__id: ID, related_nodes__mlag_support__owner__id: ID, related_nodes__mlag_support__is_visible: Boolean, related_nodes__mlag_support__is_protected: Boolean, related_nodes__device_role__value: String, related_nodes__device_role__values: [String], related_nodes__device_role__source__id: ID, related_nodes__device_role__owner__id: ID, related_nodes__device_role__is_visible: Boolean, related_nodes__device_role__is_protected: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__quantity__value: BigInt, related_nodes__quantity__values: [BigInt], related_nodes__quantity__source__id: ID, related_nodes__quantity__owner__id: ID, related_nodes__quantity__is_visible: Boolean, related_nodes__quantity__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileTopologyPhysicalElement
   ProfileTopologyTopology(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileTopologyTopology
+  ProfileBuiltinIPPrefix(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, member_type__value: String, member_type__values: [String], member_type__isnull: Boolean, member_type__source__id: ID, member_type__owner__id: ID, member_type__is_visible: Boolean, member_type__is_protected: Boolean, is_pool__value: Boolean, is_pool__values: [Boolean], is_pool__isnull: Boolean, is_pool__source__id: ID, is_pool__owner__id: ID, is_pool__is_visible: Boolean, is_pool__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__prefix__value: String, related_nodes__prefix__values: [String], related_nodes__prefix__source__id: ID, related_nodes__prefix__owner__id: ID, related_nodes__prefix__is_visible: Boolean, related_nodes__prefix__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__member_type__value: String, related_nodes__member_type__values: [String], related_nodes__member_type__source__id: ID, related_nodes__member_type__owner__id: ID, related_nodes__member_type__is_visible: Boolean, related_nodes__member_type__is_protected: Boolean, related_nodes__is_pool__value: Boolean, related_nodes__is_pool__values: [Boolean], related_nodes__is_pool__source__id: ID, related_nodes__is_pool__owner__id: ID, related_nodes__is_pool__is_visible: Boolean, related_nodes__is_pool__is_protected: Boolean, related_nodes__is_top_level__value: Boolean, related_nodes__is_top_level__values: [Boolean], related_nodes__is_top_level__source__id: ID, related_nodes__is_top_level__owner__id: ID, related_nodes__is_top_level__is_visible: Boolean, related_nodes__is_top_level__is_protected: Boolean, related_nodes__utilization__value: BigInt, related_nodes__utilization__values: [BigInt], related_nodes__utilization__source__id: ID, related_nodes__utilization__owner__id: ID, related_nodes__utilization__is_visible: Boolean, related_nodes__utilization__is_protected: Boolean, related_nodes__netmask__value: String, related_nodes__netmask__values: [String], related_nodes__netmask__source__id: ID, related_nodes__netmask__owner__id: ID, related_nodes__netmask__is_visible: Boolean, related_nodes__netmask__is_protected: Boolean, related_nodes__hostmask__value: String, related_nodes__hostmask__values: [String], related_nodes__hostmask__source__id: ID, related_nodes__hostmask__owner__id: ID, related_nodes__hostmask__is_visible: Boolean, related_nodes__hostmask__is_protected: Boolean, related_nodes__network_address__value: String, related_nodes__network_address__values: [String], related_nodes__network_address__source__id: ID, related_nodes__network_address__owner__id: ID, related_nodes__network_address__is_visible: Boolean, related_nodes__network_address__is_protected: Boolean, related_nodes__broadcast_address__value: String, related_nodes__broadcast_address__values: [String], related_nodes__broadcast_address__source__id: ID, related_nodes__broadcast_address__owner__id: ID, related_nodes__broadcast_address__is_visible: Boolean, related_nodes__broadcast_address__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileBuiltinIPPrefix
+  ProfileBuiltinIPAddress(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__address__value: String, related_nodes__address__values: [String], related_nodes__address__source__id: ID, related_nodes__address__owner__id: ID, related_nodes__address__is_visible: Boolean, related_nodes__address__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileBuiltinIPAddress
   ProfileInfraEndpoint(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraEndpoint
   ProfileInfraGenericDevice(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, status__value: String, status__values: [String], status__isnull: Boolean, status__source__id: ID, status__owner__id: ID, status__is_visible: Boolean, status__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__status__value: String, related_nodes__status__values: [String], related_nodes__status__source__id: ID, related_nodes__status__owner__id: ID, related_nodes__status__is_visible: Boolean, related_nodes__status__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraGenericDevice
   ProfileInfraInterface(offset: Int, limit: Int, ids: [ID], hfid: [String], profile_name__value: String, profile_name__values: [String], profile_name__isnull: Boolean, profile_name__source__id: ID, profile_name__owner__id: ID, profile_name__is_visible: Boolean, profile_name__is_protected: Boolean, profile_priority__value: BigInt, profile_priority__values: [BigInt], profile_priority__isnull: Boolean, profile_priority__source__id: ID, profile_priority__owner__id: ID, profile_priority__is_visible: Boolean, profile_priority__is_protected: Boolean, description__value: String, description__values: [String], description__isnull: Boolean, description__source__id: ID, description__owner__id: ID, description__is_visible: Boolean, description__is_protected: Boolean, mtu__value: BigInt, mtu__values: [BigInt], mtu__isnull: Boolean, mtu__source__id: ID, mtu__owner__id: ID, mtu__is_visible: Boolean, mtu__is_protected: Boolean, enabled__value: Boolean, enabled__values: [Boolean], enabled__isnull: Boolean, enabled__source__id: ID, enabled__owner__id: ID, enabled__is_visible: Boolean, enabled__is_protected: Boolean, status__value: String, status__values: [String], status__isnull: Boolean, status__source__id: ID, status__owner__id: ID, status__is_visible: Boolean, status__is_protected: Boolean, role__value: String, role__values: [String], role__isnull: Boolean, role__source__id: ID, role__owner__id: ID, role__is_visible: Boolean, role__is_protected: Boolean, any__value: String, any__values: [String], any__source__id: ID, any__owner__id: ID, any__is_visible: Boolean, any__is_protected: Boolean, partial_match: Boolean, related_nodes__ids: [ID], related_nodes__isnull: Boolean, related_nodes__name__value: String, related_nodes__name__values: [String], related_nodes__name__source__id: ID, related_nodes__name__owner__id: ID, related_nodes__name__is_visible: Boolean, related_nodes__name__is_protected: Boolean, related_nodes__description__value: String, related_nodes__description__values: [String], related_nodes__description__source__id: ID, related_nodes__description__owner__id: ID, related_nodes__description__is_visible: Boolean, related_nodes__description__is_protected: Boolean, related_nodes__speed__value: BigInt, related_nodes__speed__values: [BigInt], related_nodes__speed__source__id: ID, related_nodes__speed__owner__id: ID, related_nodes__speed__is_visible: Boolean, related_nodes__speed__is_protected: Boolean, related_nodes__mtu__value: BigInt, related_nodes__mtu__values: [BigInt], related_nodes__mtu__source__id: ID, related_nodes__mtu__owner__id: ID, related_nodes__mtu__is_visible: Boolean, related_nodes__mtu__is_protected: Boolean, related_nodes__enabled__value: Boolean, related_nodes__enabled__values: [Boolean], related_nodes__enabled__source__id: ID, related_nodes__enabled__owner__id: ID, related_nodes__enabled__is_visible: Boolean, related_nodes__enabled__is_protected: Boolean, related_nodes__status__value: String, related_nodes__status__values: [String], related_nodes__status__source__id: ID, related_nodes__status__owner__id: ID, related_nodes__status__is_visible: Boolean, related_nodes__status__is_protected: Boolean, related_nodes__role__value: String, related_nodes__role__values: [String], related_nodes__role__source__id: ID, related_nodes__role__owner__id: ID, related_nodes__role__is_visible: Boolean, related_nodes__role__is_protected: Boolean, member_of_groups__ids: [ID], member_of_groups__isnull: Boolean, member_of_groups__name__value: String, member_of_groups__name__values: [String], member_of_groups__label__value: String, member_of_groups__label__values: [String], member_of_groups__description__value: String, member_of_groups__description__values: [String], member_of_groups__group_type__value: String, member_of_groups__group_type__values: [String], subscriber_of_groups__ids: [ID], subscriber_of_groups__isnull: Boolean, subscriber_of_groups__name__value: String, subscriber_of_groups__name__values: [String], subscriber_of_groups__label__value: String, subscriber_of_groups__label__values: [String], subscriber_of_groups__description__value: String, subscriber_of_groups__description__values: [String], subscriber_of_groups__group_type__value: String, subscriber_of_groups__group_type__values: [String]): PaginatedProfileInfraInterface
@@ -11354,9 +11354,6 @@ type Mutation {
   """Element of the Menu"""
   CoreMenuUpdate(data: CoreMenuUpdateInput!): CoreMenuUpdate
 
-  """Base Profile in Infrahub."""
-  CoreProfileUpdate(data: CoreProfileUpdateInput!): CoreProfileUpdate
-
   """Generic Endpoint to connect two objects together."""
   InfraEndpointUpdate(data: InfraEndpointUpdateInput!): InfraEndpointUpdate
 
@@ -11391,6 +11388,9 @@ type Mutation {
   """Generic model for network strategies (underlays and overlays)."""
   TopologyNetworkStrategyUpdate(data: TopologyNetworkStrategyUpdateInput!): TopologyNetworkStrategyUpdate
 
+  """Base Profile in Infrahub."""
+  CoreProfileUpdate(data: CoreProfileUpdateInput!): CoreProfileUpdate
+
   """Profile for BuiltinTag"""
   ProfileBuiltinTagCreate(data: ProfileBuiltinTagCreateInput!): ProfileBuiltinTagCreate
 
@@ -11414,30 +11414,6 @@ type Mutation {
 
   """Profile for IpamNamespace"""
   ProfileIpamNamespaceDelete(data: DeleteInput!): ProfileIpamNamespaceDelete
-
-  """Profile for BuiltinIPPrefix"""
-  ProfileBuiltinIPPrefixCreate(data: ProfileBuiltinIPPrefixCreateInput!): ProfileBuiltinIPPrefixCreate
-
-  """Profile for BuiltinIPPrefix"""
-  ProfileBuiltinIPPrefixUpdate(data: ProfileBuiltinIPPrefixUpdateInput!): ProfileBuiltinIPPrefixUpdate
-
-  """Profile for BuiltinIPPrefix"""
-  ProfileBuiltinIPPrefixUpsert(data: ProfileBuiltinIPPrefixUpsertInput!): ProfileBuiltinIPPrefixUpsert
-
-  """Profile for BuiltinIPPrefix"""
-  ProfileBuiltinIPPrefixDelete(data: DeleteInput!): ProfileBuiltinIPPrefixDelete
-
-  """Profile for BuiltinIPAddress"""
-  ProfileBuiltinIPAddressCreate(data: ProfileBuiltinIPAddressCreateInput!): ProfileBuiltinIPAddressCreate
-
-  """Profile for BuiltinIPAddress"""
-  ProfileBuiltinIPAddressUpdate(data: ProfileBuiltinIPAddressUpdateInput!): ProfileBuiltinIPAddressUpdate
-
-  """Profile for BuiltinIPAddress"""
-  ProfileBuiltinIPAddressUpsert(data: ProfileBuiltinIPAddressUpsertInput!): ProfileBuiltinIPAddressUpsert
-
-  """Profile for BuiltinIPAddress"""
-  ProfileBuiltinIPAddressDelete(data: DeleteInput!): ProfileBuiltinIPAddressDelete
 
   """Profile for InfraAutonomousSystem"""
   ProfileInfraAutonomousSystemCreate(data: ProfileInfraAutonomousSystemCreateInput!): ProfileInfraAutonomousSystemCreate
@@ -12086,6 +12062,30 @@ type Mutation {
 
   """Profile for TopologyTopology"""
   ProfileTopologyTopologyDelete(data: DeleteInput!): ProfileTopologyTopologyDelete
+
+  """Profile for BuiltinIPPrefix"""
+  ProfileBuiltinIPPrefixCreate(data: ProfileBuiltinIPPrefixCreateInput!): ProfileBuiltinIPPrefixCreate
+
+  """Profile for BuiltinIPPrefix"""
+  ProfileBuiltinIPPrefixUpdate(data: ProfileBuiltinIPPrefixUpdateInput!): ProfileBuiltinIPPrefixUpdate
+
+  """Profile for BuiltinIPPrefix"""
+  ProfileBuiltinIPPrefixUpsert(data: ProfileBuiltinIPPrefixUpsertInput!): ProfileBuiltinIPPrefixUpsert
+
+  """Profile for BuiltinIPPrefix"""
+  ProfileBuiltinIPPrefixDelete(data: DeleteInput!): ProfileBuiltinIPPrefixDelete
+
+  """Profile for BuiltinIPAddress"""
+  ProfileBuiltinIPAddressCreate(data: ProfileBuiltinIPAddressCreateInput!): ProfileBuiltinIPAddressCreate
+
+  """Profile for BuiltinIPAddress"""
+  ProfileBuiltinIPAddressUpdate(data: ProfileBuiltinIPAddressUpdateInput!): ProfileBuiltinIPAddressUpdate
+
+  """Profile for BuiltinIPAddress"""
+  ProfileBuiltinIPAddressUpsert(data: ProfileBuiltinIPAddressUpsertInput!): ProfileBuiltinIPAddressUpsert
+
+  """Profile for BuiltinIPAddress"""
+  ProfileBuiltinIPAddressDelete(data: DeleteInput!): ProfileBuiltinIPAddressDelete
 
   """Profile for InfraEndpoint"""
   ProfileInfraEndpointCreate(data: ProfileInfraEndpointCreateInput!): ProfileInfraEndpointCreate
@@ -19617,21 +19617,6 @@ input CoreMenuUpdateInput {
   children: [RelatedNodeInput]
 }
 
-"""Base Profile in Infrahub."""
-type CoreProfileUpdate {
-  ok: Boolean
-  object: CoreProfile
-}
-
-input CoreProfileUpdateInput {
-  id: String
-  hfid: [String]
-  profile_name: TextAttributeUpdate
-  profile_priority: NumberAttributeUpdate
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
 """Generic Endpoint to connect two objects together."""
 type InfraEndpointUpdate {
   ok: Boolean
@@ -19894,6 +19879,21 @@ input TopologyNetworkStrategyUpdateInput {
   subscriber_of_groups: [RelatedNodeInput]
 }
 
+"""Base Profile in Infrahub."""
+type CoreProfileUpdate {
+  ok: Boolean
+  object: CoreProfile
+}
+
+input CoreProfileUpdateInput {
+  id: String
+  hfid: [String]
+  profile_name: TextAttributeUpdate
+  profile_priority: NumberAttributeUpdate
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
 """Profile for BuiltinTag"""
 type ProfileBuiltinTagCreate {
   ok: Boolean
@@ -20001,128 +20001,6 @@ input ProfileIpamNamespaceUpsertInput {
 
 """Profile for IpamNamespace"""
 type ProfileIpamNamespaceDelete {
-  ok: Boolean
-}
-
-"""Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefixCreate {
-  ok: Boolean
-  object: ProfileBuiltinIPPrefix
-}
-
-input ProfileBuiltinIPPrefixCreateInput {
-  id: String
-  profile_name: TextAttributeCreate!
-  profile_priority: NumberAttributeCreate
-  description: TextAttributeCreate
-  member_type: TextAttributeCreate
-
-  """All IP addresses within this prefix are considered usable"""
-  is_pool: CheckboxAttributeCreate
-  related_nodes: [RelatedPrefixNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefixUpdate {
-  ok: Boolean
-  object: ProfileBuiltinIPPrefix
-}
-
-input ProfileBuiltinIPPrefixUpdateInput {
-  id: String
-  hfid: [String]
-  profile_name: TextAttributeUpdate
-  profile_priority: NumberAttributeUpdate
-  description: TextAttributeUpdate
-  member_type: TextAttributeUpdate
-
-  """All IP addresses within this prefix are considered usable"""
-  is_pool: CheckboxAttributeUpdate
-  related_nodes: [RelatedPrefixNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefixUpsert {
-  ok: Boolean
-  object: ProfileBuiltinIPPrefix
-}
-
-input ProfileBuiltinIPPrefixUpsertInput {
-  id: String
-  hfid: [String]
-  profile_name: TextAttributeUpdate!
-  profile_priority: NumberAttributeUpdate
-  description: TextAttributeUpdate
-  member_type: TextAttributeUpdate
-
-  """All IP addresses within this prefix are considered usable"""
-  is_pool: CheckboxAttributeUpdate
-  related_nodes: [RelatedPrefixNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefixDelete {
-  ok: Boolean
-}
-
-"""Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddressCreate {
-  ok: Boolean
-  object: ProfileBuiltinIPAddress
-}
-
-input ProfileBuiltinIPAddressCreateInput {
-  id: String
-  profile_name: TextAttributeCreate!
-  profile_priority: NumberAttributeCreate
-  description: TextAttributeCreate
-  related_nodes: [RelatedIPAddressNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddressUpdate {
-  ok: Boolean
-  object: ProfileBuiltinIPAddress
-}
-
-input ProfileBuiltinIPAddressUpdateInput {
-  id: String
-  hfid: [String]
-  profile_name: TextAttributeUpdate
-  profile_priority: NumberAttributeUpdate
-  description: TextAttributeUpdate
-  related_nodes: [RelatedIPAddressNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddressUpsert {
-  ok: Boolean
-  object: ProfileBuiltinIPAddress
-}
-
-input ProfileBuiltinIPAddressUpsertInput {
-  id: String
-  hfid: [String]
-  profile_name: TextAttributeUpdate!
-  profile_priority: NumberAttributeUpdate
-  description: TextAttributeUpdate
-  related_nodes: [RelatedIPAddressNodeInput]
-  member_of_groups: [RelatedNodeInput]
-  subscriber_of_groups: [RelatedNodeInput]
-}
-
-"""Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddressDelete {
   ok: Boolean
 }
 
@@ -23252,6 +23130,128 @@ input ProfileTopologyTopologyUpsertInput {
 
 """Profile for TopologyTopology"""
 type ProfileTopologyTopologyDelete {
+  ok: Boolean
+}
+
+"""Profile for BuiltinIPPrefix"""
+type ProfileBuiltinIPPrefixCreate {
+  ok: Boolean
+  object: ProfileBuiltinIPPrefix
+}
+
+input ProfileBuiltinIPPrefixCreateInput {
+  id: String
+  profile_name: TextAttributeCreate!
+  profile_priority: NumberAttributeCreate
+  description: TextAttributeCreate
+  member_type: TextAttributeCreate
+
+  """All IP addresses within this prefix are considered usable"""
+  is_pool: CheckboxAttributeCreate
+  related_nodes: [RelatedPrefixNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPPrefix"""
+type ProfileBuiltinIPPrefixUpdate {
+  ok: Boolean
+  object: ProfileBuiltinIPPrefix
+}
+
+input ProfileBuiltinIPPrefixUpdateInput {
+  id: String
+  hfid: [String]
+  profile_name: TextAttributeUpdate
+  profile_priority: NumberAttributeUpdate
+  description: TextAttributeUpdate
+  member_type: TextAttributeUpdate
+
+  """All IP addresses within this prefix are considered usable"""
+  is_pool: CheckboxAttributeUpdate
+  related_nodes: [RelatedPrefixNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPPrefix"""
+type ProfileBuiltinIPPrefixUpsert {
+  ok: Boolean
+  object: ProfileBuiltinIPPrefix
+}
+
+input ProfileBuiltinIPPrefixUpsertInput {
+  id: String
+  hfid: [String]
+  profile_name: TextAttributeUpdate!
+  profile_priority: NumberAttributeUpdate
+  description: TextAttributeUpdate
+  member_type: TextAttributeUpdate
+
+  """All IP addresses within this prefix are considered usable"""
+  is_pool: CheckboxAttributeUpdate
+  related_nodes: [RelatedPrefixNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPPrefix"""
+type ProfileBuiltinIPPrefixDelete {
+  ok: Boolean
+}
+
+"""Profile for BuiltinIPAddress"""
+type ProfileBuiltinIPAddressCreate {
+  ok: Boolean
+  object: ProfileBuiltinIPAddress
+}
+
+input ProfileBuiltinIPAddressCreateInput {
+  id: String
+  profile_name: TextAttributeCreate!
+  profile_priority: NumberAttributeCreate
+  description: TextAttributeCreate
+  related_nodes: [RelatedIPAddressNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPAddress"""
+type ProfileBuiltinIPAddressUpdate {
+  ok: Boolean
+  object: ProfileBuiltinIPAddress
+}
+
+input ProfileBuiltinIPAddressUpdateInput {
+  id: String
+  hfid: [String]
+  profile_name: TextAttributeUpdate
+  profile_priority: NumberAttributeUpdate
+  description: TextAttributeUpdate
+  related_nodes: [RelatedIPAddressNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPAddress"""
+type ProfileBuiltinIPAddressUpsert {
+  ok: Boolean
+  object: ProfileBuiltinIPAddress
+}
+
+input ProfileBuiltinIPAddressUpsertInput {
+  id: String
+  hfid: [String]
+  profile_name: TextAttributeUpdate!
+  profile_priority: NumberAttributeUpdate
+  description: TextAttributeUpdate
+  related_nodes: [RelatedIPAddressNodeInput]
+  member_of_groups: [RelatedNodeInput]
+  subscriber_of_groups: [RelatedNodeInput]
+}
+
+"""Profile for BuiltinIPAddress"""
+type ProfileBuiltinIPAddressDelete {
   ok: Boolean
 }
 
