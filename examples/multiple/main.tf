@@ -3,7 +3,7 @@
 terraform {
   required_providers {
     infrahub = {
-      source  = "registry.terraform.io/marcom4rtinez/infrahub"
+      source  = "registry.marcomartinez.ch/marcom4rtinez/infrahub-dev"
       version = "1.0"
     }
   }
