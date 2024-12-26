@@ -2037,7 +2037,7 @@ type NestedPaginatedBuiltinTag {
 }
 
 """User Account for Infrahub"""
-type CoreAccount implements LineageSource & LineageOwner & CoreGenericAccount & CoreNode {
+type CoreAccount implements CoreGenericAccount & LineageOwner & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2256,7 +2256,7 @@ type NestedPaginatedCoreProposedChange {
 }
 
 """A thread on proposed change"""
-type CoreChangeThread implements CoreNode & CoreThread {
+type CoreChangeThread implements CoreThread & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2300,7 +2300,7 @@ type NestedPaginatedCoreChangeThread {
 }
 
 """A thread related to a file on a proposed change"""
-type CoreFileThread implements CoreNode & CoreThread {
+type CoreFileThread implements CoreThread & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2348,7 +2348,7 @@ type NestedPaginatedCoreFileThread {
 }
 
 """A thread related to an artifact on a proposed change"""
-type CoreArtifactThread implements CoreNode & CoreThread {
+type CoreArtifactThread implements CoreThread & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2395,7 +2395,7 @@ type NestedPaginatedCoreArtifactThread {
 }
 
 """A thread related to an object on a proposed change"""
-type CoreObjectThread implements CoreNode & CoreThread {
+type CoreObjectThread implements CoreThread & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -2524,7 +2524,7 @@ type NestedPaginatedCoreThreadComment {
 }
 
 """A Git Repository integrated with Infrahub"""
-type CoreRepository implements CoreTaskTarget & LineageSource & CoreNode & LineageOwner & CoreGenericRepository {
+type CoreRepository implements CoreNode & CoreGenericRepository & LineageSource & LineageOwner & CoreTaskTarget {
   """Unique identifier"""
   id: String!
 
@@ -2578,7 +2578,7 @@ type NestedPaginatedCoreRepository {
 """
 A Git Repository integrated with Infrahub, Git-side will not be updated
 """
-type CoreReadOnlyRepository implements CoreTaskTarget & LineageSource & CoreNode & LineageOwner & CoreGenericRepository {
+type CoreReadOnlyRepository implements CoreNode & CoreGenericRepository & LineageSource & LineageOwner & CoreTaskTarget {
   """Unique identifier"""
   id: String!
 
@@ -2684,7 +2684,7 @@ type NestedPaginatedCoreTransformJinja2 {
 }
 
 """A check related to some Data"""
-type CoreDataCheck implements CoreCheck & CoreNode {
+type CoreDataCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -2734,7 +2734,7 @@ type NestedPaginatedCoreDataCheck {
 }
 
 """A standard check"""
-type CoreStandardCheck implements CoreCheck & CoreNode {
+type CoreStandardCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -2781,7 +2781,7 @@ type NestedPaginatedCoreStandardCheck {
 }
 
 """A check related to the schema"""
-type CoreSchemaCheck implements CoreCheck & CoreNode {
+type CoreSchemaCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -2830,7 +2830,7 @@ type NestedPaginatedCoreSchemaCheck {
 }
 
 """A check related to a file in a Git Repository"""
-type CoreFileCheck implements CoreCheck & CoreNode {
+type CoreFileCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -2879,7 +2879,7 @@ type NestedPaginatedCoreFileCheck {
 }
 
 """A check related to an artifact"""
-type CoreArtifactCheck implements CoreCheck & CoreNode {
+type CoreArtifactCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -2931,7 +2931,7 @@ type NestedPaginatedCoreArtifactCheck {
 }
 
 """A check related to a Generator instance"""
-type CoreGeneratorCheck implements CoreCheck & CoreNode {
+type CoreGeneratorCheck implements CoreNode & CoreCheck {
   """Unique identifier"""
   id: String!
 
@@ -3566,7 +3566,7 @@ type NestedPaginatedCoreGeneratorInstance {
 }
 
 """A webhook that connects to an external integration"""
-type CoreStandardWebhook implements CoreWebhook & CoreTaskTarget & CoreNode {
+type CoreStandardWebhook implements CoreTaskTarget & CoreWebhook & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3609,7 +3609,7 @@ type NestedPaginatedCoreStandardWebhook {
 }
 
 """A webhook that connects to an external integration"""
-type CoreCustomWebhook implements CoreWebhook & CoreTaskTarget & CoreNode {
+type CoreCustomWebhook implements CoreTaskTarget & CoreWebhook & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -3652,7 +3652,7 @@ type NestedPaginatedCoreCustomWebhook {
 }
 
 """A namespace that segments IPAM"""
-type IpamNamespace implements BuiltinIPNamespace & CoreNode {
+type IpamNamespace implements CoreNode & BuiltinIPNamespace {
   """Unique identifier"""
   id: String!
 
@@ -3696,7 +3696,7 @@ type NestedPaginatedIpamNamespace {
 }
 
 """A pool of IP prefix resources"""
-type CoreIPPrefixPool implements LineageSource & CoreResourcePool & CoreNode {
+type CoreIPPrefixPool implements LineageSource & CoreNode & CoreResourcePool {
   """Unique identifier"""
   id: String!
 
@@ -3745,7 +3745,7 @@ type NestedPaginatedCoreIPPrefixPool {
 }
 
 """A pool of IP address resources"""
-type CoreIPAddressPool implements LineageSource & CoreResourcePool & CoreNode {
+type CoreIPAddressPool implements LineageSource & CoreNode & CoreResourcePool {
   """Unique identifier"""
   id: String!
 
@@ -3795,7 +3795,7 @@ type NestedPaginatedCoreIPAddressPool {
 }
 
 """A pool of number resources"""
-type CoreNumberPool implements LineageSource & CoreResourcePool & CoreNode {
+type CoreNumberPool implements LineageSource & CoreNode & CoreResourcePool {
   """Unique identifier"""
   id: String!
 
@@ -3982,7 +3982,7 @@ type NestedPaginatedCoreAccountRole {
 }
 
 """A group of users to manage common permissions"""
-type CoreAccountGroup implements LineageSource & LineageOwner & CoreGroup {
+type CoreAccountGroup implements LineageOwner & LineageSource & CoreGroup {
   """Unique identifier"""
   id: String!
 
@@ -4143,7 +4143,7 @@ type NestedPaginatedInfraBGPPeerGroup {
 """
 A BGP Session represent a point to point connection between two routers
 """
-type InfraBGPSession implements CoreNode & CoreArtifactTarget {
+type InfraBGPSession implements CoreArtifactTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4335,7 +4335,7 @@ type NestedPaginatedInfraCircuitType {
   permissions: PaginatedObjectPermission!
 }
 
-type InfraDevice implements InfraGenericDevice & CoreNode & CoreArtifactTarget {
+type InfraDevice implements CoreArtifactTarget & InfraGenericDevice & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4431,7 +4431,7 @@ type NestedPaginatedInfraDeviceType {
 }
 
 """IP Address"""
-type InfraIPAddress implements BuiltinIPAddress & CoreNode {
+type InfraIPAddress implements CoreNode & BuiltinIPAddress {
   """Unique identifier"""
   id: String!
 
@@ -4475,7 +4475,7 @@ type NestedPaginatedInfraIPAddress {
 }
 
 """Network Layer 2 Interface"""
-type InfraInterfaceL2 implements InfraEndpoint & CoreNode & CoreArtifactTarget & InfraInterface {
+type InfraInterfaceL2 implements InfraInterface & InfraEndpoint & CoreArtifactTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4528,7 +4528,7 @@ type NestedPaginatedInfraInterfaceL2 {
 }
 
 """Network Layer 3 Interface"""
-type InfraInterfaceL3 implements InfraEndpoint & CoreNode & CoreArtifactTarget & InfraInterface {
+type InfraInterfaceL3 implements InfraInterface & InfraEndpoint & CoreArtifactTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4823,7 +4823,7 @@ type NestedPaginatedInfraVRF {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationBuilding implements CoreNode & LocationGeneric {
+type LocationBuilding implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4874,7 +4874,7 @@ type NestedPaginatedLocationBuilding {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationContinent implements CoreNode & LocationGeneric {
+type LocationContinent implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4922,7 +4922,7 @@ type NestedPaginatedLocationContinent {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationCountry implements CoreNode & LocationGeneric {
+type LocationCountry implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -4970,7 +4970,7 @@ type NestedPaginatedLocationCountry {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationFloor implements CoreNode & LocationGeneric {
+type LocationFloor implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5018,7 +5018,7 @@ type NestedPaginatedLocationFloor {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationMetro implements CoreNode & LocationGeneric {
+type LocationMetro implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5066,7 +5066,7 @@ type NestedPaginatedLocationMetro {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationRack implements CoreNode & LocationGeneric {
+type LocationRack implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5116,7 +5116,7 @@ type NestedPaginatedLocationRack {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationRegion implements CoreNode & LocationGeneric {
+type LocationRegion implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5164,7 +5164,7 @@ type NestedPaginatedLocationRegion {
   permissions: PaginatedObjectPermission!
 }
 
-type LocationSuite implements CoreNode & LocationGeneric {
+type LocationSuite implements LocationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5392,7 +5392,7 @@ type NestedPaginatedNetworkNameServer {
 }
 
 """Device Manufacturer"""
-type OrganizationManufacturer implements CoreNode & OrganizationGeneric {
+type OrganizationManufacturer implements OrganizationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5437,7 +5437,7 @@ type NestedPaginatedOrganizationManufacturer {
 }
 
 """Circuit or Location Provider"""
-type OrganizationProvider implements CoreNode & OrganizationGeneric {
+type OrganizationProvider implements OrganizationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5482,7 +5482,7 @@ type NestedPaginatedOrganizationProvider {
 }
 
 """Customer"""
-type OrganizationTenant implements CoreNode & OrganizationGeneric {
+type OrganizationTenant implements OrganizationGeneric & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5573,7 +5573,7 @@ type NestedPaginatedSecurityAddressGroup {
 }
 
 """Full Qualified Domain Name"""
-type SecurityFQDN implements CoreNode & SecurityGenericAddress {
+type SecurityFQDN implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5614,7 +5614,7 @@ type NestedPaginatedSecurityFQDN {
   permissions: PaginatedObjectPermission!
 }
 
-type SecurityFirewall implements InfraGenericDevice & SecurityPolicyAssignment & CoreNode & CoreArtifactTarget {
+type SecurityFirewall implements SecurityPolicyAssignment & CoreArtifactTarget & InfraGenericDevice & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5663,7 +5663,7 @@ type NestedPaginatedSecurityFirewall {
   permissions: PaginatedObjectPermission!
 }
 
-type SecurityFirewallInterface implements InfraEndpoint & CoreNode & InfraInterface {
+type SecurityFirewallInterface implements InfraInterface & InfraEndpoint & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5710,7 +5710,7 @@ type NestedPaginatedSecurityFirewallInterface {
 }
 
 """Infrahub IPv4/6 address"""
-type SecurityIPAMIPAddress implements CoreNode & SecurityGenericAddress {
+type SecurityIPAMIPAddress implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5753,7 +5753,7 @@ type NestedPaginatedSecurityIPAMIPAddress {
 }
 
 """Infrahub IPv4/6 prefix"""
-type SecurityIPAMIPPrefix implements CoreNode & SecurityGenericAddress {
+type SecurityIPAMIPPrefix implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5796,7 +5796,7 @@ type NestedPaginatedSecurityIPAMIPPrefix {
 }
 
 """IPv4/6 address"""
-type SecurityIPAddress implements CoreNode & SecurityGenericAddress {
+type SecurityIPAddress implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -5882,7 +5882,7 @@ type NestedPaginatedSecurityIPProtocol {
 }
 
 """IPv4/6 Range"""
-type SecurityIPRange implements CoreNode & SecurityGenericAddress {
+type SecurityIPRange implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6018,7 +6018,7 @@ type NestedPaginatedSecurityPolicyRule {
 }
 
 """IPv4/6 prefix"""
-type SecurityPrefix implements CoreNode & SecurityGenericAddress {
+type SecurityPrefix implements SecurityGenericAddress & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6291,7 +6291,7 @@ type NestedPaginatedSecurityZone {
 }
 
 """Specific strategy attributes for EVPN."""
-type TopologyEVPNStrategy implements TopologyNetworkStrategy & CoreNode {
+type TopologyEVPNStrategy implements CoreNode & TopologyNetworkStrategy {
   """Unique identifier"""
   id: String!
 
@@ -6424,7 +6424,7 @@ type NestedPaginatedTopologyLayer3NetworkService {
 }
 
 """Specific strategy attributes for MPLS."""
-type TopologyMPLSStrategy implements TopologyNetworkStrategy & CoreNode {
+type TopologyMPLSStrategy implements CoreNode & TopologyNetworkStrategy {
   """Unique identifier"""
   id: String!
 
@@ -6468,7 +6468,7 @@ type NestedPaginatedTopologyMPLSStrategy {
 }
 
 """Physical aspect of topology elements."""
-type TopologyPhysicalElement implements TopologyGenericElement & CoreNode {
+type TopologyPhysicalElement implements CoreNode & TopologyGenericElement {
   """Unique identifier"""
   id: String!
 
@@ -6516,7 +6516,7 @@ type NestedPaginatedTopologyPhysicalElement {
 }
 
 """A Topology represents the entire network pod."""
-type TopologyTopology implements CoreNode & CoreArtifactTarget {
+type TopologyTopology implements CoreArtifactTarget & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6563,7 +6563,7 @@ type NestedPaginatedTopologyTopology {
 }
 
 """Profile for BuiltinTag"""
-type ProfileBuiltinTag implements LineageSource & CoreNode & CoreProfile {
+type ProfileBuiltinTag implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6603,7 +6603,7 @@ type NestedPaginatedProfileBuiltinTag {
 }
 
 """Profile for IpamNamespace"""
-type ProfileIpamNamespace implements LineageSource & CoreNode & CoreProfile {
+type ProfileIpamNamespace implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6643,7 +6643,7 @@ type NestedPaginatedProfileIpamNamespace {
 }
 
 """Profile for InfraAutonomousSystem"""
-type ProfileInfraAutonomousSystem implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraAutonomousSystem implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6683,7 +6683,7 @@ type NestedPaginatedProfileInfraAutonomousSystem {
 }
 
 """Profile for InfraBGPPeerGroup"""
-type ProfileInfraBGPPeerGroup implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraBGPPeerGroup implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6727,7 +6727,7 @@ type NestedPaginatedProfileInfraBGPPeerGroup {
 }
 
 """Profile for InfraBGPSession"""
-type ProfileInfraBGPSession implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraBGPSession implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6769,7 +6769,7 @@ type NestedPaginatedProfileInfraBGPSession {
 }
 
 """Profile for InfraCircuit"""
-type ProfileInfraCircuit implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraCircuit implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6810,7 +6810,7 @@ type NestedPaginatedProfileInfraCircuit {
 }
 
 """Profile for InfraCircuitEndpoint"""
-type ProfileInfraCircuitEndpoint implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraCircuitEndpoint implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6850,7 +6850,7 @@ type NestedPaginatedProfileInfraCircuitEndpoint {
 }
 
 """Profile for InfraCircuitType"""
-type ProfileInfraCircuitType implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraCircuitType implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6890,7 +6890,7 @@ type NestedPaginatedProfileInfraCircuitType {
 }
 
 """Profile for InfraDevice"""
-type ProfileInfraDevice implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraDevice implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6932,7 +6932,7 @@ type NestedPaginatedProfileInfraDevice {
 }
 
 """Profile for InfraDeviceType"""
-type ProfileInfraDeviceType implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraDeviceType implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -6976,7 +6976,7 @@ type NestedPaginatedProfileInfraDeviceType {
 }
 
 """Profile for InfraIPAddress"""
-type ProfileInfraIPAddress implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraIPAddress implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7016,7 +7016,7 @@ type NestedPaginatedProfileInfraIPAddress {
 }
 
 """Profile for InfraInterfaceL2"""
-type ProfileInfraInterfaceL2 implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraInterfaceL2 implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7060,7 +7060,7 @@ type NestedPaginatedProfileInfraInterfaceL2 {
 }
 
 """Profile for InfraInterfaceL3"""
-type ProfileInfraInterfaceL3 implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraInterfaceL3 implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7104,7 +7104,7 @@ type NestedPaginatedProfileInfraInterfaceL3 {
 }
 
 """Profile for InfraPlatform"""
-type ProfileInfraPlatform implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraPlatform implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7149,7 +7149,7 @@ type NestedPaginatedProfileInfraPlatform {
 }
 
 """Profile for InfraPrefix"""
-type ProfileInfraPrefix implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraPrefix implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7195,7 +7195,7 @@ type NestedPaginatedProfileInfraPrefix {
 }
 
 """Profile for InfraRouteTarget"""
-type ProfileInfraRouteTarget implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraRouteTarget implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7235,7 +7235,7 @@ type NestedPaginatedProfileInfraRouteTarget {
 }
 
 """Profile for InfraVLAN"""
-type ProfileInfraVLAN implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraVLAN implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7275,7 +7275,7 @@ type NestedPaginatedProfileInfraVLAN {
 }
 
 """Profile for InfraVRF"""
-type ProfileInfraVRF implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraVRF implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7315,7 +7315,7 @@ type NestedPaginatedProfileInfraVRF {
 }
 
 """Profile for LocationBuilding"""
-type ProfileLocationBuilding implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationBuilding implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7358,7 +7358,7 @@ type NestedPaginatedProfileLocationBuilding {
 }
 
 """Profile for LocationContinent"""
-type ProfileLocationContinent implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationContinent implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7399,7 +7399,7 @@ type NestedPaginatedProfileLocationContinent {
 }
 
 """Profile for LocationCountry"""
-type ProfileLocationCountry implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationCountry implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7440,7 +7440,7 @@ type NestedPaginatedProfileLocationCountry {
 }
 
 """Profile for LocationFloor"""
-type ProfileLocationFloor implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationFloor implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7481,7 +7481,7 @@ type NestedPaginatedProfileLocationFloor {
 }
 
 """Profile for LocationMetro"""
-type ProfileLocationMetro implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationMetro implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7522,7 +7522,7 @@ type NestedPaginatedProfileLocationMetro {
 }
 
 """Profile for LocationRack"""
-type ProfileLocationRack implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationRack implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7564,7 +7564,7 @@ type NestedPaginatedProfileLocationRack {
 }
 
 """Profile for LocationRegion"""
-type ProfileLocationRegion implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationRegion implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7605,7 +7605,7 @@ type NestedPaginatedProfileLocationRegion {
 }
 
 """Profile for LocationSuite"""
-type ProfileLocationSuite implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationSuite implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7647,7 +7647,7 @@ type NestedPaginatedProfileLocationSuite {
 }
 
 """Profile for NetworkDhcpOption"""
-type ProfileNetworkDhcpOption implements LineageSource & CoreNode & CoreProfile {
+type ProfileNetworkDhcpOption implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7687,7 +7687,7 @@ type NestedPaginatedProfileNetworkDhcpOption {
 }
 
 """Profile for NetworkDhcpServer"""
-type ProfileNetworkDhcpServer implements LineageSource & CoreNode & CoreProfile {
+type ProfileNetworkDhcpServer implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7727,7 +7727,7 @@ type NestedPaginatedProfileNetworkDhcpServer {
 }
 
 """Profile for NetworkNTPServer"""
-type ProfileNetworkNTPServer implements LineageSource & CoreNode & CoreProfile {
+type ProfileNetworkNTPServer implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7767,7 +7767,7 @@ type NestedPaginatedProfileNetworkNTPServer {
 }
 
 """Profile for NetworkNameServer"""
-type ProfileNetworkNameServer implements LineageSource & CoreNode & CoreProfile {
+type ProfileNetworkNameServer implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7807,7 +7807,7 @@ type NestedPaginatedProfileNetworkNameServer {
 }
 
 """Profile for OrganizationManufacturer"""
-type ProfileOrganizationManufacturer implements LineageSource & CoreNode & CoreProfile {
+type ProfileOrganizationManufacturer implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7847,7 +7847,7 @@ type NestedPaginatedProfileOrganizationManufacturer {
 }
 
 """Profile for OrganizationProvider"""
-type ProfileOrganizationProvider implements LineageSource & CoreNode & CoreProfile {
+type ProfileOrganizationProvider implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7887,7 +7887,7 @@ type NestedPaginatedProfileOrganizationProvider {
 }
 
 """Profile for OrganizationTenant"""
-type ProfileOrganizationTenant implements LineageSource & CoreNode & CoreProfile {
+type ProfileOrganizationTenant implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7927,7 +7927,7 @@ type NestedPaginatedProfileOrganizationTenant {
 }
 
 """Profile for SecurityAddressGroup"""
-type ProfileSecurityAddressGroup implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityAddressGroup implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -7967,7 +7967,7 @@ type NestedPaginatedProfileSecurityAddressGroup {
 }
 
 """Profile for SecurityFQDN"""
-type ProfileSecurityFQDN implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityFQDN implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8006,7 +8006,7 @@ type NestedPaginatedProfileSecurityFQDN {
 }
 
 """Profile for SecurityFirewall"""
-type ProfileSecurityFirewall implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityFirewall implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8048,7 +8048,7 @@ type NestedPaginatedProfileSecurityFirewall {
 }
 
 """Profile for SecurityFirewallInterface"""
-type ProfileSecurityFirewallInterface implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityFirewallInterface implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8092,7 +8092,7 @@ type NestedPaginatedProfileSecurityFirewallInterface {
 }
 
 """Profile for SecurityIPAMIPAddress"""
-type ProfileSecurityIPAMIPAddress implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityIPAMIPAddress implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8132,7 +8132,7 @@ type NestedPaginatedProfileSecurityIPAMIPAddress {
 }
 
 """Profile for SecurityIPAMIPPrefix"""
-type ProfileSecurityIPAMIPPrefix implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityIPAMIPPrefix implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8172,7 +8172,7 @@ type NestedPaginatedProfileSecurityIPAMIPPrefix {
 }
 
 """Profile for SecurityIPAddress"""
-type ProfileSecurityIPAddress implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityIPAddress implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8212,7 +8212,7 @@ type NestedPaginatedProfileSecurityIPAddress {
 }
 
 """Profile for SecurityIPProtocol"""
-type ProfileSecurityIPProtocol implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityIPProtocol implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8253,7 +8253,7 @@ type NestedPaginatedProfileSecurityIPProtocol {
 }
 
 """Profile for SecurityIPRange"""
-type ProfileSecurityIPRange implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityIPRange implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8292,7 +8292,7 @@ type NestedPaginatedProfileSecurityIPRange {
 }
 
 """Profile for SecurityPolicy"""
-type ProfileSecurityPolicy implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityPolicy implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8332,7 +8332,7 @@ type NestedPaginatedProfileSecurityPolicy {
 }
 
 """Profile for SecurityPolicyRule"""
-type ProfileSecurityPolicyRule implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityPolicyRule implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8373,7 +8373,7 @@ type NestedPaginatedProfileSecurityPolicyRule {
 }
 
 """Profile for SecurityPrefix"""
-type ProfileSecurityPrefix implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityPrefix implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8413,7 +8413,7 @@ type NestedPaginatedProfileSecurityPrefix {
 }
 
 """Profile for SecurityRenderedPolicyRule"""
-type ProfileSecurityRenderedPolicyRule implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityRenderedPolicyRule implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8454,7 +8454,7 @@ type NestedPaginatedProfileSecurityRenderedPolicyRule {
 }
 
 """Profile for SecurityService"""
-type ProfileSecurityService implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityService implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8494,7 +8494,7 @@ type NestedPaginatedProfileSecurityService {
 }
 
 """Profile for SecurityServiceGroup"""
-type ProfileSecurityServiceGroup implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityServiceGroup implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8534,7 +8534,7 @@ type NestedPaginatedProfileSecurityServiceGroup {
 }
 
 """Profile for SecurityServiceRange"""
-type ProfileSecurityServiceRange implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityServiceRange implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8574,7 +8574,7 @@ type NestedPaginatedProfileSecurityServiceRange {
 }
 
 """Profile for SecurityZone"""
-type ProfileSecurityZone implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityZone implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8613,7 +8613,7 @@ type NestedPaginatedProfileSecurityZone {
 }
 
 """Profile for TopologyEVPNStrategy"""
-type ProfileTopologyEVPNStrategy implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyEVPNStrategy implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8653,7 +8653,7 @@ type NestedPaginatedProfileTopologyEVPNStrategy {
 }
 
 """Profile for TopologyLayer2NetworkService"""
-type ProfileTopologyLayer2NetworkService implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyLayer2NetworkService implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8693,7 +8693,7 @@ type NestedPaginatedProfileTopologyLayer2NetworkService {
 }
 
 """Profile for TopologyLayer3NetworkService"""
-type ProfileTopologyLayer3NetworkService implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyLayer3NetworkService implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8733,7 +8733,7 @@ type NestedPaginatedProfileTopologyLayer3NetworkService {
 }
 
 """Profile for TopologyMPLSStrategy"""
-type ProfileTopologyMPLSStrategy implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyMPLSStrategy implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8773,7 +8773,7 @@ type NestedPaginatedProfileTopologyMPLSStrategy {
 }
 
 """Profile for TopologyPhysicalElement"""
-type ProfileTopologyPhysicalElement implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyPhysicalElement implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8816,7 +8816,7 @@ type NestedPaginatedProfileTopologyPhysicalElement {
 }
 
 """Profile for TopologyTopology"""
-type ProfileTopologyTopology implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyTopology implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8856,7 +8856,7 @@ type NestedPaginatedProfileTopologyTopology {
 }
 
 """Profile for BuiltinIPPrefix"""
-type ProfileBuiltinIPPrefix implements LineageSource & CoreNode & CoreProfile {
+type ProfileBuiltinIPPrefix implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8900,7 +8900,7 @@ type NestedPaginatedProfileBuiltinIPPrefix {
 }
 
 """Profile for BuiltinIPAddress"""
-type ProfileBuiltinIPAddress implements LineageSource & CoreNode & CoreProfile {
+type ProfileBuiltinIPAddress implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8940,7 +8940,7 @@ type NestedPaginatedProfileBuiltinIPAddress {
 }
 
 """Profile for InfraEndpoint"""
-type ProfileInfraEndpoint implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraEndpoint implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -8979,7 +8979,7 @@ type NestedPaginatedProfileInfraEndpoint {
 }
 
 """Profile for InfraGenericDevice"""
-type ProfileInfraGenericDevice implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraGenericDevice implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9020,7 +9020,7 @@ type NestedPaginatedProfileInfraGenericDevice {
 }
 
 """Profile for InfraInterface"""
-type ProfileInfraInterface implements LineageSource & CoreNode & CoreProfile {
+type ProfileInfraInterface implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9064,7 +9064,7 @@ type NestedPaginatedProfileInfraInterface {
 }
 
 """Profile for LocationGeneric"""
-type ProfileLocationGeneric implements LineageSource & CoreNode & CoreProfile {
+type ProfileLocationGeneric implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9105,7 +9105,7 @@ type NestedPaginatedProfileLocationGeneric {
 }
 
 """Profile for NetworkManagementServer"""
-type ProfileNetworkManagementServer implements LineageSource & CoreNode & CoreProfile {
+type ProfileNetworkManagementServer implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9145,7 +9145,7 @@ type NestedPaginatedProfileNetworkManagementServer {
 }
 
 """Profile for OrganizationGeneric"""
-type ProfileOrganizationGeneric implements LineageSource & CoreNode & CoreProfile {
+type ProfileOrganizationGeneric implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9185,7 +9185,7 @@ type NestedPaginatedProfileOrganizationGeneric {
 }
 
 """Profile for SecurityGenericAddress"""
-type ProfileSecurityGenericAddress implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityGenericAddress implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9224,7 +9224,7 @@ type NestedPaginatedProfileSecurityGenericAddress {
 }
 
 """Profile for SecurityGenericAddressGroup"""
-type ProfileSecurityGenericAddressGroup implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityGenericAddressGroup implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9264,7 +9264,7 @@ type NestedPaginatedProfileSecurityGenericAddressGroup {
 }
 
 """Profile for SecurityGenericService"""
-type ProfileSecurityGenericService implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityGenericService implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9304,7 +9304,7 @@ type NestedPaginatedProfileSecurityGenericService {
 }
 
 """Profile for SecurityGenericServiceGroup"""
-type ProfileSecurityGenericServiceGroup implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityGenericServiceGroup implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9344,7 +9344,7 @@ type NestedPaginatedProfileSecurityGenericServiceGroup {
 }
 
 """Profile for SecurityPolicyAssignment"""
-type ProfileSecurityPolicyAssignment implements LineageSource & CoreNode & CoreProfile {
+type ProfileSecurityPolicyAssignment implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9383,7 +9383,7 @@ type NestedPaginatedProfileSecurityPolicyAssignment {
 }
 
 """Profile for TopologyGenericElement"""
-type ProfileTopologyGenericElement implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyGenericElement implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9423,7 +9423,7 @@ type NestedPaginatedProfileTopologyGenericElement {
 }
 
 """Profile for TopologyNetworkService"""
-type ProfileTopologyNetworkService implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyNetworkService implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
@@ -9463,7 +9463,7 @@ type NestedPaginatedProfileTopologyNetworkService {
 }
 
 """Profile for TopologyNetworkStrategy"""
-type ProfileTopologyNetworkStrategy implements LineageSource & CoreNode & CoreProfile {
+type ProfileTopologyNetworkStrategy implements CoreProfile & LineageSource & CoreNode {
   """Unique identifier"""
   id: String!
 
