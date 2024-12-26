@@ -10,7 +10,6 @@ const registryTemplateContent = `{
 			{{- $ProviderName :=  .ProviderName  }}
 			{{- $Version :=  .Version  }}
 			{{- $KeyID :=  .KeyID  }}
-			{{- $Shasum :=  .Shasum  }}
 			{{- $AsciiArmor :=  .AsciiArmor  }}
 			{{- $TrustSignature :=  .TrustSignature  }}
 			{{- $Source :=  .Source  }}
@@ -24,7 +23,7 @@ const registryTemplateContent = `{
 					"download_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip",
 					"shasums_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS",
 					"shasums_signature_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS.sig",
-					"shasum": "{{$Shasum}}",
+					"shasum": "{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip_shasum",
 					"signing_keys": {
 						"gpg_public_keys": [
 							{

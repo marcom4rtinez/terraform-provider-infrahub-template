@@ -1,3 +1,8 @@
 #!/bin/bash
 
-go run registry/*.go $@ > terraform-registry-manifest.json
+args=()
+for arg in "$@"; do
+  args+=("$arg")
+done
+
+go run registry/*.go "${args[@]}" > terraform-registry-manifest.json

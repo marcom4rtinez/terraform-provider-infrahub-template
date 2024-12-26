@@ -16,7 +16,6 @@ type TemplateData struct {
 	Platforms      []Platform
 	ProviderName   string
 	BaseURL        string
-	Shasum         string
 	KeyID          string
 	AsciiArmor     string
 	TrustSignature string
@@ -38,7 +37,6 @@ func main() {
 	arch := flag.String("arch", "", "Architecture")
 	providerName := flag.String("provider_name", "", "Name of the provider")
 	baseURL := flag.String("base_url", "", "Download URL for the artifact")
-	shasum := flag.String("shasum", "", "SHA sum of the artifact")
 	keyID := flag.String("key_id", "", "GPG key ID")
 	asciiArmor := flag.String("ascii_armor", "", "GPG public key in ASCII armor format")
 	source := flag.String("source", "", "Source of the GPG key")
@@ -67,9 +65,8 @@ func main() {
 		Platforms:      platforms,
 		ProviderName:   *providerName,
 		BaseURL:        *baseURL,
-		Shasum:         *shasum,
 		KeyID:          *keyID,
-		AsciiArmor:     *asciiArmor,
+		AsciiArmor:     strings.ReplaceAll(*asciiArmor, "\n", "\\n"),
 		TrustSignature: "",
 		Source:         *source,
 		SourceURL:      *sourceURL,
