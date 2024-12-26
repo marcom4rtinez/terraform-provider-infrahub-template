@@ -66,7 +66,7 @@ func main() {
 		ProviderName:   *providerName,
 		BaseURL:        *baseURL,
 		KeyID:          *keyID,
-		AsciiArmor:     strings.ReplaceAll(strings.ReplaceAll(*asciiArmor, "\n", "\\n"), "-----BEGIN PGP PUBLIC KEY BLOCK-----", "-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: GnuPG v1"),
+		AsciiArmor:     strings.ReplaceAll(strings.ReplaceAll(*asciiArmor, "\n", "\\n"), "-----BEGIN PGP PUBLIC KEY BLOCK-----", "-----BEGIN PGP PUBLIC KEY BLOCK-----\\nVersion: GnuPG v1"),
 		TrustSignature: "",
 		Source:         *source,
 		SourceURL:      *sourceURL,
