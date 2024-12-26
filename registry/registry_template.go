@@ -20,9 +20,9 @@ const registryTemplateContent = `{
 					"os": "{{.OS}}",
 					"arch": "{{.Arch}}",
 					"filename": "{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip",
-					"download_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip",
-					"shasums_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS",
-					"shasums_signature_url": "{{$BaseURL}}/{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS.sig",
+					"download_url": "{{$BaseURL}}/v{{$Version}}/{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip",
+					"shasums_url": "{{$BaseURL}}/v{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS",
+					"shasums_signature_url": "{{$BaseURL}}/v{{$Version}}/{{$ProviderName}}_{{$Version}}_SHA265SUMS.sig",
 					"shasum": "{{$ProviderName}}_{{$Version}}_{{.OS}}_{{.Arch}}.zip_shasum",
 					"signing_keys": {
 						"gpg_public_keys": [
