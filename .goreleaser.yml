@@ -3,8 +3,9 @@
 version: 2
 before:
   hooks:
-    # this is just an example and not a requirement for provider building/publishing
     - go mod tidy
+    - bash registry/run.sh --version "{{.Version}}" --protocols "6.0" --os "freebsd,windows,linux,darwin" --arch "amd64,arm,arm64" --provider_name "{{ .ProjectName }}-{{.Branch}}" --base_url "https://github.com/marcom4rtinez/infrahub-terraform-provider/releases/download" --shasum "" --key_id "{{ .Env.GPG_FINGERPRINT }}" --ascii_armor "${signature}" --source "MarcoMartinez" --source_url "https://marcomartinez.ch"
+
 builds:
   - env:
       # goreleaser does not work with CGO, it could also complicate
@@ -15,7 +16,7 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}"
+      - "-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.branch={{.Branch}}"
     goos:
       - freebsd
       - windows
@@ -23,13 +24,9 @@ builds:
       - darwin
     goarch:
       - amd64
-      - "386"
       - arm
       - arm64
-    ignore:
-      - goos: darwin
-        goarch: "386"
-    binary: "{{ .ProjectName }}_v{{ .Version }}"
+    binary: "{{ .ProjectName }}-{{.Branch}}_v{{ .Version }}"
 archives:
   - format: zip
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
@@ -54,7 +51,7 @@ signs:
 release:
   extra_files:
     - glob: "terraform-registry-manifest.json"
-      name_template: "{{ .ProjectName }}_{{ .Version }}_manifest.json"
+      name_template: "{{ .ProjectName }}-{{.Branch}}_{{ .Version }}_manifest.json"
   # If you want to manually examine the release before its live, uncomment this line:
   # draft: true
 changelog:
