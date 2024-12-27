@@ -5,7 +5,7 @@ for arg in "$@"; do
   args+=("$arg")
 done
 
-manifest_generator="github.com/marcom4rtinez/terraform-registry-manifest/cmd@latest"
+manifest_generator="github.com/marcom4rtinez/terraform-registry-manifest/cmd/manifest@latest"
 
 search_string="\"version\": \"$2\","
 
