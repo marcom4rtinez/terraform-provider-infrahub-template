@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"strings"
+	"terraform-provider-infrahub/registry/hash"
 	"text/template"
 )
 
@@ -41,14 +42,24 @@ func main() {
 	asciiArmor := flag.String("ascii_armor", "", "GPG public key in ASCII armor format")
 	source := flag.String("source", "", "Source of the GPG key")
 	sourceURL := flag.String("source_url", "", "Source URL of the GPG key")
+	manifestFile := flag.String("manifest", "", "Manifest file path")
+	replaceSHAhashes := flag.Bool("hashes", false, "Set this to true if you want to replace the hashes in a already written file")
 
-	// Parse flags
 	flag.Parse()
+
+	if *replaceSHAhashes {
+		fmt.Println(*manifestFile)
+		hash.ReplaceHashes(*manifestFile)
+		return
+	}
 
 	// Create Platform combinations
 	platforms := []Platform{}
 	for _, current_os := range strings.Split(*os, ",") {
 		for _, current_arch := range strings.Split(*arch, ",") {
+			if current_os == "darwin" && (current_arch == "386" || current_arch == "arm") {
+				continue
+			}
 			current_platform := Platform{
 				OS:           current_os,
 				Arch:         current_arch,
