@@ -2,7 +2,10 @@ default: fmt lint install generate
 
 all: automatic_generator generate_sdk fmt lint install generate
 
-generate_deploy: automatic_generator generate_sdk fmt lint release upload_registry clean
+generate_deploy: automatic_generator generate_sdk fmt lint release upload_registry clean celebrate
+
+celebrate:
+	clear;echo "\n\nPackaging finished:  📦📦 \nDeployment finished: 🎉🎉\n\n\nNow the real work starts! 📝\n\n\nProceed to use your Provider in your main.tf 💼"
 
 clean:
 	rm -Rf dist/; rm registry-manifest.json
