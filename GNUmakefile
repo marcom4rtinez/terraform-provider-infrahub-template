@@ -2,11 +2,22 @@ default: fmt lint install generate
 
 all: automatic_generator generate_sdk fmt lint install generate
 
+generate_deploy: automatic_generator generate_sdk fmt lint release upload_registry clean
+
+clean:
+	rm -Rf dist/; rm registry-manifest.json
+
+release:
+	goreleaser release --skip=publish --clean; goreleaser release
+
+upload_registry:
+	curl -X POST -L 'http://localhost:8080/v1/providers/marcom4rtinez/infrahub-main/upload' -H 'Content-Type: application/json' -d @registry-manifest.json
+
 automatic_generator:
 	cd generator; go run *.go
 
 generate_sdk:
-	cd sdk; bash run.sh; go run github.com/Khan/genqlient
+	cd sdk; curl -o schema.graphql http://localhost:8000/schema.graphql; go run github.com/Khan/genqlient
 
 build:
 	go build -v ./...
