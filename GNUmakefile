@@ -20,7 +20,7 @@ automatic_generator:
 	cd generator; go run *.go
 
 generate_sdk:
-	cd sdk; curl -o schema.graphql http://localhost:8000/schema.graphql; go run github.com/Khan/genqlient
+	cd sdk; bash pull_schema.sh; go run github.com/Khan/genqlient
 
 build:
 	go build -v ./...
