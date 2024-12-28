@@ -16,6 +16,12 @@ provider_installation {
 }
 ```
 
+## Prerequisites
+
+1. Set ENV GPG_FINGERPRINT `export GPG_FINGERPRINT=9A52F2BE41E9C446A902C723B53E44105C84C057`
+2. Set ENV GPG_PUBLIC_KEY `export GPG_PUBLIC_KEY=$(gpg --armor --export $GPG_FINGERPRINT)`
+3. Set ENV GITHUB_TOKEN `export GITHUB_TOKEN=XXXXX`
+
 
 
 
