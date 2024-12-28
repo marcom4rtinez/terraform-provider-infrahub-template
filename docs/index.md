@@ -18,4 +18,5 @@ description: |-
 ### Optional
 
 - `api_key` (String, Sensitive) API Key to access Infrahub
+- `branch` (String) Infrahub Branch
 - `infrahub_server` (String) Infrahub Server running API

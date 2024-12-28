@@ -34,6 +34,7 @@ type InfrahubProvider struct {
 type InfrahubProviderModel struct {
 	ApiKey         types.String ` + "`tfsdk:\"api_key\"`" + `
 	InfrahubServer types.String ` + "`tfsdk:\"infrahub_server\"`" + `
+	Branch         types.String ` + "`tfsdk:\"branch\"`" + `
 }
 
 func New(version string) func() provider.Provider {
@@ -59,6 +60,10 @@ func (p *InfrahubProvider) Schema(ctx context.Context, req provider.SchemaReques
 			},
 			"infrahub_server": schema.StringAttribute{
 				MarkdownDescription: "Infrahub Server running API",
+				Optional:            true,
+			},
+			"branch": schema.StringAttribute{
+				MarkdownDescription: "Infrahub Branch",
 				Optional:            true,
 			},
 		},
@@ -93,11 +98,22 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
+	if data.Branch.IsUnknown() {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("branch"),
+			"Unknown Infrahub Branch",
+			"The provider cannot read the Infrahub API as there is an unknown branch configuration value for the API. "+
+				"Either target apply the source of the value first, set the value statically in the configuration, or use the INFRAHUB_BRANCH environment variable.",
+		)
+	}
+
+
 	// Default values to environment variables, but override
 	// with Terraform configuration value if set.
 
 	infrahubApi := os.Getenv("INFRAHUB_API")
 	infrahub_server := os.Getenv("INFRAHUB_SERVER")
+	branch := os.Getenv("INFRAHUB_BRANCH")
 
 	if !data.ApiKey.IsNull() {
 		infrahubApi = data.ApiKey.ValueString()
@@ -106,6 +122,11 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 	if !data.InfrahubServer.IsNull() {
 		infrahub_server = data.InfrahubServer.ValueString()
 	}
+
+	if !data.Branch.IsNull() {
+		branch = data.Branch.ValueString()
+	}
+
 
 	if infrahubApi == "" {
 		resp.Diagnostics.AddAttributeError(
@@ -127,6 +148,16 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		)
 	}
 
+	if branch == "" {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("branch"),
+			"Missing Infrahub Branch",
+			"The provider cannot find the Infrahub Branch as there is a missing or empty value. "+
+				"Set the Infrahub Server address value in the configuration or use the INFRAHUB_SERVER environment variable. "+
+				"If either is already set, ensure the value is not empty.",
+		)
+	}
+
 	httpClient := &http.Client{
 		Transport: &AuthTransport{
 			Token:     infrahubApi,
@@ -134,7 +165,7 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		},
 	}
 
-	client := graphql.NewClient(fmt.Sprintf("http://%s:8000/graphql", infrahub_server), httpClient)
+	client := graphql.NewClient(fmt.Sprintf("http://%s:8000/graphql/%s", infrahub_server, branch), httpClient)
 
 	resp.DataSourceData = client
 	resp.ResourceData = client
