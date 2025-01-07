@@ -17,7 +17,7 @@ upload_registry:
 	curl -X POST -L 'http://localhost:8080/v1/providers/marcom4rtinez/infrahub-main/upload' -H 'Content-Type: application/json' -d @registry-manifest.json
 
 automatic_generator:
-	cd generator; go run *.go
+	go run github.com/marcom4rtinez/infrahub-terraform-provider-generator/cmd/generator@latest --artifacts
 
 generate_sdk:
 	cd sdk; bash pull_schema.sh; go run github.com/Khan/genqlient
@@ -39,8 +39,5 @@ fmt:
 
 test:
 	go test -v -cover -timeout=120s -parallel=10 ./...
-
-testacc:
-	TF_ACC=1 go test -v -cover -timeout 120m ./...
 
 .PHONY: fmt lint test testacc build install generate

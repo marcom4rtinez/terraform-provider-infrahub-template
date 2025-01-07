@@ -161,7 +161,7 @@ func (p *InfrahubProvider) Configure(ctx context.Context, req provider.Configure
 		},
 	}
 
-	client := graphql.NewClient(fmt.Sprintf("http://%s:8000/graphql/%s", infrahub_server, branch), httpClient)
+	client := graphql.NewClient(fmt.Sprintf("%s/graphql/%s", infrahub_server, branch), httpClient)
 
 	resp.DataSourceData = client
 	resp.ResourceData = client
@@ -187,6 +187,7 @@ func (p *InfrahubProvider) DataSources(ctx context.Context) []func() datasource.
 		NewIpaddressDataSource,
 		NewPlatformDataSource,
 		NewTopologyDataSource,
+		NewArtifactDataSource,
 	}
 }
 

@@ -3,7 +3,7 @@
 terraform {
   required_providers {
     infrahub = {
-      source  = "registry.terraform.io/marcom4rtinez/infrahub"
+      source  = "marcomartinez.ch/marcom4rtinez/infrahub"
       version = "1.0"
     }
   }
@@ -11,5 +11,6 @@ terraform {
 
 provider "infrahub" {
   api_key         = "XXX"
-  infrahub_server = "10.0.0.1"
+  infrahub_server = "http://10.0.0.1:8000"
+  branch          = "main"
 }

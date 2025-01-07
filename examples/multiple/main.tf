@@ -11,8 +11,13 @@ terraform {
 
 provider "infrahub" {
   api_key         = "180e8659-2f40-400d-36ac-c513d60a378c"
-  infrahub_server = "localhost"
+  infrahub_server = "http://localhost:8000"
   branch          = "main"
+}
+
+data "infrahub_artifact" "name" {
+  artifact_id     = ""
+  infrahub_server = "http://localhost:8000"
 }
 
 # data "infrahub_devices" "example" {
@@ -90,39 +95,39 @@ provider "infrahub" {
 #   value = data.infrahub_devicequery.tset.edges_node_role_value
 # }
 
-data "infrahub_country" "germany" {
-  country_name = "Germany"
-}
+# data "infrahub_country" "germany" {
+#   country_name = "Germany"
+# }
 
-data "infrahub_topology" "de1-pod1" {
-  topology_name = "de1-pod1"
-}
+# data "infrahub_topology" "de1-pod1" {
+#   topology_name = "de1-pod1"
+# }
 
-data "infrahub_devicetype" "ccs" {
-  device_type_name = "CCS-720DP-48S-2F"
-}
+# data "infrahub_devicetype" "ccs" {
+#   device_type_name = "CCS-720DP-48S-2F"
+# }
 
-data "infrahub_autonomoussystem" "AS174" {
-  as_name = "AS174"
-}
+# data "infrahub_autonomoussystem" "AS174" {
+#   as_name = "AS174"
+# }
 
-data "infrahub_platform" "Arista" {
-  platform_name = "Arista EOS"
-}
+# data "infrahub_platform" "Arista" {
+#   platform_name = "Arista EOS"
+# }
 
-data "infrahub_ipaddress" "mgmt_address" {
-  ip_address_value = "10.0.0.1/24"
-}
+# data "infrahub_ipaddress" "mgmt_address" {
+#   ip_address_value = "10.0.0.1/24"
+# }
 
-resource "infrahub_device" "device_res" {
-  name_value              = "switch27"
-  asn_node_id             = data.infrahub_autonomoussystem.AS174.id
-  device_type_node_id     = data.infrahub_devicetype.ccs.id
-  location_node_id        = data.infrahub_country.germany.id
-  platform_node_id        = data.infrahub_platform.Arista.id
-  primary_address_node_id = data.infrahub_ipaddress.mgmt_address.id
-  status_value            = "active"
-  topology_node_id        = data.infrahub_topology.de1-pod1.id
-  role_value              = "leaf"
-}
+# resource "infrahub_device" "device_res" {
+#   name_value              = "switch27"
+#   asn_node_id             = data.infrahub_autonomoussystem.AS174.id
+#   device_type_node_id     = data.infrahub_devicetype.ccs.id
+#   location_node_id        = data.infrahub_country.germany.id
+#   platform_node_id        = data.infrahub_platform.Arista.id
+#   primary_address_node_id = data.infrahub_ipaddress.mgmt_address.id
+#   status_value            = "active"
+#   topology_node_id        = data.infrahub_topology.de1-pod1.id
+#   role_value              = "leaf"
+# }
 
