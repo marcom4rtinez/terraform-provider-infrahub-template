@@ -33,6 +33,7 @@ Make sure you set these values to be able to package and sign the provider.
 2. Set ENV GPG_PUBLIC_KEY `export GPG_PUBLIC_KEY=$(gpg --armor --export $GPG_FINGERPRINT)`
 3. Set ENV GITHUB_TOKEN `export GITHUB_TOKEN=XXXXX`
 4. Set ENV TERRAFORM_REGISTRY `export TERRAFORM_REGISTRY_ENDPOINT="http://localhost:8080/v1/providers/marcom4rtinez/infrahub-main/upload"`
+5. Set ENV RELEASE_URL `export RELEASE_URL="https://github.com/marcom4rtinez/terraform-provider-infrahub/releases/download"`
 
 ## Deploy to a private Registry
 This guide assumes you are using the Registry from https://github.com/marcom4rtinez/terraform-registry. Otherwise adjust `GNUmakefile` to suite your needs.

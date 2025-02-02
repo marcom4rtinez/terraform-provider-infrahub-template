@@ -4,7 +4,7 @@ version: 2
 before:
   hooks:
     - go mod tidy
-    - bash create_manifest.sh --version "{{.Version}}" --protocols "6.0" --os "freebsd,windows,linux,darwin" --arch "amd64,arm,arm64,386" --provider_name "{{ .ProjectName }}" --base_url "https://github.com/marcom4rtinez/terraform-provider-infrahub/releases/download" --key_id "{{ .Env.GPG_FINGERPRINT }}" --ascii_armor "{{ .Env.GPG_PUBLIC_KEY }}" --source "MarcoMartinez" --source_url "https://marcomartinez.ch"
+    - bash create_manifest.sh --version "{{.Version}}" --protocols "6.0" --os "freebsd,windows,linux,darwin" --arch "amd64,arm,arm64,386" --provider_name "{{ .ProjectName }}" --base_url "{{ .Env.RELEASE_URL }}" --key_id "{{ .Env.GPG_FINGERPRINT }}" --ascii_armor "{{ .Env.GPG_PUBLIC_KEY }}" --source "MarcoMartinez" --source_url "https://marcomartinez.ch"
 
 builds:
   - env:
