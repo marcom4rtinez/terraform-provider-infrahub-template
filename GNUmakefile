@@ -17,7 +17,7 @@ release:
 	goreleaser release --skip=publish --clean; goreleaser release
 
 upload_registry:
-	curl -X POST -L $TERRAFORM_REGISTRY_ENDPOINT -H 'Content-Type: application/json' -d @registry-manifest.json
+	curl -X POST -L ${TERRAFORM_REGISTRY_ENDPOINT} -H 'Content-Type: application/json' -d @registry-manifest.json
 
 automatic_generator:
 	go run github.com/marcom4rtinez/infrahub-terraform-provider-generator/cmd/generator@latest --artifacts
